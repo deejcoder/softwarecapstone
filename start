@@ -1,0 +1,6 @@
+#!/bin/sh
+source ./django/bin/activate
+# /cloudsql/cloud_sql_proxy -instances="[django-database]"=tcp:3306
+# python manage.py makemigrations
+# python manage.py migrate
+python manage.py runserver 0.0.0.0:8080
