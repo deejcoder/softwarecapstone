@@ -25,6 +25,9 @@ SECRET_KEY = 'xhq-$*w#$ggbdi8pz(f=de^82dcf+_d-@exfgze&h!u2y=#scg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Are you running locally? Use your local MySQL settings instead.
+LOCAL_MODE = True
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'techpalmy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'techpalmy.wsgi.application'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Database
@@ -79,15 +83,26 @@ except ImportError:
     import pymysql
     pymysql.install_as_MySQLdb()
 
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'HOST': '127.0.0.1',
-		'NAME': 'techpalmy',
-		'USER': 'root',
-		'PASSWORD': 'eggcelent39',
-	}
-}
+if LOCAL_MODE is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'NAME': 'techpalmy',
+            'USER': 'root',
+            'PASSWORD': '',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'NAME': 'techpalmy',
+            'USER': 'root',
+            'PASSWORD': 'eggcelent39',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
