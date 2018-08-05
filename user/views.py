@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-app_label = "user"
+app_name = "user"
 
 class Profile(View):
 
@@ -24,12 +24,27 @@ class Profile(View):
             'is_owner': request.user.username == username,
         })
 
-    @login_required
+
     def post(self, request, *args, **kwargs):
         """
         A POST request can define if a user is updating their
         profile information. A user must be logged in to edit their
-        details.
+        details. Consider this function the gateway for users to
+        update information. It will invoke functions.
         """
+
+        update_field = request.POST.get('update_field', '')
+        update_value = request.POST.get('update_value', '')
+
+        if not update_field or not update_value:
+            response = HttpResponse("400 Bad Request", status=400)
+            return response
+
+        # ...
+        # validate the request, update the user model
+        # ...
+        
+        response = HttpResponse("200 OK", status=200)
+        return response
 
         
