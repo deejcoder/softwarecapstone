@@ -1,0 +1,18 @@
+
+{% if is_owner %}
+    <p>Welcome, {{ username }}. You can edit your details below by clicking on the edit button.</p> 
+{% else %}
+    <p>Welcome to {{ username }}'s profile. Their details are below,</p>
+{% endif %}
+
+<ul>
+    <li>
+        Username: {{ username }}
+    </li>
+    <li>
+        Name: {{ first_name }} {{ last_name }}
+    </li>
+    <li>
+        Email: {{ email }}
+    </li>
+</ul>
