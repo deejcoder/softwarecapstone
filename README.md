@@ -1,6 +1,8 @@
 # softwarecapstone
 Software Capstone Project, Internal 3
 
+### Wiki
+Please do check the Wiki regularly. [Wiki](https://github.com/dy1zan/softwarecapstone/wiki) updates are not sent to Discord.
 
 ### Common Linux commands,
 1. `tail -f log.txt # prints all updates to log.txt to the console window.`
