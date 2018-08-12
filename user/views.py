@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 import uuid
 from django.core.files.storage import FileSystemStorage
@@ -22,7 +23,20 @@ class Profile(View):
             'user': user
         })
 
+    @method_decorator(login_required)
     def post(self, request, username):
+
+        logged_user = request.user
+        # current profile being viewed
+        current_user = User.objects.get(username=username)
+
+        # if the user does not own this profile
+        if logged_user.username is not username:
+            return render(request, 'user/user_profile.html', {
+                'user': current_user,
+                'success': "You are not the owner of this profile."
+
+            })
         
         pic = request.FILES['profile_pic']
         fs = FileSystemStorage()
@@ -34,11 +48,11 @@ class Profile(View):
         fs.save(str(file_uuid) + file_ext, pic)
 
         # update user's reference to this file & save the user
-        request.user.avatar = file_uuid
-        request.user.save()
+        user.avatar = file_uuid
+        user.save()
 
         return render(request, 'user/user_profile.html', {
-            'user': request.user,
+            'user': current_user,
             'success': "Your profile picture has successfully been changed."
         })
 
