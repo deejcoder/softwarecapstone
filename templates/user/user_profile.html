@@ -5,33 +5,203 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
-
 <body>
 
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
 
-    {% if is_owner %}
-    <p>Welcome, {{ username }}. You can edit your details below by clicking on the edit button.</p>
-    {% else %}
-    <p>Welcome to {{ username }}'s profile. Their details are below,</p>
-    <img src="{{ user.avatar.url }}" />
-    {% endif %}
-    <ul>
-        <li>
-            Username: {{ username }}
-        </li>
-        <li>
-            Name: {{ first_name }} {{ last_name }}
-        </li>
-        <li>
-            Email: {{ email }}
-        </li>
-        <li>
-            Avatar: {{ user.avatar.url }}
-        </li>
-    </ul>
+
+    <div class="container">
+        <div class="formContainer">
+            {% if is_owner %}
+            <h1>Your profile</h1>
+            {% else %}
+            <h1>Profile of {{ username }}</h1>
+            {% endif %}
+
+            <img src="{% static " users/images/test.svg" %}" class="rounded float-right">
+            <ul class="formHolder">
+                <li class="formItem">
+                    <label for="fld_first_name" class="mcLabel">Name</label>
+                    <div class="mcInputHolder">
+                        {% if is_owner %}
+                        <input class="mcInputHolder wide" type="text" id="fld_first_name" name="first_name" value="{{ first_name }}" />
+                        {% else %}
+                        <p class="mcPHolder wide" id="fld_first_name" name="first_name">{{ first_name }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="formItem">
+                    <label for="fld_last_name" class="mcLabel">Last name</label>
+                    <div class="mcInputHolder">
+                        {% if is_owner %}
+                        <input class="mcInputHolder wide" type="text" id="fld_last_name" name="last_name" value="{{ last_name }}" />
+                        {% else %}
+                        <p class="mcPHolder wide" id="fld_last_name" name="last_name">{{ last_name }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="formItem">
+                    <label for="fld_username" class="mcLabel">Username</label>
+                    <div class="mcInputHolder">
+                        {% if is_owner %}
+                        <input class="mcInputHolder wide" type="text" id="fld_username" name="username" value="{{ username }}" />
+                        {% else %}
+                        <p class="mcPHolder wide" id="fld_username" name="username">{{ username }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="formItem">
+                    <label for="fld_email" class="mcLabel">Email</label>
+                    <div class="mcInputHolder">
+                        {% if is_owner %}
+                        <input class="mcInputHolder wide" type="text" id="fld_email" name="email" value="{{ email }}" />
+                        {% else %}
+                        <p class="mcPHolder wide" id="fld_email" name="email">{{ email }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+                {% if is_owner %}
+                <li class="formItem">
+                    <label for="fld_gender" class="mcLabel">Gender</label>
+                    <div class="mcInputHolder">
+                        <div class="mcSelectEl js-select" style="width: 50%">
+                            <div class="mcSelectIn">
+                                <select name="gender">
+                                    <option value="m" selected>Male</option>
+                                    <option value="f">Female</option>
+                                    <option value="o">Other</option>
+                                </select>
+                                <span class="mcSelectSpan">
+                                    "Male"
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% else %}
+                {% endif %}
+
+                {% if is_owner %}
+                <li class="formItem">
+                    <label class="mcLabel">Date of birth</label>
+                    <div class="mcSelectHolder">
+                        <div class="mcSelectEl js-select" style="width: 45%">
+                            <div class="mcSelectIn">
+                                <select name="birthday{mon}">
+                                    <option value">Month"</option>
+                                    <option value="1">January</option>
+                                    <option value="2">Feburary</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <span class="mcSelectSpan">
+                                    "Month"
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mcSelectEl js-select" style="width: 25%">
+                            <div class="mcSelectIn">
+                                <select name="birthday{mday}">
+                                    <option value">Day"</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                                <span class="mcSelectSpan">
+                                    "Day"
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mcSelectEl js-select" style="width: 35%">
+                            <div class="mcSelectIn">
+                                <select name="birthday{year}">
+                                    <option value">Year"</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                                <span class="mcSelectSpan">
+                                    "Year"
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% else %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+
+
+>>>>>>> updated user profile to check if logged in user is owner, display sensitive info if they are.
 
     {% block content %}
     <form method="post" enctype="multipart/form-data">
