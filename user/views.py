@@ -23,6 +23,9 @@ class Profile(View):
             'user': user
         })
 
+    """
+    TODO: add a class declaring constant alert types, e.g class Alert.ALERT_ERROR
+    """
     @method_decorator(login_required)
     def post(self, request, username):
 
@@ -34,7 +37,8 @@ class Profile(View):
         if logged_user.username is not username:
             return render(request, 'user/user_profile.html', {
                 'user': current_user,
-                'success': "You are not the owner of this profile."
+                'alert_type': 'error',
+                'alert': "You are not the owner of this profile."
 
             })
         
@@ -53,7 +57,8 @@ class Profile(View):
 
         return render(request, 'user/user_profile.html', {
             'user': current_user,
-            'success': "Your profile picture has successfully been changed."
+            'alert_type':'success',
+            'alert': "Your profile picture has successfully been changed."
         })
 
 
