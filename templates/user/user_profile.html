@@ -1,18 +1,33 @@
 
 {% if is_owner %}
-    <p>Welcome, {{ username }}. You can edit your details below by clicking on the edit button.</p> 
+    <p>Welcome, {{ user.username }}. You can edit your details below by clicking on the edit button.</p> 
 {% else %}
-    <p>Welcome to {{ username }}'s profile. Their details are below,</p>
+    <p>Welcome to {{ user.username }}'s profile. Their details are below,</p>
 {% endif %}
 
 <ul>
     <li>
-        Username: {{ username }}
+        Username: {{ user.username }}
     </li>
     <li>
-        Name: {{ first_name }} {{ last_name }}
+        Name: {{ user.first_name }} {{ user.last_name }}
     </li>
     <li>
-        Email: {{ email }}
+        Email: {{ user.email }}
+    </li>
+    <li>
+        Avatar: {{ user.avatar }}
     </li>
 </ul>
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="profile_pic">
+        <button type="submit">Upload</button>
+    </form>
+    {% if success %}
+        <p>{{ success }}</p>
+    {% endif %}
+
+{% endblock %}
