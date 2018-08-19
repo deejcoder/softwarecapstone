@@ -21,6 +21,22 @@
     {% endif %}
 
 
+    <script>
+        $(document).ready(function(){
+
+            // route clicking on the avatar to the file input
+            $("img[id='avatar']").click(function() {
+                $("input[id='upload_avatar']").click();
+            });
+
+            // submit the avatar form once a file has been selected
+            $("input[id='upload_avatar']").change(function() {
+                $("form[id='avatar_form']").submit()
+            })
+        });
+
+    </script>
+
 </head>
 
 <body>
@@ -44,7 +60,17 @@
             </div>
 
             {% if is_owner %}
-            <a href="index.html">
+                <div class="float-right" id="imageContainer" style="background-image:url('{% static 'test2.png' %}')">
+                    <!-- Recall there needs to be an image file posted and labelled as `avatar` I'll comment button for now -->
+                    <form id="avatar_form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
+                        <img src='{{ user.avatar.url }}' id="avatar" class="center-block", alt="Upload a new profile picture...">
+                    </form>
+                    <!-- <button type="button" class="btn" id="avatarEditBtn" /><img id="editIco" src='{% static "techpalmy\css\icoEdit.png" %}' /></button> -->
+                </div>
+            {% else %}
+
                 <div class="float-right" id="imageContainer" style="background-image:url('{% static 'test2.png' %}')">
                     <img src='{% static "techpalmy\css\avatarLens.png" %}' id="avatar" class="center-block">
                     <button type="button" class="btn" id="avatarEditBtn" /><img id="editIco" src='{% static "techpalmy\css\icoEdit.png" %}' /></button>
