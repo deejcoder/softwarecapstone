@@ -3,9 +3,12 @@ from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import User
+from .models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 import uuid
-from django.core.files.storage import FileSystemStorage
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 app_name = "user"
 
@@ -29,37 +32,29 @@ class Profile(View):
     @method_decorator(login_required)
     def post(self, request, username):
 
-        logged_user = request.user
-        # current profile being viewed
-        current_user = User.objects.get(username=username)
+        # get the user currently logged in
+        current_user = request.user
+        # get the user the profile belongs to
+        user = User.objects.get(username=username)
 
-        # if the user does not own this profile
-        if logged_user.username is not username:
-            return render(request, 'user/user_profile.html', {
-                'user': current_user,
-                'alert_type': 'error',
-                'alert': "You are not the owner of this profile."
+        if username != current_user.username:
+            return HttpResponseRedirect(request.path)
 
-            })
+        # updated avatar
+        if request.FILES['avatar']:
+            self.update_user_avatar(user, request)
         
-        pic = request.FILES['profile_pic']
-        fs = FileSystemStorage()
+        # updated other info
+        else:
+            pass
 
-        # save the file as MEDIA_URL/{uuid}.{file format}
-        file_ext = "." + pic.name.split('.')[-1]
-        # generate a uuid for the new file, save it to the file system.
-        file_uuid = uuid.uuid4()
-        fs.save(str(file_uuid) + file_ext, pic)
+        return HttpResponseRedirect(request.path)
 
-        # update user's reference to this file & save the user
-        user.avatar = file_uuid
+    def update_user_avatar(self, user : User, request):
+        user.avatar = request.FILES['avatar']
         user.save()
 
-        return render(request, 'user/user_profile.html', {
-            'user': current_user,
-            'alert_type':'success',
-            'alert': "Your profile picture has successfully been changed."
-        })
+        messages.success(request, "Your profile picture has successfully been updated.")
 
 
 
