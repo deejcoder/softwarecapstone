@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+import uuid
+from django.core.files.storage import FileSystemStorage
 
 app_name = "user"
 
@@ -17,34 +20,48 @@ class Profile(View):
         user = User.objects.get(username=username)
         
         return render(request, 'user/user_profile.html', {
-            'username':username, # pass the username to the template
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'is_owner': request.user.username == username,
+            'user': user
+        })
+
+    """
+    TODO: add a class declaring constant alert types, e.g class Alert.ALERT_ERROR
+    """
+    @method_decorator(login_required)
+    def post(self, request, username):
+
+        logged_user = request.user
+        # current profile being viewed
+        current_user = User.objects.get(username=username)
+
+        # if the user does not own this profile
+        if logged_user.username is not username:
+            return render(request, 'user/user_profile.html', {
+                'user': current_user,
+                'alert_type': 'error',
+                'alert': "You are not the owner of this profile."
+
+            })
+        
+        pic = request.FILES['profile_pic']
+        fs = FileSystemStorage()
+
+        # save the file as MEDIA_URL/{uuid}.{file format}
+        file_ext = "." + pic.name.split('.')[-1]
+        # generate a uuid for the new file, save it to the file system.
+        file_uuid = uuid.uuid4()
+        fs.save(str(file_uuid) + file_ext, pic)
+
+        # update user's reference to this file & save the user
+        user.avatar = file_uuid
+        user.save()
+
+        return render(request, 'user/user_profile.html', {
+            'user': current_user,
+            'alert_type':'success',
+            'alert': "Your profile picture has successfully been changed."
         })
 
 
-    def post(self, request, *args, **kwargs):
-        """
-        A POST request can define if a user is updating their
-        profile information. A user must be logged in to edit their
-        details. Consider this function the gateway for users to
-        update information. It will invoke functions.
-        """
 
-        update_field = request.POST.get('update_field', '')
-        update_value = request.POST.get('update_value', '')
-
-        if not update_field or not update_value:
-            response = HttpResponse("400 Bad Request", status=400)
-            return response
-
-        # ...
-        # validate the request, update the user model
-        # ...
-        
-        response = HttpResponse("200 OK", status=200)
-        return response
 
         
