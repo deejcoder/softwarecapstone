@@ -1,0 +1,26 @@
+#imageContainer {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 30px;
+    background-size: 200px;
+    overflow: hidden;
+}
+
+.container {
+    width: 40%;
+    background-color: rgba(0,0,0,0.03);
+    border-radius: 10px;
+    padding: 20px;
+}
+.formHolder{
+    width: 70%;
+}
+#title{
+    padding: 10px;
+    padding-top: 0px;
+}
+
+
+.formHolder li:not(:first-child) {
+    border-top: 1px solid rgba(0,0,0,0.1);
+}

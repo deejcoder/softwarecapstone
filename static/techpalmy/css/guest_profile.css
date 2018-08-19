@@ -1,0 +1,10 @@
+#avatar {
+    width: 200px;
+    height: 200px;
+    float:none;
+}
+
+.center-block {
+    display: table;
+    margin: 0 auto;
+}

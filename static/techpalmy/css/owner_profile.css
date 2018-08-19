@@ -1,0 +1,46 @@
+#avatar {
+    width: 200px;
+    height: 200px;
+    float:none;
+    -webkit-filter: brightness(100%);
+    -moz-filter: brightness(100%);
+    -o-filter: brightness(100%);
+    -ms-filter: brightness(100%);
+    filter: brightness(100%);
+}
+
+.center-block {
+    display: table;
+    margin: 0 auto;
+}
+
+#imageContainer:hover {
+    -webkit-filter: brightness(80%);
+    -moz-filter: brightness(80%);
+    -o-filter: brightness(80%);
+    -ms-filter: brightness(80%);
+    filter: brightness(80%);
+    background-color: rgba(0,0,0,0.3);
+}
+
+#imageContainer:hover > .btn, #avatarEditBtn:hover {
+    display: inline-block;
+}
+
+#avatarEditBtn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+#avatarEditBtn:hover {
+    display: inline-block;
+}
+.btn{
+    background-color: rgba(0,0,0,0);
+}
+#editIco{
+    height: 60px;
+}
