@@ -23,7 +23,8 @@ class Profile(View):
         user = User.objects.get(username=username)
         
         return render(request, 'user/user_profile.html', {
-            'user': user
+            'user': user,
+            'is_owner': user == request.user
         })
 
     """
