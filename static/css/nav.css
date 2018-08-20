@@ -63,3 +63,27 @@ nav li {
 .breadcrumb-item>a:hover, .breadcrumb-item>a:active, .breadcrumb-item>a:focus {
     color: darkblue;
 }
+
+h2, h5 {
+    text-align: center;
+}
+
+#quicklinks {
+    display: table;
+	margin: 0 auto;
+}
+
+#quicklinks ul {
+    float: none;
+    list-style: none;
+    display: inline;
+    text-align: center;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#quicklinks li {
+    display: inline-block;
+}
