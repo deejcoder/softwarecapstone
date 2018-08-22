@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'user',
     'django_cleanup', # always have django_cleanup at the bottom
 ]
+
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -95,11 +97,11 @@ except ImportError:
 if LOCAL_MODE is True:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
             'HOST': '127.0.0.1',
             'NAME': 'techpalmy',
-            'USER': 'root',
-            'PASSWORD': '',
+            'USER': 'techpalmy',
+            'PASSWORD': 'rubberducky',
         }
     }
 else:
