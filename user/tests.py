@@ -41,5 +41,5 @@ class ConsultantTestCase(TestCase):
     # test search methods for users
     def test_user_search(self):
         print("test_user_search...")
-        for user in User.search_users('dylan tonks'):
-            print(user.username)
+        for user in User.search_users('dylan'):
+            print(user.full_name)

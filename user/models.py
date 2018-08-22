@@ -27,6 +27,10 @@ class User(AbstractUser):
         default='users/default/avatar.png' # if none, display default
     )
 
+    @property
+    def full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)
+        
     """
     Overrides the saving of Users.
     This modifies a user's avatar e.g resizes it.
