@@ -13,6 +13,7 @@ class Listing(View):
             # if search does not exist it will return a DictValueError
             search_term = request.GET['search']
             consultants = Consultant.search_consultants(search_term)
+            print(search_term)
 
         # no
         except:
