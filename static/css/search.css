@@ -1,0 +1,30 @@
+/* Search form is fixed height for now */
+
+#search_form {
+    width: 18%;
+    float: left;
+    height: 500px;
+    display: inline-block;
+    margin-right: 2%;
+}
+
+input[name='search_query'] {
+    width: 60%;
+}
+
+#search_results {
+    display: inline-block;
+    float: right;
+    width: 80%;
+}
+
+#results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#results li {
+    padding: 0 10px;
+    padding-bottom: 5px;
+}
