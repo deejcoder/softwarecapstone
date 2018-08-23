@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--The variables used in the for loops and if statements can be renamed to whatever.
+Just make sure they're consistent over all files!-->
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Consultants</li>
+</ol>
+
+<div id="search_form">
+    <h5>Filter listing by keyword(s)</h5>
+    <form action="" method="get">
+        <input type="text" name="search_query" placeholder="Search">
+        <input type="submit" value="Search">
+    </form>
+    <!--A/N: Room for improvement here - filter by area of expertise?-->
+    <!--Mobile view will be done tomorrow afternoon-->
+</div>
+
+<div class="search_results">
+    <h4>Heading here?</h4>
+    {% if all_c_users %}
+        <ul id="results">
+            {% for c in all_c_users %}
+                <li>{{ c.area_of_expertise }} ({{ c.services_offered }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results matching the criteria found.</p>
+    {% endif %}
+
+    <span class="step-links">
+        {% if all_c_users.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ all_c_users.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ all_c_users.number }} of {{ all_c_users.paginator.num_pages }}
+        </span>
+
+        {% if all_c_users.has_next %}
+            <a href="?page={{ all_c_users.next_page_number }}">next</a>
+            <a href="?page={{ all_c_users.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    <br/>
+    <!--A/N: Search results can be prettier and more detailed, but I couldn't be bothered writing blurbs or adding profile images :) The functionality is all there, at any rate.-->
+</div>
+
+{% endblock %}
