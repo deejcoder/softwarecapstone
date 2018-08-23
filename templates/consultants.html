@@ -13,7 +13,7 @@ Just make sure they're consistent over all files!-->
 <div id="search_form">
     <h5>Filter listing by keyword(s)</h5>
     <form action="" method="get">
-        <input type="text" name="search_query" placeholder="Search">
+        <input type="text" name="search" placeholder="Search">
         <input type="submit" value="Search">
     </form>
     <!--A/N: Room for improvement here - filter by area of expertise?-->
@@ -22,9 +22,9 @@ Just make sure they're consistent over all files!-->
 
 <div class="search_results">
     <h4>Heading here?</h4>
-    {% if all_c_users %}
+    {% if consultants %}
         <ul id="results">
-            {% for c in all_c_users %}
+            {% for c in consultants %}
                 <li>{{ c.area_of_expertise }} ({{ c.services_offered }})</li>
             {% endfor %}
         </ul>
@@ -33,18 +33,18 @@ Just make sure they're consistent over all files!-->
     {% endif %}
 
     <span class="step-links">
-        {% if all_c_users.has_previous %}
+        {% if consultants.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ all_c_users.previous_page_number }}">previous</a>
+            <a href="?page={{ consultants.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ all_c_users.number }} of {{ all_c_users.paginator.num_pages }}
+            Page {{ consultants.number }} of {{ consultants.paginator.num_pages }}
         </span>
 
-        {% if all_c_users.has_next %}
-            <a href="?page={{ all_c_users.next_page_number }}">next</a>
-            <a href="?page={{ all_c_users.paginator.num_pages }}">last &raquo;</a>
+        {% if consultants.has_next %}
+            <a href="?page={{ consultants.next_page_number }}">next</a>
+            <a href="?page={{ consultants.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
     <br/>
