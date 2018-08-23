@@ -1,5 +1,6 @@
 @import "nav.css";
 @import "mobile.css";
+@import "search.css";
 
 html, body {
     background-color: #f2f5f7;
