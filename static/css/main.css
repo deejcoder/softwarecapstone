@@ -1,6 +1,7 @@
 @import "nav.css";
 @import "mobile.css";
 @import "search.css";
+@import "nightmode.css";
 
 html, body {
     background-color: #f2f5f7;
