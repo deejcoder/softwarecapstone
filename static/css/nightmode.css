@@ -1,0 +1,22 @@
+.light-mode {
+    background-color: #f2f5f7;
+    color: #2a2d2f;
+}
+
+/* Colour palette for dark mode starts here! */
+
+.dark-mode {
+    background-color: #2a2d2f;
+    color: #e8ebed;
+}
+
+.dark-mode .breadcrumb {
+    background-color: rgba(242, 245, 247, 0.8);
+}
+
+.dark-mode #login-form, .dark-mode #signup-form {
+    background-color: rgba(77, 80, 82, 0.8);
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px;
+    color: #d4d7d9;
+}

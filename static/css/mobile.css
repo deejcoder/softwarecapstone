@@ -27,6 +27,17 @@
     .nav-item {
         margin: 0 4%;
     }
+
+    #foot {
+        clear: both;
+        position: static;
+        bottom: 0;
+        left: 0;
+    }
+
+    section {
+        min-height: 450px;
+    }
 }
 
 @media only screen and (orientation: landscape) and (min-width: 768px) and (max-width: 960px) {
@@ -58,6 +69,17 @@
     .nav-item {
         margin: 0 5%;
     }
+
+    #foot {
+        clear: both;
+        position: static;
+        bottom: 0;
+        left: 0;
+    }
+
+    section {
+        min-height: 500px;
+    }
 }
 
 @media only screen and (orientation: landscape) and (min-width: 961px) {
@@ -74,16 +96,24 @@
         text-align: center;
         margin-top: 3%;
     }
+
+    #foot {
+        clear: both;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
 }
 
 
-@media only screen and (orientation: portrait) and (max-width: 500px) {
+@media only screen and (orientation: portrait) and (max-height: 600px) {
     #login-form {
         width: 80%;
         margin-left: 10%;
         margin-right: 10%;
         text-align: center;
-        margin-top: 30%;
+        margin-top: 10%;
     }
 
     #signup-form {
@@ -108,12 +138,24 @@
         margin: 0 5%;
         width: 100%;
     }
+
+    section {
+        min-height: 600px;
+    }
+
+    #foot {
+        position: relative;
+        margin-top: 10px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
 }
 
-@media only screen and (orientation: portrait) and (min-width: 501px) and (max-width: 767px) {
+@media only screen and (orientation: portrait) and (min-height: 601px) and (max-height: 900px) {
     #login-form {
-        width: 40%;
-        margin: 0 30%;
+        width: 90%;
+        margin: 0 5%;
         text-align: center;
         margin-top: 20%;
     }
@@ -139,9 +181,21 @@
     .nav-item {
         margin: 0 5%;
     }
+
+    section {
+        min-height: 600px;
+        max-height: 800px;
+    }
+
+    #foot {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
 }
 
-@media only screen and (orientation: portrait) and (min-width: 768px) {
+@media only screen and (orientation: portrait) and (min-height: 901px) {
     #login-form {
         width: 40%;
         margin: 0 30%;
@@ -169,5 +223,17 @@
 
     .nav-item {
         margin: 0 5%;
+    }
+
+    section {
+        min-height: 900px;
+        max-height: 1400px;
+    }
+
+    #foot {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
 }
