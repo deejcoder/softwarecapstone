@@ -52,6 +52,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            mkdir test-reports
             python manage.py makemigrations
             python manage.py makemigrations user
             python manage.py migrate
@@ -60,3 +61,6 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      - store_test_results:
+        path: test-reports

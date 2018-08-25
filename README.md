@@ -1,6 +1,8 @@
 # softwarecapstone
 Software Capstone Project, Internal 3
 
+[![CircleCI](https://circleci.com/gh/dy1zan/softwarecapstone.svg?style=svg)](https://circleci.com/gh/dy1zan/softwarecapstone)
+
 ### Wiki
 Please do check the Wiki regularly. [Wiki](https://github.com/dy1zan/softwarecapstone/wiki) updates are not sent to Discord.
 
