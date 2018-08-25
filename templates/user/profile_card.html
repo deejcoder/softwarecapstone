@@ -1,7 +1,9 @@
 
+{% extends "master/base.html" %}
+
 {% load static %}
 
-{% block profilecss %}
+{% block head %}
     <link rel="stylesheeta" href="{% static 'techpalmy\css\profile.css' %}" />
     {% if is_owner %}
     <link rel="stylesheet" href="{% static 'techpalmy\css\owner_profile.css' %}" />
@@ -19,7 +21,7 @@
 {% endblock %}
 
 
-{% block profilecard %}
+{% block content %}
     <script>
         $(document).ready(function () {
 
