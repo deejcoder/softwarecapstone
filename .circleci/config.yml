@@ -36,10 +36,6 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-
-      - run:
-          name: install psycopg2
-          command: |
             pip install psycopg2
 
       - save_cache:
