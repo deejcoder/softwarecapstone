@@ -1,6 +1,12 @@
+"""
+This file tests the user app, at the moment it focuses upon testing
+the searching of consultants and users as well as their models.
+"""
+
 from django.test import TestCase
-from .models import Consultant
-from .models import User
+
+from .models import Consultant, User
+
 
 class ConsultantTestCase(TestCase):
     def setUp(self):
@@ -24,9 +30,9 @@ class ConsultantTestCase(TestCase):
         # link new consultant to user: erei
         Consultant.objects.create(
             user=user,
-            area_of_expertise = "Computer Engineering",
-            services_offered = """
-                We offer great computer repairs, advice and our 
+            area_of_expertise="Computer Engineering",
+            services_offered="""
+                We offer great computer repairs, advice and our
                 Linux experts can help you with any Linux problems
                 whatsoever!
             """
