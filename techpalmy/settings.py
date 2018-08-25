@@ -87,10 +87,10 @@ AUTH_USER_MODEL = 'user.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': '127.0.0.1',
-        'NAME': 'techpalmy',
-        'USER': 'techpalmy',
-        'PASSWORD': 'rubberducky',
+        'HOST': 'postgres://hlxzucevlbfjdm:84c6f51553ee2e7b0e6db0b0432154ac8bb013b44b92e284003af3db9539d0b5@ec2-174-129-236-147.compute-1.amazonaws.com:5432/da2ihdnc0p6ka3',
+        'NAME': 'da2ihdnc0p6ka3',
+        'USER': 'hlxzucevlbfjdm',
+        'PASSWORD': '84c6f51553ee2e7b0e6db0b0432154ac8bb013b44b92e284003af3db9539d0b5',
     }
 }
 
