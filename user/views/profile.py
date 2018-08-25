@@ -6,7 +6,8 @@ Functionality includes editing of profiles.
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -27,7 +28,11 @@ class Profile(View):
         profile.
         """
 
-        user = User.objects.get(username=username)     
+        try:
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
         return render(request, 'user/user_profile.html', {
             'user': user,
             'is_owner': user == request.user
@@ -41,7 +46,11 @@ class Profile(View):
 
         # get the user currently logged in & who owns the profile being viewed
         current_user = request.user
-        user = User.objects.get(username=username)
+        
+        try:
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
 
         if username != current_user.username:
             return HttpResponseRedirect(request.path)
