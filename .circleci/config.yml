@@ -38,9 +38,9 @@ jobs:
             pip install -r requirements.txt
 
       - run:
-        name: install psycopg2
-        command: |
-          pip install psycopg2
+          name: install psycopg2
+          command: |
+            pip install psycopg2
 
       - save_cache:
           paths:
