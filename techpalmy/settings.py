@@ -26,11 +26,7 @@ SECRET_KEY = 'xhq-$*w#$ggbdi8pz(f=de^82dcf+_d-@exfgze&h!u2y=#scg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Are you running locally? Use your local MySQL settings instead.
-LOCAL_MODE = True
-
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -43,11 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'user',
-    'django_cleanup', # always have django_cleanup at the bottom
+    'django_cleanup',  # always have django_cleanup at the bottom
 ]
 
-
-AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,37 +77,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'techpalmy.wsgi.application'
 LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'user.User'
 
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-try:
-    import MySQLdb  # noqa: F401
-except ImportError:
-    import pymysql
-    pymysql.install_as_MySQLdb()
 
-if LOCAL_MODE is True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '127.0.0.1',
-            'NAME': 'techpalmy',
-            'USER': 'techpalmy',
-            'PASSWORD': 'rubberducky',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': '127.0.0.1',
+        'NAME': 'techpalmy',
+        'USER': 'techpalmy',
+        'PASSWORD': 'rubberducky',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
-            'NAME': 'techpalmy',
-            'USER': 'root',
-            'PASSWORD': 'eggcelent39',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -145,9 +124,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL='/media/'
+MEDIA_URL = '/media/'

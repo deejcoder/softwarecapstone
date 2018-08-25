@@ -5,13 +5,15 @@ This can be used for testing however!
 """
 
 from django.contrib import admin
+
 from .models import Consultant, User
 
-# Register your models here.
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     pass
+
+
 @admin.register(Consultant)
 class ConsultantAdmin(admin.ModelAdmin):
     pass
