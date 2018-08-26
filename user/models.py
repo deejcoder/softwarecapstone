@@ -53,7 +53,7 @@ class User(AbstractUser):
 
         # otherwise resize the image
         image = Image.open(self.avatar.path)
-        image = image.resize((200, 200), Image.ANTIALIAS)
+        image.thumbnail((200, 200), Image.ANTIALIAS)
         image.save(self.avatar.path)
 
     @staticmethod
