@@ -74,6 +74,11 @@ class User(AbstractUser):
             search=search_query
         )
 
+"""
+Certifications is probably another field that should be added to the consultants model. (<-- multivaluefield?)
+Area of expertise doesn't need to be a text-field - a char-field will suffice for now.
+Services_offered can potentially expand on area_of_expertise.
+"""
 
 class Consultant(models.Model):
     """
