@@ -1,7 +1,7 @@
-@import "nav.css";
-@import "mobile.css";
-@import "search.css";
-@import "nightmode.css";
+@import "imports/nav.css";
+@import "imports/mobile.css";
+@import "imports/search.css";
+@import "imports/nightmode.css";
 
 html, body {
     background-color: #E6ECF0;
@@ -17,7 +17,7 @@ html, body {
 }
 
 footer {
-    background-image: url("../images/footer_lodyas.png");
+    background-image: url("/static/images/footer_lodyas.png");
     position: absolute;
     bottom: 0;
     width: 100%;

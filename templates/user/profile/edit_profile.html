@@ -1,16 +1,11 @@
 
-{% extends "master/base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'user/profile/css/profile.css' %}" />
-
-    {% if is_owner %}
     <link rel="stylesheet" href="{% static 'user/profile/css/owner_profile.css' %}" />
-    {% else %}
-    <link rel="stylesheet" href="{% static 'user/profile/css/guest_profile.css' %}" />
-    {% endif %}
 
     <script src="{% static 'user/profile/js/profile_card.js' %}"></script> 
 
@@ -25,7 +20,6 @@
 
             <!-- Profile picture -->
             <div class="media">
-                {% if is_owner %}
                 <form id="avatar_form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
@@ -33,25 +27,18 @@
                         <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
                     </div>
                 </form>
-
-                {% else %}
-                <div id="imageContainer" style="background-image:url('{{ user.avatar.url }}')">
-                        <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
-                </div>
-                {% endif %}
             </div>
 
             <div id="banner">
-                <h4>{{ user.username }}</h4>
+                <h4>{{ user.full_name }}</h4>
                 {% if user.is_staff %}
-                <p>Administrator</p>
+                <span class="badge badge-primary">Administrator</span>
                 {% endif %}
             </div>
         </div>
         <!-- Edit profile information -->
 
         <div class="container col-md-8" id="profile-info">
-            {% if is_owner %}
         
             <div class="form-group">
                 <label for="fld_first_name">Name</label>
@@ -83,15 +70,9 @@
                 <input type="date" class="form-control" id="fld_date" value="1997-10-07" />
             </div>
             <button type="button" class="btn btn-outline-dark">Update</button>
+            <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
         </form>
         
-
-            {% else %}
-            <div class="" id="fld_first_name" name="first_name">{{ user.first_name }}</div>
-            <div class="" id="fld_last_name" name="last_name">{{ user.last_name }}</div>
-            <div class="" id="fld_username" name="username">{{ user.username }}</div>
-            <div class="" id="fld_email" name="email">{{ user.email }}</div>
-            {% endif %}
         </div>
     </div>
 </div>

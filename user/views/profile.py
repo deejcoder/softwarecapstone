@@ -19,21 +19,43 @@ User = get_user_model()
 
 class Profile(View):
     """
-    View profile, or update profile info
+    Allows someone to view their own or someone elses
+    profile.
     """
 
     def get(self, request, username):
-        """
-        User wants to view their own or someone elses
-        profile.
-        """
 
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        return render(request, 'user/user_profile.html', {
+        return render(request, 'user/profile/profile.html', {
+            'viewing': user,
+            'user': request.user,
+            'is_owner': user == request.user
+        })
+
+
+class EditProfile(View):
+    """
+    Renders the edit_profile page.
+    """
+
+    def get(self, request, username):
+        """
+        User is editing profile...
+        """
+
+        if request.user.username != username:
+            return HttpResponseNotFound()
+
+        try:
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        return render(request, 'user/profile/edit_profile.html', {
             'user': user,
             'is_owner': user == request.user
         })
@@ -41,7 +63,7 @@ class Profile(View):
     @method_decorator(login_required)
     def post(self, request, username):
         """
-        User wants to update profile.
+        User updates profile.
         """
 
         # get the user currently logged in & who owns the profile being viewed

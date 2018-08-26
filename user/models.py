@@ -86,8 +86,9 @@ class Consultant(models.Model):
     )
     area_of_expertise = models.TextField(max_length=80)
     services_offered = models.TextField(max_length=300)
-    work_phone = models.TextField(max_length=14, null=True, default=None)
-    website = models.TextField(max_length=30, null=True, default=None)
+    work_phone = models.CharField(max_length=14, null=True, default=None)
+    website = models.CharField(max_length=30, null=True, default=None)
+    status = models.CharField(max_length=20, default="Pending")
 
     @staticmethod
     def search_consultants(term: str):

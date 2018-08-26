@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'user/profile/css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'user/profile/css/guest_profile.css' %}" />
+
+    <script src="{% static 'user/profile/js/profile_card.js' %}"></script> 
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container" id="content-container">
+    <div class="row">
+        <!-- Content header -->
+        <div class="col-md-3" id="profile-banner">
+
+            <!-- Profile picture -->
+            <div class="media">
+                    <div id="imageContainer" style="background-image:url('{{ viewing.avatar.url }}')">
+                            <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
+                    </div>
+            </div>
+
+            <div id="banner">
+                <h4>{{ viewing.full_name }}</h4>
+                {% if viewing.is_staff %}
+                <span class="badge badge-primary">Administrator</span>
+                <span class="badge badge-secondary">Consultant</span>
+                {% endif %}
+                <br>
+
+                {% if is_owner %}<a href="edit">Edit profile</a>{% endif %}
+            </div>
+        </div>
+        <!-- Edit profile information -->
+
+        <div class="container col-md-8" id="profile-info">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

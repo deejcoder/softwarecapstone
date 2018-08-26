@@ -1,6 +1,8 @@
+
+
 .navbar {
     width: 100%;
-    background-image: url("../images/footer_lodyas.png");
+    background-image: url("/static/images/footer_lodyas.png");
     margin: 0 auto;
     padding: 0;
     position: relative;
@@ -86,3 +88,4 @@ h2, h5 {
 #quicklinks li {
     display: inline-block;
 }
+

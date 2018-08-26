@@ -26,7 +26,5 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
-    path('user/', include('user.urls')),
-    path('consultants/', user_views.Listing.as_view()),
-    path('apply/', views.application_form, name='application_form')
+    path('', include('user.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
