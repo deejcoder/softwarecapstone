@@ -9,11 +9,6 @@
     filter: brightness(100%);
 }
 
-.center-block {
-    display: table;
-    margin: 0 auto;
-}
-
 #imageContainer:hover {
     -webkit-filter: brightness(80%);
     -moz-filter: brightness(80%);
@@ -27,20 +22,3 @@
     display: inline-block;
 }
 
-#avatarEditBtn {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-#avatarEditBtn:hover {
-    display: inline-block;
-}
-.btn{
-    background-color: rgba(0,0,0,0);
-}
-#editIco{
-    height: 60px;
-}

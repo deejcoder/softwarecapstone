@@ -6,33 +6,21 @@
     overflow: hidden;
 }
 
-.container {
-    width: 40%;
-    background-color: rgba(0,0,0,0.03);
-    padding: 20px;
-}
-#title{
-    padding: 10px;
-    padding-top: 0px;
-}
-
-
-.formHolder li:not(:first-child) {
-    border-top: 1px solid rgba(0,0,0,0.1);
-}
-
 div #profile-info {
-    background-color:white;
     padding:20px;
+    background-color:white;
+    border-radius:15px;
+}
+
+div #profile-banner {
+    border-radius:15px;
 }
 
 #content-container {
     margin-top:30px; 
     width:50%;
-    background-color:white;
     border-radius:15px;
+    min-width:800px;
 }
 
-#profile-banner {
-    margin-top: 20px;
-}
+

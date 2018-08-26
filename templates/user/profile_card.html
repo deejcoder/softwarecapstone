@@ -18,10 +18,10 @@
 
 
 {% block content %}
-    <div class="container-fluid" id="content-container">
-        <div class="row">
+<div class="container" id="content-container">
+    <div class="row">
         <!-- Content header -->
-        <div class="col-md-4" id="profile-banner">
+        <div class="col-md-3" id="profile-banner">
 
             <!-- Profile picture -->
             <div class="media">
@@ -35,7 +35,9 @@
                 </form>
 
                 {% else %}
-                <img src='{% static "user/profile/avatarLens.png" %}' id="avatar" class="center-block">
+                <div id="imageContainer" style="background-image:url('{{ user.avatar.url }}')">
+                        <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
+                </div>
                 {% endif %}
             </div>
 
@@ -48,8 +50,9 @@
         </div>
         <!-- Edit profile information -->
 
-        {% if is_owner %}
         <div class="container col-md-8" id="profile-info">
+            {% if is_owner %}
+        
             <div class="form-group">
                 <label for="fld_first_name">Name</label>
                 <input class="form-control" type="text" id="fld_first_name" name="first_name" value="{{ user.first_name }}" />
@@ -79,16 +82,17 @@
                 <label for="fld_date">Date of birth</label>
                 <input type="date" class="form-control" id="fld_date" value="1997-10-07" />
             </div>
-        </div>
+            <button type="button" class="btn btn-outline-dark">Update</button>
+        </form>
+        
 
-        {% else %}
-        <ul class="formHolder">
-            <li class="mcPHolder wide" id="fld_first_name" name="first_name">{{ user.first_name }}</li>
-            <li class="mcPHolder wide" id="fld_last_name" name="last_name">{{ user.last_name }}</li>
-            <li class="mcPHolder wide" id="fld_username" name="username">{{ user.username }}</li>
-            <li class="mcPHolder wide" id="fld_email" name="email">{{ user.email }}</li>
-        </ul>
-        {% endif %}
+            {% else %}
+            <div class="" id="fld_first_name" name="first_name">{{ user.first_name }}</div>
+            <div class="" id="fld_last_name" name="last_name">{{ user.last_name }}</div>
+            <div class="" id="fld_username" name="username">{{ user.username }}</div>
+            <div class="" id="fld_email" name="email">{{ user.email }}</div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
