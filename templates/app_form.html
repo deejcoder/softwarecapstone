@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Probable layout</h3>
+<form id="consult_application" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <tr>
+            <h6>Section 1</h6>
+            <th>{{ form.email.label_tag }}</th>
+            <td>
+                {{ form.email.errors }}
+                {{ form.email }}
+            </td>
+        </tr>
+        <hr>
+        <tr>
+            <h6>Section 2</h6>
+            <th>{{ form.fname.label_tag }}</th>
+            <td>
+                {{ form.fname.errors }}
+                {{ form.fname }}
+            </td>
+            <br/>
+            <th>{{ form.lname.label_tag }}</th>
+            <td>
+                {{ form.lname.errors }}
+                {{ form.lname }}
+            </td>
+        </tr>
+        <hr>
+        <tr>
+            <h6>Section 3</h6>
+            <th>{{ form.address.label_tag }}</th>
+            <td>
+                {{ form.address.errors }}
+                {{ form.address }}
+            </td>
+            <br/>
+            <td>{{ form.city.errors }}
+                {{ form.city }}
+
+            </td>
+        </tr>
+    </fieldset>
+</form>
+
+{% endblock %}
