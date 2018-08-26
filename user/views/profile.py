@@ -46,7 +46,7 @@ class Profile(View):
 
         # get the user currently logged in & who owns the profile being viewed
         current_user = request.user
-        
+
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:

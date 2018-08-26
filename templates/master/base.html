@@ -50,7 +50,18 @@
 		    </nav>
 		</header>
 	<section>
-		{% block content %}{% endblock %}
+		{% block message_alert %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }} alert-dismissible fade show">{{ message }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+		{% endblock %}
+
+		{% block content %}
+		{% endblock %}
 	</section>
         <footer class="page-footer font-small bg-dark">
 		<div class="py-3 text-white">© 2018 Copyright:
