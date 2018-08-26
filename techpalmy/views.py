@@ -14,7 +14,9 @@ class Index(TemplateView):
 	def index(self, TemplateView):
 		return render(request, 'index.html')
 
-
+"""
+This section can be removed and/or updated at a later date - G.
+"""
 class ConsultApp(forms.Form):
 	fname = forms.CharField(label='First name:', required=True, help_text='Hello!')
 	lname = forms.CharField(label='Last name:', required=True)
