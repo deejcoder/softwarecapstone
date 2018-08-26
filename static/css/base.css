@@ -24,10 +24,6 @@ footer {
     height: 60px;
 }
 
-input:focus, input:hover, input:active {
-    border: 1px solid #f7bd2a;
-}
-
 #login-form {
     background-color: rgb(0, 0, 0, 0.1);
     padding-top: 2%;
@@ -35,49 +31,6 @@ input:focus, input:hover, input:active {
     border-radius: 15px;
     border: 1px solid black;
     box-shadow: 5px 5px 10px;
-}
-
-#signup-form {
-    background-color: rgb(0, 0, 0, 0.2);
-    padding-top: 2%;
-    padding-bottom: 2%;
-    border-radius: 15px;
-    border: 1px solid black;
-    box-shadow: 5px 5px 10px;
-}
-
-form>p>label {
-    float: left;
-    clear: right;
-    margin: auto;
-    margin-top: 5%;
-    font-size: 12px;
-}
-
-form>p>input {
-    float: right;
-    margin-top: 5%;
-    width: 65%;
-    font-size: 12px;
-}
-
-form>button {
-    float: left;
-    clear: both;
-    width: 30%;
-    margin: 0 35%;
-    font-size: 12px;
-    margin-top: 3%;
-}
-
-form>a {
-    float: right;
-    clear: both;
-    font-size: 12px;
-}
-
-form {
-    display: inline-block;
 }
 
 footer a {

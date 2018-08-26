@@ -6,13 +6,6 @@
         margin-top: 3%;
     }
 
-    #signup-form {
-        width: 50%;
-        margin: 0 25%;
-        text-align: center;
-        margin-top: 3%;
-    }
-
     .navbar-nav {
         float: none;
         margin: 0 35%;
@@ -45,13 +38,6 @@
     #login-form {
         width: 40%;
         margin: 0 30%;
-        text-align: center;
-        margin-top: 3%;
-    }
-
-    #signup-form {
-        width: 50%;
-        margin: 0 25%;
         text-align: center;
         margin-top: 3%;
     }
@@ -92,13 +78,6 @@
         margin-top: 3%;
     }
 
-    #signup-form {
-        width: 50%;
-        margin: 0 25%;
-        text-align: center;
-        margin-top: 3%;
-    }
-
     #foot {
         clear: both;
         position: absolute;
@@ -116,13 +95,6 @@
         margin-right: 10%;
         text-align: center;
         margin-top: 10%;
-    }
-
-    #signup-form {
-        width: 90%;
-        margin: 0 5%;
-        text-align: center;
-        margin-top: 30%;
     }
 
     .navbar-nav {
@@ -162,13 +134,6 @@
         margin-top: 20%;
     }
 
-    #signup-form {
-        width: 90%;
-        margin: 0 5%;
-        text-align: center;
-        margin-top: 20%;
-    }
-
     .navbar-nav {
         float: none;
         margin: 0 35%;
@@ -201,13 +166,6 @@
     #login-form {
         width: 40%;
         margin: 0 30%;
-        text-align: center;
-        margin-top: 20%;
-    }
-
-    #signup-form {
-        width: 70%;
-        margin: 0 15%;
         text-align: center;
         margin-top: 20%;
     }
