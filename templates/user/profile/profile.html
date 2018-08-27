@@ -14,17 +14,17 @@
 
             <!-- Profile picture -->
             <div class="media">
-                    <div id="imageContainer" style="background-image:url('{{ user.avatar_url }}')">
+                    <div id="imageContainer" style="background-image:url('{{ viewing.avatar_url }}')">
                             <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
                     </div>
             </div>
 
             <div id="banner">
                 <h4>{{ viewing.full_name }}</h4>
-                {% if user.is_staff %}
+                {% if viewing.is_staff %}
                 <span class="badge badge-primary">Administrator</span>
                 {% endif %}
-                {% if user.is_consultant %}
+                {% if viewing.is_consultant %}
                 <span class="badge badge-secondary">Consultant</span>
                 {% endif %}
                 <br>
