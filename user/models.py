@@ -45,7 +45,7 @@ class User(AbstractUser):
         Overrides the saving of Users.
         This modifies a user's avatar e.g resizes it.
         """
-        
+
         super(User, self).save()
 
         # if the user has a new/old avatar
@@ -105,7 +105,7 @@ class Consultant(models.Model):
         :return: list of consultants
         """
         search_query = SearchQuery(term)
-        search_vector = SearchVector('area_of_expertise') \
+        search_vector = SearchVector('certifications') \
             + SearchVector('services_offered')
 
         search_vector += SearchVector('user__username') \
