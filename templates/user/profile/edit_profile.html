@@ -1,8 +1,5 @@
-
 {% extends "base.html" %}
-
 {% load static %}
-
 {% block head %}
     <link rel="stylesheet" href="{% static 'user/profile/css/profile.css' %}" />
     <link rel="stylesheet" href="{% static 'user/profile/css/owner_profile.css' %}" />
@@ -10,13 +7,11 @@
     <script src="{% static 'user/profile/js/profile_card.js' %}"></script> 
 
 {% endblock %}
-
-
 {% block content %}
 <div class="container" id="content-container">
     <div class="row">
         <!-- Content header -->
-        <div class="col-md-3" id="profile-banner">
+        <div class="col-md-x" id="profile-banner">
 
             <!-- Profile picture -->
             <div class="media">
