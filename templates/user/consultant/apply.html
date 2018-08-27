@@ -2,8 +2,23 @@
 
 {% block content %}
     <h1>Become a consultant...</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
+    <script>
+        $(document).ready(function(){
+            $("textarea").attr({"rows": "4",
+                                "cols": "40"
+            });
+        });
+    </script>
+    <form class="post-form" method="post">
+        {% csrf_token %}
+        <fieldset>
+            {% for field in form %}
+            <tr>
+                <th>{{ field.label_tag }}</th>
+                <td>{{ field }}</td>
+            </tr>
+            <br/>
+            {% endfor %}
+        </fieldset>
     </form>
 {% endblock %}
