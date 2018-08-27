@@ -45,6 +45,7 @@ class User(AbstractUser):
         Overrides the saving of Users.
         This modifies a user's avatar e.g resizes it.
         """
+        
         super(User, self).save()
 
         # if the user has a new/old avatar
@@ -89,8 +90,9 @@ class Consultant(models.Model):
         User,
         on_delete=models.CASCADE
     )
-    area_of_expertise = models.TextField(max_length=80)
+    certifications = models.TextField(max_length=120)
     services_offered = models.TextField(max_length=300)
+    current_occupation = models.CharField(max_length=120, default=None)
     work_phone = models.CharField(max_length=14, null=True, default=None)
     website = models.CharField(max_length=30, null=True, default=None)
     status = models.CharField(max_length=20, default="Pending")
