@@ -39,35 +39,125 @@
         <div class="container col-md-8" id="profile-info">
             <form method="post">
                 {% csrf_token %}
+
+                <h5>User information</h5>
+                <hr>
+                {% with user_form.username as field %}
                 <div class="form-group">
-                    <label for="fld_first_name">Name</label>
-                    <input class="form-control" type="text" id="fld_first_name" name="first_name" value="{{ user.first_name }}" />
+                    <label for="username_field">Username</label>
+                    <input type="text"
+                            class="form-control"
+                            value="{{ user.username }}"
+                            readonly
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+
+                <div class="form-row">
+                    {% with user_form.first_name as field %}
+                    <div class="form-group col-md-6">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <input type="{{ field.field.widget.input_type }}"
+                                class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                id="{{ field.id_for_form }}"
+                                name="{{ field.html_name }}"
+                                value="{{ user.first_name }}"
+                        >
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
+                    </div>
+                    {% endwith %}
+                    {% with user_form.last_name as field %}
+                    <div class="form-group col-md-6">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <input type="{{ field.field.widget.input_type }}"
+                                class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                id="{{ field.id_for_form }}"
+                                name="{{ field.html_name }}"
+                                value="{{ user.last_name }}"
+                        >
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
+                    </div>
+                    {% endwith %}
+                </div>
+                {% with user_form.email as field %}
                 <div class="form-group">
-                    <label for="fld_last_name">Last name</label>
-                    <input class="form-control" type="text" id="fld_last_name" name="last_name" value="{{ user.last_name }}" />
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}"
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                            value="{{ user.email }}"
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+                {% with user_form.password as field %}
                 <div class="form-group">
-                    <label for="fld_username">Username</label>
-                    <input class="form-control" type="text" id="fld_username" name="username" value="{{ user.username }}" />
-                    <small id="fname_help" class="form-text text-muted">Your username must be unique.</small>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}"
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+                {% with user_form.current_password as field %}
                 <div class="form-group">
-                    <label for="fld_email">Email</label>
-                    <input class="form-control" type="text" id="fld_email" name="email" value="{{ user.email }}" />
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}"
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+
+                {% if user.is_consultant %}
+                <h5>Consultant information</h5>
+                <hr>
+                {% with consult_form.services_offered as field %}
                 <div class="form-group">
-                    <label for="fld_gender">Gender</label>
-                    <select name="gender" class="form-control" id="fld_gender" value="{{ user.gender }}">
-                        <option value="m" selected>Male</option>
-                        <option value="f">Female</option>
-                        <option value="o">Other</option>
-                    </select>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <textarea
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                            
+                    >{{ user.consultant.services_offered }}</textarea>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+
+                {% with consult_form.current_occupation as field %}
                 <div class="form-group">
-                    <label for="fld_date">Date of birth</label>
-                    <input type="date" class="form-control" id="fld_date" value="1997-10-07" />
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}"
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                            value="{{ user.consultant.current_occupation }}"
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
+                {% endwith %}
+
+                {% with consult_form.website as field %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}"
+                            class="form-control {% if field.errors %}is-invalid{% endif %}"
+                            id="{{ field.id_for_form }}"
+                            name="{{ field.html_name }}"
+                            value="{{ user.consultant.website }}"
+                    >
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% endif %}
+
                 <button type="submit" class="btn btn-outline-dark">Update</button>
                 <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
             </form>

@@ -4,13 +4,15 @@ Functionality includes editing of profiles.
 """
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.datastructures import MultiValueDictKeyError
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.urls import reverse
 
 from .. import forms
 from ..models import User
@@ -89,8 +91,8 @@ class EditProfile(View):
             self._update_user_avatar(user, request)
 
         # updated other info
-        except KeyError:
-            self._update_info(user, request)
+        except MultiValueDictKeyError:
+            return self._update_info(user, request)
 
         return HttpResponseRedirect(request.path)
 
@@ -111,30 +113,56 @@ class EditProfile(View):
         """
         Helper function for updating user/consultant information
         """
-        user_form = forms.EditProfileForm(request.POST)
-        consult_form = forms.EditConsultantForm(request.POST)
+        user_form = forms.EditProfileForm(instance=user, data=request.POST)
+        consult_form = forms.EditConsultantForm()
+
         # check if entered password matches current password
-        if (
-            not authenticate(
-                username=user.username,
-                password=user_form.fields['current_password']
-            )
-        ):
+        if not user.check_password(user_form.data.get('current_password')):
             # if incorrect password
             user_form.add_error(
                 'current_password',
                 "You have provided an incorrect password"
             )
-            return render(request, request.path, {
-                'user_form': user_form,
-                'consult_form': consult_form
-            })
 
-        # else save
-        user.save()
-        user.consultant.save()
+        else:
 
-        messages.success(
+            if user_form.is_valid():
+
+                user_form.save()
+
+                # if user is a consultant, save consultant data
+                if user.is_consultant():
+                    consult_form = forms.EditConsultantForm(instance=user.consultant, data=request.POST)
+
+                    if consult_form.is_valid():
+                        consult_form.save()
+
+                # user is logged out whenever their password changes since Django 1.7
+                new_password = user_form.cleaned_data.get('password')
+                auth = authenticate(username=user.username, password=new_password)
+                login(request, auth)
+
+                messages.success(
+                    request,
+                    "Your profile information has successfully been updated."
+                )
+                return HttpResponseRedirect(
+                    reverse(
+                        'user:user_profile',
+                        kwargs={'username': user.username}
+                    )
+                )
+
+        dic = {
+            'user': request.user,
+            'user_form': user_form,
+        }
+        if consult_form:
+            dic['consult_form'] = consult_form
+ 
+        return render(
             request,
-            "Your profile information has successfully been updated."
+            'user/profile/edit_profile.html',
+            dic
         )
+

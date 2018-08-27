@@ -3,6 +3,7 @@ Forms belonging to users or consultants.
 """
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth import authenticate, login
 
 from .models import Consultant, User
 
@@ -35,17 +36,18 @@ class EditConsultantForm(ModelForm):
             'website'
         )
 
+        widgets = {
+            'services_offered': forms.Textarea,
+        }
+
 
 class EditProfileForm(ModelForm):
     """
     Form for updating profile information
     """
 
-    def __init__(self, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
-        self.fields['current_password'].required = True
-
-    current_password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(required=False, widget=forms.PasswordInput)
+    current_password = forms.CharField(required=True, widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -53,7 +55,6 @@ class EditProfileForm(ModelForm):
             'first_name',
             'last_name',
             'email',
-            'password',
         )
 
         widgets = {
@@ -65,7 +66,9 @@ class EditProfileForm(ModelForm):
         Sets the user's password
         """
         user = super(EditProfileForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        password = self.cleaned_data['password']
+        if password:
+            user.set_password(password)
 
         if commit:
             user.save()
