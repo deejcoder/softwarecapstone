@@ -1,0 +1,24 @@
+﻿#results a {
+    color: #000000 !important;
+    text-decoration: none;
+    cursor: default;
+}
+#consultantAvatar{
+    cursor: pointer;
+}
+#consultantCard {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+#filters {
+    margin-bottom: 48px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+#searchBar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
