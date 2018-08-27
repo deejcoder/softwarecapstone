@@ -1,49 +1,77 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'user/profile/css/consultant.css' %}" />
+{% endblock %}
 
 {% block content %}
 
 <!--The variables used in the for loops and if statements can be renamed to whatever.
 Just make sure they're consistent over all files!-->
 
-<div id="search_form">
-    <h5>Filter listing by keyword(s)</h5>
-    <form action="" method="get">
-        <input type="text" name="search" placeholder="Search">
-        <input type="submit" value="Search">
-    </form>
-    <!--A/N: Room for improvement here - filter by area of expertise?-->
-    <!--Mobile view will be done tomorrow afternoon-->
-</div>
 
-<div class="search_results">
-    <h4>Heading here?</h4>
-    {% if consultants %}
-        <ul id="results">
+
+<br />
+<div class="container row">
+    <div class="d-flex justify-content-center align-items-start align-content-center flex-column col-2.3 px-2" id="filters" >
+        <h5 style="text-align:center" class="align-self-center">Advanced Search</h5>
+        <form action="" method="get">
+            <div class="input-group justify-content-center" id="searchBar">
+                <input type="text" class="form-control"  placeholder="Search" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary " type="submit" value="Search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <a href="/consultants" class="align-self-center mt-auto p-2 btn btn-block btn-outline-secondary">Reset</a>
+    </div>
+
+
+    <div class="col-lg-9 px-10">
+        {% if consultants %}
+        <div class="container-fluid" id="results">
             {% for c in consultants %}
-                <li>{{ c.area_of_expertise }} ({{ c.services_offered }})</li>
+            
+            <div class="media text-dark" id="consultantCard">
+                <a href="/user/{{ c.user.username }}">
+                    <img src="{{c.user.avatar_url}}" id="consultantAvatar" class="align-self-center mr-3" style="border-radius:15px;max-height:160px; max-width:160px;">
+                </a>
+                <div class="media-body">
+                    <h5 class="mt-0">{{c.user.first_name}} {{c.user.last_name}}</h5>
+                    <h6>{{ c.area_of_expertise }}</h6>
+                    <p class="mb-0">{{ c.services_offered }}</p>
+                </div>
+            </div>
+            
+            <br />
             {% endfor %}
-        </ul>
-    {% else %}
+        </div>
+        {% else %}
         <p>No results matching the criteria found.</p>
-    {% endif %}
+        {% endif %}
 
-    <span class="step-links">
-        {% if consultants.has_previous %}
+        <span class="step-links">
+            {% if consultants.has_previous %}
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ consultants.previous_page_number }}">previous</a>
-        {% endif %}
+            {% endif %}
 
-        <span class="current">
-            Page {{ consultants.number }} of {{ consultants.paginator.num_pages }}
-        </span>
+            <span class="current">
+                Page {{ consultants.number }} of {{ consultants.paginator.num_pages }}
+            </span>
 
-        {% if consultants.has_next %}
+            {% if consultants.has_next %}
             <a href="?page={{ consultants.next_page_number }}">next</a>
             <a href="?page={{ consultants.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-    <br/>
-    <!--A/N: Search results can be prettier and more detailed, but I couldn't be bothered writing blurbs or adding profile images :) The functionality is all there, at any rate.-->
+            {% endif %}
+        </span>
+        <br />
+    </div>
+
 </div>
+
 
 {% endblock %}
