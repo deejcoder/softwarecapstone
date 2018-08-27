@@ -117,7 +117,10 @@ class EditProfile(View):
                 password=form.fields['current_password']
         ):
             # if incorrect password
-            form.add_error('current_password', "You have provided an incorrect password")
+            form.add_error(
+                'current_password',
+                "You have provided an incorrect password"
+            )
             return render_to_response(
                 request.path,
                 {'form': form}
