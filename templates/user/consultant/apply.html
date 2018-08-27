@@ -1,24 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Become a consultant...</h1>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Consultants</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Application Form</li>
+    </ol>
+</nav>
+<div id="application">
+    <h3>Apply to become a consultant</h3>
     <script>
         $(document).ready(function(){
             $("textarea").attr({"rows": "4",
-                                "cols": "40"
+                                "cols": "24"
             });
         });
     </script>
     <form class="post-form" method="post">
         {% csrf_token %}
         <fieldset>
-            {% for field in form %}
-            <tr>
-                <th>{{ field.label_tag }}</th>
-                <td>{{ field }}</td>
-            </tr>
-            <br/>
-            {% endfor %}
+            {{ form.area_of_expertise.label_tag }}
+            {{ form.area_of_expertise }}
+            {{ form.website.label_tag }}
+            {{ form.website }}
+            {{ form.work_phone.label_tag }}
+            {{ form.work_phone }}
+            {{ form.certification.label_tag }}
+            {{ form.certification }}
+            {{ form.services_offered.label_tag }}
+            {{ form.services_offered }}
         </fieldset>
     </form>
+</div>
 {% endblock %}
