@@ -18,7 +18,7 @@
                 <form id="avatar_form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
-                    <div id="imageContainer" style="background-image:url('{{ user.avatar.url }}')">
+                    <div id="imageContainer" style="background-image:url('{{ user.avatar_url }}')">
                         <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
                     </div>
                 </form>
@@ -29,44 +29,48 @@
                 {% if user.is_staff %}
                 <span class="badge badge-primary">Administrator</span>
                 {% endif %}
+                {% if user.is_consultant %}
+                <span class="badge badge-secondary">Consultant</span>
+                {% endif %}
             </div>
         </div>
         <!-- Edit profile information -->
 
         <div class="container col-md-8" id="profile-info">
-        
-            <div class="form-group">
-                <label for="fld_first_name">Name</label>
-                <input class="form-control" type="text" id="fld_first_name" name="first_name" value="{{ user.first_name }}" />
-            </div>
-            <div class="form-group">
-                <label for="fld_last_name">Last name</label>
-                <input class="form-control" type="text" id="fld_last_name" name="last_name" value="{{ user.last_name }}" />
-            </div>
-            <div class="form-group">
-                <label for="fld_username">Username</label>
-                <input class="form-control" type="text" id="fld_username" name="username" value="{{ user.username }}" />
-                <small id="fname_help" class="form-text text-muted">Your username must be unique.</small>
-            </div>
-            <div class="form-group">
-                <label for="fld_email">Email</label>
-                <input class="form-control" type="text" id="fld_email" name="email" value="{{ user.email }}" />
-            </div>
-            <div class="form-group">
-                <label for="fld_gender">Gender</label>
-                <select name="gender" class="form-control" id="fld_gender" value="{{ user.gender }}">
-                    <option value="m" selected>Male</option>
-                    <option value="f">Female</option>
-                    <option value="o">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="fld_date">Date of birth</label>
-                <input type="date" class="form-control" id="fld_date" value="1997-10-07" />
-            </div>
-            <button type="button" class="btn btn-outline-dark">Update</button>
-            <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
-        </form>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="fld_first_name">Name</label>
+                    <input class="form-control" type="text" id="fld_first_name" name="first_name" value="{{ user.first_name }}" />
+                </div>
+                <div class="form-group">
+                    <label for="fld_last_name">Last name</label>
+                    <input class="form-control" type="text" id="fld_last_name" name="last_name" value="{{ user.last_name }}" />
+                </div>
+                <div class="form-group">
+                    <label for="fld_username">Username</label>
+                    <input class="form-control" type="text" id="fld_username" name="username" value="{{ user.username }}" />
+                    <small id="fname_help" class="form-text text-muted">Your username must be unique.</small>
+                </div>
+                <div class="form-group">
+                    <label for="fld_email">Email</label>
+                    <input class="form-control" type="text" id="fld_email" name="email" value="{{ user.email }}" />
+                </div>
+                <div class="form-group">
+                    <label for="fld_gender">Gender</label>
+                    <select name="gender" class="form-control" id="fld_gender" value="{{ user.gender }}">
+                        <option value="m" selected>Male</option>
+                        <option value="f">Female</option>
+                        <option value="o">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fld_date">Date of birth</label>
+                    <input type="date" class="form-control" id="fld_date" value="1997-10-07" />
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Update</button>
+                <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
+            </form>
         
         </div>
     </div>
