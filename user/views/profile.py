@@ -34,8 +34,6 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        if not user.is_consultant():
-            return HttpResponseNotFound()
 
         return render(request, 'user/profile/profile.html', {
             'viewing': user,
