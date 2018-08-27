@@ -99,8 +99,7 @@ class Consultant(models.Model):
         :return: list of consultants
         """
         search_query = SearchQuery(term)
-        search_vector = SearchVector('certifications') \
-            + SearchVector('services_offered')
+        search_vector = SearchVector('services_offered')
 
         search_vector += SearchVector('user__username') \
             + SearchVector('user__first_name') \
