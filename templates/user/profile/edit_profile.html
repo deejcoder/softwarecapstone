@@ -23,7 +23,7 @@
                 <form id="avatar_form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
-                    <div id="imageContainer" style="background-image:url('{{ user.avatar.url }}')">
+                    <div id="imageContainer" style="background-image:url('{{ user.avatar_url }}')">
                         <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
                     </div>
                 </form>
@@ -33,6 +33,9 @@
                 <h4>{{ user.full_name }}</h4>
                 {% if user.is_staff %}
                 <span class="badge badge-primary">Administrator</span>
+                {% endif %}
+                {% if user.is_consultant %}
+                <span class="badge badge-secondary">Consultant</span>
                 {% endif %}
             </div>
         </div>

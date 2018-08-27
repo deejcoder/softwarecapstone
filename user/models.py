@@ -30,7 +30,8 @@ class User(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
     avatar = models.ImageField(
         upload_to=_upload_profile_image,
-        default='users/default/avatar.png'  # if none, display default
+        default=None,
+        null=True
     )
 
     @property
@@ -83,6 +84,17 @@ class User(AbstractUser):
             return True
         else:
             return False
+
+    @property
+    def avatar_url(self):
+        """
+        Returns the default avatar URL if
+        the user does not have an avatar
+        """
+        if self.avatar and hasattr(self.avatar, 'url'):
+            return self.avatar.url
+        else:
+            return "/media/users/default/avatar.png"
 
 
 class Consultant(models.Model):
