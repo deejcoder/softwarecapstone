@@ -70,7 +70,7 @@ class EditProfileForm(ModelForm):
         if commit:
             user.save()
         return user
-    
+
 
 class UserRegistrationForm(ModelForm):
     """
@@ -104,7 +104,7 @@ class UserRegistrationForm(ModelForm):
 
         if password != confirm_password:
             self.add_error('confirm_password', "The password doesn't match")
-        
+
         return cleaned_data
 
     def save(self, commit=True):

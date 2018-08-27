@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -90,8 +90,7 @@ class EditProfile(View):
 
         # updated other info
         except KeyError:
-            # todo: implement user profile form in forms.py
-            self._update_user_info(user, request)
+            self._update_info(user, request)
 
         return HttpResponseRedirect(request.path)
 
@@ -108,28 +107,32 @@ class EditProfile(View):
             "Your profile picture has successfully been updated."
         )
 
-    def _update_user_info(self, user: User, request):
+    def _update_info(self, user: User, request):
         """
-        Helper function for updating user information
+        Helper function for updating user/consultant information
         """
-        form = forms.EditProfileForm(request.POST)
+        user_form = forms.EditProfileForm(request.POST)
+        consult_form = forms.EditConsultantForm(request.POST)
         # check if entered password matches current password
-        if not authenticate(
+        if (
+            not authenticate(
                 username=user.username,
-                password=form.fields['current_password']
+                password=user_form.fields['current_password']
+            )
         ):
             # if incorrect password
-            form.add_error(
+            user_form.add_error(
                 'current_password',
                 "You have provided an incorrect password"
             )
-            return render_to_response(
-                request.path,
-                {'form': form}
-            )
+            return render(request, request.path, {
+                'user_form': user_form,
+                'consult_form': consult_form
+            })
 
         # else save
         user.save()
+        user.consultant.save()
 
         messages.success(
             request,

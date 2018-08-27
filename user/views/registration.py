@@ -2,17 +2,13 @@
 Registration views: GET & POST (submitting form data)
 """
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.core.exceptions import ObjectDoesNotExist
 
 from .. import forms
-from ..models import User
-
-User = get_user_model()
 
 
 class Register(View):
