@@ -2,6 +2,7 @@
 @import "imports/mobile.css";
 @import "imports/search.css";
 @import "imports/nightmode.css";
+@import "imports/appform.css";
 
 html, body {
     background-color: #E6ECF0;
