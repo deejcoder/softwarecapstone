@@ -60,11 +60,13 @@ class EditProfile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        form = forms.EditProfileForm()
+        user_form = forms.EditProfileForm()
+        consult_form = forms.EditConsultantForm()
         return render(request, 'user/profile/edit_profile.html', {
             'user': user,
             'is_owner': user == request.user,
-            'form': form,
+            'user_form': user_form,
+            'consult_form': consult_form,
         })
 
     @method_decorator(login_required)

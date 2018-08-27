@@ -22,6 +22,20 @@ class ConsultantApplicationForm(ModelForm):
         )
 
 
+class EditConsultantForm(ModelForm):
+    """
+    Form to allow consultants to edit their details
+    """
+
+    class Meta:
+        model = Consultant
+        fields = (
+            'services_offered',
+            'current_occupation',
+            'website'
+        )
+
+
 class EditProfileForm(ModelForm):
     """
     Form for updating profile information

@@ -2,13 +2,17 @@
 Registration views: GET & POST (submitting form data)
 """
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.urls import reverse
 from django.views import View
+from django.core.exceptions import ObjectDoesNotExist
 
 from .. import forms
+from ..models import User
+
+User = get_user_model()
 
 
 class Register(View):
@@ -28,12 +32,13 @@ class Register(View):
         form = forms.UserRegistrationForm(request.POST)
         # if form does not contain errors,
         if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
             # create the new user
             form.save()
 
             # log the user in automatically
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
 
@@ -51,11 +56,4 @@ class Register(View):
             )
 
         # if form has errors
-        else:
-            print("A message in there")
-            return render_to_response(
-                'registration/register.html',
-                {'form': form,
-				'user' : request.user
-            }
-            )
+        return render(request, 'registration/register.html', {'form': form})
