@@ -2,9 +2,9 @@
 Registration views: GET & POST (submitting form data)
 """
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.urls import reverse
 from django.views import View
 

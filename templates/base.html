@@ -68,15 +68,24 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="profileThumb" style="height: 40px; width:40px; border-radius:.25rem; ">
-                                    <img class="avatar-thumbnail" src="{{ user.avatar_url }}" style="border-radius:.25rem; max-height:40px; max-width:40px;" />
+									
+									<img class="avatar-thumbnail" src="{% if user.is_authenticated %}{{ user.avatar_url }}{% else %}/media/users/default/avatar.png{% endif %}" style="border-radius:.25rem; max-height:40px; max-width:40px;" />
+									
+
                                 </div>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								{% if user.is_authenticated %}
                                 <a class="dropdown-item" href="/user/{{ user.username }}">My Profile</a>
                                 <a class="dropdown-item" href="#">Preferences</a>
                                 <a class="dropdown-item" href="#">Dark Mode [TOG]</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Logout</a>
+								<a class="dropdown-item" href="/logout">Logout</a>
+								{% else %}
+								<a class="dropdown-item" href="/login/">Login</a>
+								<a class="dropdown-item" href="/register/">Register</a>
+								<a class="dropdown-item" href="#">Dark Mode [TOG]</a>
+								{% endif %}
                             </div>
                         </li>
                     </ul>

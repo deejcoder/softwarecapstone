@@ -11,5 +11,5 @@ urlpatterns = [
     path('user/<username>/edit', views.EditProfile.as_view()),
     path('consultants/', views.Listing.as_view()),
     path('consultants/apply', views.Apply.as_view()),
-    path('register/', views.Register.as_view()),
+    path('register/', views.Register.as_view(), name="register"),
 ]

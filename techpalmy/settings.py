@@ -58,6 +58,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
