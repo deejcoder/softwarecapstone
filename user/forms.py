@@ -22,6 +22,42 @@ class ConsultantApplicationForm(ModelForm):
         )
 
 
+class EditProfileForm(ModelForm):
+    """
+    Form for updating profile information
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.fields['current_password'].required = True
+
+    current_password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+        )
+
+        widgets = {
+            'password': forms.PasswordInput,
+        }
+
+    def save(self, commit=True):
+        """
+        Sets the user's password
+        """
+        user = super(EditProfileForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+
+        if commit:
+            user.save()
+        return user
+    
+
 class UserRegistrationForm(ModelForm):
     """
     A form to allow users to apply to become

@@ -4,14 +4,15 @@ Functionality includes editing of profiles.
 """
 
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import render, render_to_response
 from django.utils.decorators import method_decorator
 from django.views import View
 
+from .. import forms
 from ..models import User
 
 User = get_user_model()
@@ -33,7 +34,6 @@ class Profile(View):
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
-
 
         return render(request, 'user/profile/profile.html', {
             'viewing': user,
@@ -60,9 +60,11 @@ class EditProfile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        form = forms.EditProfileForm()
         return render(request, 'user/profile/edit_profile.html', {
             'user': user,
-            'is_owner': user == request.user
+            'is_owner': user == request.user,
+            'form': form,
         })
 
     @method_decorator(login_required)
@@ -71,24 +73,23 @@ class EditProfile(View):
         User updates profile.
         """
 
-        # get the user currently logged in & who owns the profile being viewed
-        current_user = request.user
-
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        if username != current_user.username:
+        if username != request.user.username:
             return HttpResponseRedirect(request.path)
 
         # updated avatar
-        if request.FILES['avatar']:
+        try:
+            request.FILES['avatar']
             self._update_user_avatar(user, request)
 
         # updated other info
-        else:
-            pass
+        except KeyError:
+            # todo: implement user profile form in forms.py
+            self._update_user_info(user, request)
 
         return HttpResponseRedirect(request.path)
 
@@ -103,4 +104,29 @@ class EditProfile(View):
         messages.success(
             request,
             "Your profile picture has successfully been updated."
+        )
+
+    def _update_user_info(self, user: User, request):
+        """
+        Helper function for updating user information
+        """
+        form = forms.EditProfileForm(request.POST)
+        # check if entered password matches current password
+        if not authenticate(
+                username=user.username,
+                password=form.fields['current_password']
+        ):
+            # if incorrect password
+            form.add_error('current_password', "You have provided an incorrect password")
+            return render_to_response(
+                request.path,
+                {'form': form}
+            )
+
+        # else save
+        user.save()
+
+        messages.success(
+            request,
+            "Your profile information has successfully been updated."
         )
