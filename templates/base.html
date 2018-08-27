@@ -30,7 +30,7 @@
     <header>
         <div class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 0px">
             <div class="container">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="/">techpalmy</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -41,32 +41,27 @@
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
+                            <a class="nav-link" href="/consultants/">Consultants</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link" href="#">Companies</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link" href="#">Groups</a>
+						</li>
                     </ul>
                     <div class="col-sm-3">
-                        <div class="input-group">
-                            <input style="width:20%" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary " type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
+						<form method="get" action="/consultants/">
+							{% csrf_token %}
+							<div class="input-group">
+								<input style="width:20%" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" name="search">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary " type="submit">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
 
                     </div>
                     <ul class="navbar-nav ">
