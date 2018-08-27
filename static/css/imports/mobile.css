@@ -1,25 +1,5 @@
 @media only screen and (orientation: landscape) and (max-width: 767px) {
-    #login-form {
-        width: 60%;
-        margin: 0 20%;
-        text-align: center;
-        margin-top: 3%;
-    }
 
-    .navbar-nav {
-        float: none;
-        margin: 0 35%;
-        display: block;
-        text-align: center;
-        padding: 0;
-        top: 0;
-        left: 0;
-        width: 30%;
-    }
-
-    .nav-item {
-        margin: 0 4%;
-    }
 
     #foot {
         clear: both;
@@ -35,27 +15,6 @@
 }
 
 @media only screen and (orientation: landscape) and (min-width: 768px) and (max-width: 960px) {
-    #login-form {
-        width: 40%;
-        margin: 0 30%;
-        text-align: center;
-        margin-top: 3%;
-    }
-
-    .navbar-nav {
-        float: none;
-        margin: 0 35%;
-        display: block;
-        text-align: center;
-        padding: 0;
-        top: 0;
-        left: 0;
-        width: 30%;
-    }
-
-    .nav-item {
-        margin: 0 5%;
-    }
 
     #foot {
         clear: both;
@@ -71,12 +30,6 @@
 }
 
 @media only screen and (orientation: landscape) and (min-width: 961px) {
-    #login-form {
-        width: 30%;
-        margin: 0 35%;
-        text-align: center;
-        margin-top: 3%;
-    }
 
     #foot {
         clear: both;
@@ -89,33 +42,6 @@
 
 
 @media only screen and (orientation: portrait) and (max-height: 600px) {
-    #login-form {
-        width: 80%;
-        margin-left: 10%;
-        margin-right: 10%;
-        text-align: center;
-        margin-top: 10%;
-    }
-
-    .navbar-nav {
-        float: none;
-        margin: 0 35%;
-        display: block;
-        text-align: center;
-        padding: 0;
-        top: 0;
-        left: 0;
-        width: 30%;
-    }
-
-    .nav-item {
-        margin: 0 5%;
-        width: 100%;
-    }
-
-    section {
-        min-height: 600px;
-    }
 
     #foot {
         position: relative;
@@ -127,32 +53,6 @@
 }
 
 @media only screen and (orientation: portrait) and (min-height: 601px) and (max-height: 900px) {
-    #login-form {
-        width: 90%;
-        margin: 0 5%;
-        text-align: center;
-        margin-top: 20%;
-    }
-
-    .navbar-nav {
-        float: none;
-        margin: 0 35%;
-        display: block;
-        text-align: center;
-        padding: 0;
-        top: 0;
-        left: 0;
-        width: 30%;
-    }
-
-    .nav-item {
-        margin: 0 5%;
-    }
-
-    section {
-        min-height: 600px;
-        max-height: 800px;
-    }
 
     #foot {
         position: absolute;
@@ -163,32 +63,6 @@
 }
 
 @media only screen and (orientation: portrait) and (min-height: 901px) {
-    #login-form {
-        width: 40%;
-        margin: 0 30%;
-        text-align: center;
-        margin-top: 20%;
-    }
-
-    .navbar-nav {
-        float: none;
-        margin: 0 30%;
-        display: block;
-        text-align: center;
-        padding: 0;
-        top: 0;
-        left: 0;
-        width: 30%;
-    }
-
-    .nav-item {
-        margin: 0 5%;
-    }
-
-    section {
-        min-height: 900px;
-        max-height: 1400px;
-    }
 
     #foot {
         position: absolute;

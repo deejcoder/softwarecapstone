@@ -1,24 +1,48 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+{% endblock %}
+
 {% block content %}
 {% if next %}
-  <p>Please login to see this page.</p>
+<p>Please login to see this page.</p>
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-    {# Use built-in XSS protection. Important: use this for ONLY internal sites. #}
-    {% csrf_token %}
-    <div>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-    </div>
-    <div>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-    </div>
+<div class="container" id="content-container">
+    <div class="container col-md-8" id="login-form">
+        <h2 class="text-center">Login</h2>
+        <br />
+        <form method="post" action="{% url 'login' %}">
+            {# Use built-in XSS protection. Important: use this for ONLY internal sites. #}
+            {% csrf_token %}
+            <div class="form-group">
+                <!--<td>{{ form.username.label_tag }}</td>-->
+                <input type="{{form.username.field.widget.input_type}}"
+                       class="form-control {% if form.username.errors %}} is-invalid {% endif %}"
+                       id="{{form.username.id_for_form}}"
+                       name="{{form.username.html_name}}"
+                       placeholder="Username" />
+                      
+                <div class='invalid-feedback'>{{form.username.errors}}</div>
+            </div>
+            <div class="form-group">
+                <!--<td>{{ form.password.label_tag }}</td>-->
+                <input type="{{form.password.field.widget.input_type}}"
+                       class="form-control {% if form.password.errors %}} is-invalid {% endif %}"
+                       id="{{form.password.id_for_form}}"
+                       name="{{form.password.html_name}}"
+                       placeholder="Password" />
+                       
+                <div class='invalid-feedback'>{{form.password.errors}}</div>
+            </div>
 
-    <div>
-        <input type="submit" value="login" />
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-dark" value="login">Login</button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 {% endblock %}
