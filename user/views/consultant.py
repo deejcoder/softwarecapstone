@@ -4,11 +4,11 @@ consultants.
 """
 
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.views import View
 
-from ..models import Consultant
 from .. import forms
+from ..models import Consultant
 
 
 class Listing(View):

@@ -75,6 +75,15 @@ class User(AbstractUser):
             search=search_query
         )
 
+    def is_consultant(self) -> bool:
+        """
+        Checks if a user is a consultant
+        """
+        if hasattr(self, 'consultant'):
+            return True
+        else:
+            return False
+
 
 class Consultant(models.Model):
     """

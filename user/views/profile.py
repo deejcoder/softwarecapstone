@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -19,15 +19,22 @@ User = get_user_model()
 
 class Profile(View):
     """
-    Allows someone to view their own or someone elses
-    profile.
+    Allows someone to view a consultant's profile.
+    This can later be extended for users when they
+    actually have more functionality.
     """
 
     def get(self, request, username):
+        """
+        Allows a user to view a profile
+        """
 
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        if not user.is_consultant():
             return HttpResponseNotFound()
 
         return render(request, 'user/profile/profile.html', {

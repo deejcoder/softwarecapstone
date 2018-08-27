@@ -1,8 +1,9 @@
 """
 Forms belonging to users or consultants.
 """
-from django.forms import ModelForm
 from django import forms
+from django.forms import ModelForm
+
 from .models import Consultant, User
 
 
