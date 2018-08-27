@@ -14,7 +14,6 @@ class ConsultantApplicationForm(ModelForm):
     class Meta:
         model = Consultant
         fields = (
-            'certifications',
             'services_offered',
             'current_occupation',
             'work_phone',
