@@ -17,10 +17,19 @@ html, body {
     position: relative;
 }
 
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+#document-container {
+    padding-bottom:50px;
+}
 .footer {
     position: absolute;
-    bottom: 0;
     width: 100%;
+    bottom: 0;
+    left: 0;
     /* Set the fixed height of the footer here */
     min-height: 40px;
 }
