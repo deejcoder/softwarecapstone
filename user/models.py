@@ -75,11 +75,6 @@ class User(AbstractUser):
             search=search_query
         )
 
-"""
-Certifications is probably another field that should be added to the consultants model. (<-- multivaluefield?)
-Area of expertise doesn't need to be a text-field - a char-field will suffice for now.
-Services_offered can potentially expand on area_of_expertise.
-"""
 
 class Consultant(models.Model):
     """
@@ -90,7 +85,6 @@ class Consultant(models.Model):
         User,
         on_delete=models.CASCADE
     )
-    certifications = models.TextField(max_length=120)
     services_offered = models.TextField(max_length=300)
     current_occupation = models.CharField(max_length=120, default=None)
     work_phone = models.CharField(max_length=14, null=True, default=None)
