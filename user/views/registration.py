@@ -52,7 +52,10 @@ class Register(View):
 
         # if form has errors
         else:
+            print("A message in there")
             return render_to_response(
                 'registration/register.html',
-                {'form': form}
+                {'form': form,
+				'user' : request.user
+            }
             )

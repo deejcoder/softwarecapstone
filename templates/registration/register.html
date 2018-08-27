@@ -9,46 +9,71 @@
 <div class="container" id="content-container">
     <div class="container col-md-8" id="signup-form">
         <h2 class="text-center">Create your account</h2>
+        <br />
         <form method="post">
             {% csrf_token %}
-            <table>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="{{form.first_name.id_for_label}}">{{form.first_name.label}}</label>
-                        <input type="{{form.first_name.field.widget.input_type}}"
-                               class="form-control {% if field.errors %}} is-invalid {% endif %}"
-                               id="{{form.first_name.id_for_form}}"
-                               name="{{form.first_name.html_name}}"
-                               placeholder="First Name">
-                        <div class='invalid-feedback'>{{field.errors}}</div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{field.id_for_label}}">{{field.label}}</label>
-                        <input type="{{ field.field.widget.input_type }}"
-                               class="form-control {% if field.errors %}} is-invalid {% endif %}"
-                               id="{{field.id_for_form}}"
-                               name="{{field.html_name}}" />
-                        <div class='invalid-feedback'>{{field.errors}}</div>
-                    </div>
+            <div class="form-group">
+                <!--<label for="{{form.username.id_for_label}}">{{form.username.label}}</label>-->
+                <input type="{{form.username.field.widget.input_type}}"
+                       class="form-control {% if form.username.errors %}} is-invalid {% endif %}"
+                       id="{{form.username.id_for_form}}"
+                       name="{{form.username.html_name}}"
+                       placeholder="Username">
+                <small id="fname_help" class="form-text text-muted">Your username must be unique.</small>
+                <div class='invalid-feedback'>{{form.username.errors}}</div>
+            </div>
+            <hr />
 
 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <!--<label for="{{form.first_name.id_for_label}}">{{form.first_name.label}}</label>-->
+                    <input type="{{form.first_name.field.widget.input_type}}"
+                           class="form-control {% if form.first_name.errors %}} is-invalid {% endif %}"
+                           id="{{form.first_name.id_for_form}}"
+                           name="{{form.first_name.html_name}}"
+                           placeholder="First Name">
+                    <div class='invalid-feedback'>{{form.first_name.errors}}</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <!--<label for="{{form.last_name.id_for_label}}">{{form.last_name.label}}</label>-->
+                    <input type="{{form.last_name.field.widget.input_type}}"
+                           class="form-control {% if form.last_name.errors %}} is-invalid {% endif %}"
+                           id="{{form.last_name.id_for_form}}"
+                           name="{{form.last_name.html_name}}"
+                           placeholder="Last Name">
+                    <div class='invalid-feedback'>{{form.last_name.errors}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <!--<label for="{{form.email.id_for_label}}">{{form.email.label}}</label>-->
+                <input type="{{form.email.field.widget.input_type}}"
+                       class="form-control {% if form.email.errors %}} is-invalid {% endif %}"
+                       id="{{form.email.id_for_form}}"
+                       name="{{form.email.html_name}}"
+                       placeholder="Email">
+                <div class='invalid-feedback'>{{form.email.errors}}</div>
+            </div>
+            <div class="form-group">
+                <!--<label for="{{form.password.id_for_label}}">{{form.password.label}}</label>-->
+                <input type="{{form.password.field.widget.input_type}}"
+                       class="form-control {% if form.password.errors %}} is-invalid {% endif %}"
+                       id="{{form.password.id_for_form}}"
+                       name="{{form.password.html_name}}"
+                       placeholder="Password">
+                <div class='invalid-feedback'>{{form.password.errors}}</div>
+            </div>
+            <div class="form-group">
+                <!--<label for="{{form.confirm_password.id_for_label}}">{{form.confirm_password.label}}</label>-->
+                <input type="{{form.confirm_password.field.widget.input_type}}"
+                       class="form-control {% if form.confirm_password.errors %}} is-invalid {% endif %}"
+                       id="{{form.confirm_password.id_for_form}}"
+                       name="{{form.confirm_password.html_name}}"
+                       placeholder="Confirm Password">
+                <div class='invalid-feedback'>{{form.confirm_password.errors}}</div>
+            </div>
 
-                    <div class="form-group">
-                        <label for="{{field.id_for_label}}">{{field.label}}</label>
-                        <input type="{{ field.field.widget.input_type }}"
-                               class="form-control {% if field.errors %}} is-invalid {% endif %}"
-                               id="{{field.id_for_form}}"
-                               name="{{field.html_name}}" />
-                        <div class='invalid-feedback'>{{field.errors}}</div>
-                    </div>
-
-            </table>
             <hr />
             <div class="text-center">
                 <button type="submit" class="btn btn-outline-dark" value="Submit">Register</button>
