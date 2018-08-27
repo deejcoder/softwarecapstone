@@ -30,7 +30,6 @@ class ConsultantTestCase(TestCase):
         # link new consultant to user: erei
         Consultant.objects.create(
             user=user,
-            area_of_expertise="Computer Engineering",
             services_offered="""
                 We offer great computer repairs, advice and our
                 Linux experts can help you with any Linux problems
