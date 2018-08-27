@@ -152,17 +152,14 @@ class EditProfile(View):
                         kwargs={'username': user.username}
                     )
                 )
-
-        dic = {
-            'user': request.user,
-            'user_form': user_form,
-        }
-        if consult_form:
-            dic['consult_form'] = consult_form
  
         return render(
             request,
             'user/profile/edit_profile.html',
-            dic
+            {
+                'user': request.user,
+                'user_form': user_form,
+                'consult_form': consult_form,
+            }
         )
 
