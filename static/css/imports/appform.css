@@ -14,7 +14,7 @@
 
 .post-form {
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 #id_area_of_expertise, #id_work_phone, #id_website {
