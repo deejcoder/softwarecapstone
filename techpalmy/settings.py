@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'user',
+    'event',
+    'company',
     'django_cleanup',  # always have django_cleanup at the bottom
 ]
 
