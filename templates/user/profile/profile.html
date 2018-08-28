@@ -26,6 +26,8 @@
                 {% endif %}
                 {% if viewing.is_consultant %}
                 <span class="badge badge-secondary">Consultant</span>
+                <div>{{ viewing.consultant.current_occupation }}</div>
+                <div><a href="#">{{ viewing.consultant.website }}</a></div>
                 {% endif %}
                 <br>
 
@@ -35,6 +37,20 @@
         <!-- Edit profile information -->
 
         <div class="container col-md-8" id="profile-info">
+            {% if viewing.is_consultant %}
+                <h5>Services offered</h5>
+                <hr>
+                <div>{{ viewing.consultant.services_offered }}</div><br />
+                <h5>Area of expertise</h5>
+                <hr>
+                <div>
+                    Posuere dapibus suspendisse tincidunt tempus commodo mollis vehicula volutpat mattis vulputate lorem, tincidunt tortor turpis condimentum nisl odio taciti consectetur consequat turpis habitant, hendrerit ut pharetra habitant faucibus viverra curabitur massa leo consectetur.
+                </div>
+            {% else %}
+                <h5>Bio</h5>
+                <hr>
+                <div>{{ viewing.bio }}</div>
+            {% endif %}
         </div>
 
     </div>
