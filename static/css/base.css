@@ -2,7 +2,6 @@
 @import "imports/search.css";
 @import "imports/appform.css";
 @import "imports/nightmode.css";
-
 @import "imports/slider.css";
 
 html, body {
@@ -25,6 +24,7 @@ html, body {
 #document-container {
     padding-bottom:50px;
 }
+
 .footer {
     position: absolute;
     width: 100%;
@@ -32,4 +32,5 @@ html, body {
     left: 0;
     /* Set the fixed height of the footer here */
     min-height: 40px;
+    transform: translateY(150%);
 }
