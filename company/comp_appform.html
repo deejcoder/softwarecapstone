@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="comp_app">
+    <form class="post-form" method="post">
+        <fieldset>
+            {% for i in list %}
+            <label for="{{i}}">{{ i }}</label>
+            <input name="{{i}}" type="text">
+            {% endfor %}
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}
