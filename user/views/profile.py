@@ -37,7 +37,7 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        return render(request, 'user/profile/profile.html', {
+        return render(request, 'profile/profile.html', {
             'viewing': user,
             'user': request.user,
             'is_owner': user == request.user
@@ -64,7 +64,7 @@ class EditProfile(View):
 
         user_form = forms.EditProfileForm()
         consult_form = forms.EditConsultantForm()
-        return render(request, 'user/profile/edit_profile.html', {
+        return render(request, 'profile/edit_profile.html', {
             'user': user,
             'is_owner': user == request.user,
             'user_form': user_form,
@@ -155,7 +155,7 @@ class EditProfile(View):
  
         return render(
             request,
-            'user/profile/edit_profile.html',
+            'profile/edit_profile.html',
             {
                 'user': request.user,
                 'user_form': user_form,

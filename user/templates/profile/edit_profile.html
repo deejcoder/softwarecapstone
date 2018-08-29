@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'user/profile/css/profile.css' %}" />
-    <link rel="stylesheet" href="{% static 'user/profile/css/owner_profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}" />
 
-    <script src="{% static 'user/profile/js/profile_card.js' %}"></script> 
+    <script src="{% static 'js/profile_card.js' %}"></script> 
 
 {% endblock %}
 {% block content %}
@@ -19,7 +19,7 @@
                     {% csrf_token %}
                     <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
                     <div id="imageContainer" style="background-image:url('{{ user.avatar_url }}')">
-                        <img src="{% static 'user/profile/avatarLens.png' %}" id="avatar" class="center-block">
+                        <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
                     </div>
                 </form>
             </div>

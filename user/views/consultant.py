@@ -40,7 +40,7 @@ class Listing(View):
 
         return render(
             request,
-            'user/consultant/consultants.html', 
+            'consultant/consultants.html', 
             {'consultants': show_consultants}
         )
 
@@ -54,7 +54,7 @@ class Apply(View):
         User wants to apply
         """
         form = forms.ConsultantApplicationForm()
-        return render(request, 'user/consultant/apply.html', {'form': form})
+        return render(request, 'consultant/apply.html', {'form': form})
 
     def post(self, request):
         """
