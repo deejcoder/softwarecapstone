@@ -17,12 +17,12 @@
     overflow-y: scroll;
 }
 
-#id_area_of_expertise, #id_work_phone, #id_website {
+#id_area_of_expertise, #id_work_phone, #id_website, #comp_app input[type='text'] {
     width: 70%;
     float: right;
 }
 
-#application {
+#application, #comp_app {
     width: 60%;
     margin: 0 20%;
     margin-top: 1%;
