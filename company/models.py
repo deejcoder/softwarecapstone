@@ -92,19 +92,19 @@ class CompanyMembers(models.Model):
         # add a unique constraint for company & user
         unique_together = ('company', 'user')
 
-    @staticmethod
-    def is_administrator(user: User, company: Company) -> bool:
+    @classmethod
+    def is_administrator(cls, user: User, company: Company) -> bool:
         """
         :param user: the user to check
         :param company: the company the user belongs to
         :return: True if the user is administrator+ else False
         """
-        member = CompanyMembers.objects.filter(
+        member = cls.objects.filter(
             user=user,
             company=company
         )[0]
 
-        if member.role in [CompanyMembers.Roles.OWNER, CompanyMembers.Roles.ADMIN]:
+        if member.role in [cls.Roles.OWNER, cls.Roles.ADMIN]:
             return True
         return False
 
