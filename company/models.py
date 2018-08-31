@@ -7,7 +7,6 @@ from user.models import User
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 from PIL import Image
-from modeltools.enums import Enum
 
 
 def _upload_company_avatar(instance, filename):
@@ -26,13 +25,13 @@ class Company(models.Model):
     TODO: add regular expressions to restrict input
     """
 
-    company_name = models.CharField(max_length=80)
-    company_avatar = models.ImageField(
+    name = models.CharField(max_length=80)
+    avatar = models.ImageField(
         upload_to=_upload_company_avatar,
         default=None,
         null=True
     )
-    company_size = models.DecimalField(max_digits=5, decimal_places=0)
+    size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30)
     specialist_area = models.CharField(max_length=30)
     contact_phone = models.CharField(max_length=15)
@@ -48,12 +47,12 @@ class Company(models.Model):
         """
         super(Company, self).save()
 
-        if not self.company_avatar:
+        if not self.avatar:
             return
         
-        image = Image.open(self.company_avatar.path)
+        image = Image.open(self.avatar.path)
         image.thumbnail((200, 200), Image.ANTIALIAS)
-        image.save(self.company_avatar.path)
+        image.save(self.avatar.path)
 
     @staticmethod
     def search_companies(term: str) -> []:
@@ -76,25 +75,32 @@ class CompanyMembers(models.Model):
     """
     A company has many members (users) with different permissions (roles).
     """
-    Roles = Enum(
-        MEMBER=('member', 'Member'),
-        ADMIN=('admin', 'Administrator'),
-        OWNER=('owner', 'Owner')
-    )
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(
-        max_length=30,
-        choices=Roles.choices()
+    # permission roles
+    class Roles:
+        MEMBER = 'member'
+        EDITOR = 'editor'
+        OWNER = 'owner'
+
+    PERMISSION_ROLES = (
+        (Roles.MEMBER, 'Member'),
+        (Roles.EDITOR, 'Editor'),
+        (Roles.OWNER, 'Owner'),
     )
 
+    # fields
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    role = models.CharField(max_length=30, choices=PERMISSION_ROLES)
+
     class Meta:
-        # add a unique constraint for company & user
         unique_together = ('company', 'user')
 
     @classmethod
-    def is_administrator(cls, user: User, company: Company) -> bool:
+    def is_editor(cls, user: User, company: Company) -> bool:
         """
+        An editor is an EDITOR or an OWNER.
+        An editor can edit a company.
         :param user: the user to check
         :param company: the company the user belongs to
         :return: True if the user is administrator+ else False
@@ -104,42 +110,18 @@ class CompanyMembers(models.Model):
             company=company
         )[0]
 
-        if member.role in [cls.Roles.OWNER, cls.Roles.ADMIN]:
+        if member.role in [cls.Roles.EDITOR, cls.Roles.OWNER]:
             return True
         return False
 
-
     @classmethod
-    def get_members(cls) -> []:
+    def get_members(cls, role: Roles) -> []:
         """
+        :param role: Get members with the specific role
         :return: a list of Members (users)
         """
         member_ids = cls.objects.filter(
-            role=cls.Roles.MEMBER
+            role=role
         ).values_list('user', flat=True)
         return \
             User.objects.filter(id__in=member_ids)
-
-    @classmethod
-    def get_administrators(cls) -> []:
-        """
-        :return: a list of administrators (Users)
-        """
-
-        admin_ids = cls.objects.filter(
-            role=cls.Roles.ADMIN
-        ).values_list('user', flat=True)
-        return \
-            User.objects.filter(id__in=admin_ids)
-
-    @classmethod
-    def get_owners(cls) -> []:
-        """
-        :return: a list of owners (Users)
-        """
-
-        owner_ids = cls.objects.filter(
-                role=cls.Roles.OWNER
-            ).values_list('user', flat=True)
-        return \
-            User.objects.filter(id__in=owner_ids)
