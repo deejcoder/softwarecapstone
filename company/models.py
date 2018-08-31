@@ -16,7 +16,7 @@ def _upload_company_avatar(instance, filename):
     """
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
-    return "users/%s/%s" % (instance.id, filename)
+    return "companies/%s/%s" % (instance.id, filename)
 
 
 class Company(models.Model):
@@ -92,10 +92,11 @@ class CompanyMembers(models.Model):
         """
         :return: a list of Members (users)
         """
+        member_ids = CompanyMembers.objects.filter(
+            role='member'
+        ).values_list('user', flat=True)
         return \
-            Company.objects.filter(
-                'role=member'
-            ).values_list('user', flat=True)
+            User.objects.filter(id__in=member_ids)
 
     @staticmethod
     def get_administrators() -> []:
@@ -103,10 +104,11 @@ class CompanyMembers(models.Model):
         :return: a list of administrators (Users)
         """
 
+        admin_ids = CompanyMembers.objects.filter(
+            role='administrator'
+        ).values_list('user', flat=True)
         return \
-            Company.objects.filter(
-                'role=administrator'
-            ).values_list('user', flat=True)
+            User.objects.filter(id__in=admin_ids)
 
     @staticmethod
     def get_owners() -> []:
@@ -114,8 +116,9 @@ class CompanyMembers(models.Model):
         :return: a list of owners (Users)
         """
 
-        return \
-            Company.objects.filter(
-                'role=owner'
+        owner_ids = CompanyMembers.objects.filter(
+                role='owner'
             ).values_list('user', flat=True)
+        return \
+            User.objects.filter(id__in=owner_ids)
 
