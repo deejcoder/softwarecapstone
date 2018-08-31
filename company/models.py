@@ -7,6 +7,7 @@ from user.models import User
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 from PIL import Image
+from modeltools.enums import Enum
 
 
 def _upload_company_avatar(instance, filename):
@@ -75,50 +76,70 @@ class CompanyMembers(models.Model):
     """
     A company has many members (users) with different permissions (roles).
     """
-
+    Roles = Enum(
+        MEMBER=('member', 'Member'),
+        ADMIN=('admin', 'Administrator'),
+        OWNER=('owner', 'Owner')
+    )
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    # there may be multiple owners
-    ROLE_CHOICES = (
-        ("member", "Member"),
-        ("administrator", "Administrator"),
-        ("owner", "Owner")
+    role = models.CharField(
+        max_length=30,
+        choices=Roles.choices()
     )
-    role = models.CharField(max_length=12, choices=ROLE_CHOICES)
+
+    class Meta:
+        # add a unique constraint for company & user
+        unique_together = ('company', 'user')
 
     @staticmethod
-    def get_members() -> []:
+    def is_administrator(user: User, company: Company) -> bool:
+        """
+        :param user: the user to check
+        :param company: the company the user belongs to
+        :return: True if the user is administrator+ else False
+        """
+        member = CompanyMembers.objects.filter(
+            user=user,
+            company=company
+        )[0]
+
+        if member.role in [CompanyMembers.Roles.OWNER, CompanyMembers.Roles.ADMIN]:
+            return True
+        return False
+
+
+    @classmethod
+    def get_members(cls) -> []:
         """
         :return: a list of Members (users)
         """
-        member_ids = CompanyMembers.objects.filter(
-            role='member'
+        member_ids = cls.objects.filter(
+            role=cls.Roles.MEMBER
         ).values_list('user', flat=True)
         return \
             User.objects.filter(id__in=member_ids)
 
-    @staticmethod
-    def get_administrators() -> []:
+    @classmethod
+    def get_administrators(cls) -> []:
         """
         :return: a list of administrators (Users)
         """
 
-        admin_ids = CompanyMembers.objects.filter(
-            role='administrator'
+        admin_ids = cls.objects.filter(
+            role=cls.Roles.ADMIN
         ).values_list('user', flat=True)
         return \
             User.objects.filter(id__in=admin_ids)
 
-    @staticmethod
-    def get_owners() -> []:
+    @classmethod
+    def get_owners(cls) -> []:
         """
         :return: a list of owners (Users)
         """
 
-        owner_ids = CompanyMembers.objects.filter(
-                role='owner'
+        owner_ids = cls.objects.filter(
+                role=cls.Roles.OWNER
             ).values_list('user', flat=True)
         return \
             User.objects.filter(id__in=owner_ids)
-

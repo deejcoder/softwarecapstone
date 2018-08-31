@@ -36,12 +36,12 @@ class CompanyModelTestCase(TestCase):
         CompanyMembers.objects.create(
             company=c,
             user=u,
-            role="owner"
+            role=CompanyMembers.Roles.ADMIN
         )
 
     def test_fetch_owners(self):
-        owners = CompanyMembers.get_owners()
+        admins = CompanyMembers.get_administrators()
+        company = Company.objects.get(company_name="Activision")
+        print(admins)
         # there must be only one owner
-        self.assertTrue(len(owners) == 1)
-        # by the name of Dylan Tonks
-        self.assertTrue(owners[0].full_name == "Dylan Tonks")
+        print(CompanyMembers.is_administrator(admins[0], company))
