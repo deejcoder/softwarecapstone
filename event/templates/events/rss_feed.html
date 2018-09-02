@@ -11,7 +11,34 @@
                     return tokens.title.indexOf('Palmerston') > -1
                 },
                 layoutTemplate: "<ul style='list-style:none;'>{entries}</ul>",
-                entryTemplate: "<li><a href='{url}'>{title}</a><br/><p  style='word-wrap:normal;'>{body}</p></li>",
+                entryTemplate: "<li class='event-item'><a href='{url}'>{newtitle}</a><br/>{desc}</li>",
+                tokens: {
+                    newtitle: function(entry, tokens) {return tokens.title.substring(2)},
+                    <!--This section can be cleaned up later, if need be-->
+                    <!--It took FOREVER to get right!-->
+                    desc: function(entry, tokens) {
+                        var s = tokens.body.toString();
+                        var wrapper = document.createElement('div');
+                        var desc_container = document.createElement('div');
+                        var date_container = document.createElement('div');
+                        wrapper.id = "item_wrap";
+                        desc_container.id = "desc_wrap";
+                        date_container.id = "date_wrap";
+                        var strongText = wrapper.getElementsByTagName("strong");
+                        var date_time = strongText[1];
+                        for (var i = strongText.length - 1; 0 <= i; i--) {
+                            wrapper.removeChild(strongText[i]);
+                        }
+                        var brs = wrapper.getElementsByTagName('br');
+                        while (brs.length) {
+                            brs[0].parentNode.removeChild(brs[0]);
+                        }
+                        desc_container.innerHTML = "<p>" + wrapper.innerText + "</p>";
+                        date_container.innerHTML = "<p>" + date_time.innerText + "</p>";
+                        wrapper.innerHTML = desc_container.outerHTML.toString() + date_container.outerHTML.toString();
+                        return wrapper.outerHTML;
+                    }
+                },
             })
         })
     </script>
