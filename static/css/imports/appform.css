@@ -17,7 +17,7 @@
     overflow-y: scroll;
 }
 
-#id_area_of_expertise, #id_work_phone, #id_website, #comp_app input[type='text'] {
+#id_area_of_expertise, #id_work_phone, #id_website {
     width: 70%;
     float: right;
 }
@@ -33,4 +33,18 @@
     border-radius: 15px;
     border: 1px solid black;
     box-shadow: 5px 5px 10px;
+}
+
+#comp_app input, select {
+    width: 50%;
+    float: right;
+}
+
+#comp_app label {
+    width: 40%;
+}
+
+#comp_app input[type='checkbox'] {
+    float: left;
+    width: 20%;
 }
