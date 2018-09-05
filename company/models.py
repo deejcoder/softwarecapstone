@@ -24,6 +24,21 @@ class Company(models.Model):
     A company can also have profile pictures (logos)
     TODO: add regular expressions to restrict input
     """
+   
+    # The commented-out fields are ones that I tweaked for the form - the new fields are underneath the original ones
+    # The industry and business choices variables can be changed whenever
+    INDUSTRY_CHOICES = (
+        ('primary', 'Primary'),
+        ('secondary', 'Secondary'),
+        ('tertiary', 'Tertiary')
+    )
+
+    BUSINESS_CHOICES = (
+        ('merc', 'Merchandising'),
+        ('manu', 'Manufacturing'),
+        ('serv', 'Services'),
+        ('hybrid', 'Hybrid')
+    )
 
     name = models.CharField(max_length=80)
     avatar = models.ImageField(
@@ -32,12 +47,16 @@ class Company(models.Model):
         null=True
     )
     size = models.DecimalField(max_digits=5, decimal_places=0)
-    industry = models.CharField(max_length=30)
+    # industry = models.CharField(max_length=30)
+    industry = models.CharField(max_length=30, choices=INDUSTRY_CHOICES, default='primary')
     specialist_area = models.CharField(max_length=30)
     contact_phone = models.CharField(max_length=15)
-    contact_email = models.CharField(max_length=20)
-    website = models.CharField(max_length=20)
-    type_of_business = models.CharField(max_length=25)
+    # contact_email = models.CharField(max_length=20)
+    contact_email = models.EmailField(max_length=20)
+    # website = models.CharField(max_length=20)
+    website = models.URLField(max_length=20)
+    # type_of_business = models.CharField(max_length=25)
+    type_of_business = models.CharField(max_length=25, choices=BUSINESS_CHOICES, default='serv')
     address = models.CharField(max_length=80)
     summer_students = models.BooleanField(default=False)
 
