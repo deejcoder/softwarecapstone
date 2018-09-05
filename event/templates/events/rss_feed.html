@@ -24,6 +24,7 @@
                         wrapper.id = "item_wrap";
                         desc_container.id = "desc_wrap";
                         date_container.id = "date_wrap";
+                        wrapper.innerHTML = s;
                         var strongText = wrapper.getElementsByTagName("strong");
                         var date_time = strongText[1];
                         for (var i = strongText.length - 1; 0 <= i; i--) {
@@ -35,7 +36,7 @@
                         }
                         desc_container.innerHTML = "<p>" + wrapper.innerText + "</p>";
                         date_container.innerHTML = "<p>" + date_time.innerText + "</p>";
-                        wrapper.innerHTML = desc_container.outerHTML.toString() + date_container.outerHTML.toString();
+                        wrapper.innerHTML = date_container.outerHTML.toString() + desc_container.outerHTML.toString();
                         return wrapper.outerHTML;
                     }
                 },
