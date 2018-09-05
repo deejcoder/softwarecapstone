@@ -4,34 +4,31 @@
 
 <div id="comp_app">
     <form class="post-form" method="post">
+        {% csrf_token %}
         <fieldset>
-            <label for="comp_size">No. of employees:</label>
-            <input name="comp_size" type="number" required>
-            <label for="comp_industry">Industry:</label>
-            <select name="comp_industry" required>
-                <option value="primary">Primary</option>
-                <option value="secondary">Secondary</option>
-                <option value="tertiary">Tertiary</option>
-            </select>
-            <label for="expert">Specialty:</label>
-            <input name="expert" type="text" required>
-            <label for="phone">Contact phone no.:</label>
-            <input name="phone" type="text" maxlength="13" required>
-            <label for="comp_email">Contact e-mail:</label>
-            <input name="comp_email" type="email" required>
-            <label for="website">Company website URL:</label>
-            <input name="website" type="text" required>
-            <label for="comp_type">Business type:</label>
-            <select name="comp_type" required>
-                <option value="service">Service</option>
-                <option value="merchant">Merchandising</option>
-                <option value="manu">Manufacturing</option>
-                <option value="hybrid">Hybrid</option>
-            </select>
-            <label for="address">Postal address:</label>
-            <input name="address" type="text" required>
-            <label for="summer_students">Do you provide jobs for summer students? (if yes, check)</label>
-            <input name="summer_students" type="checkbox" required>
+            <label for="{{form.name.name}}">Company name:</label>
+            {{form.name}}
+            <label for="{{form.address.name}}">Street address:</label>
+            {{form.address}}
+            <label for="{{form.contact_phone.name}}">{{form.contact_phone.label}}:</label>
+            {{form.contact_phone}}
+            <label for="{{form.contact_email.name}}">{{form.contact_email.label}}:</label>
+            {{form.contact_email}}
+            <label for="{{form.ird_no.name}}">IRD no.:</label>
+            {{form.ird_no}}
+        </fieldset>
+        <hr>
+        <fieldset>
+            <label for="{{form.type_of_business.name}}">{{form.type_of_business.label}}:</label>
+            {{form.type_of_business}}
+            <label for="{{form.industry.name}}">{{form.industry.label}}:</label>
+            {{form.industry}}
+            <label for="{{form.specialist_area.name}}">{{form.specialist_area.label}}:</label>
+            {{form.specialist_area}}
+            <label for="{{form.size.name}}">{{form.size.label}}:</label>
+            {{form.size}}
+            <label for="{{form.summer_students.name}}">Does your company employ students for summer work?</label>
+            {{form.summer_students}}
         </fieldset>
     </form>
 </div>
