@@ -1,0 +1,21 @@
+.event-item {
+    margin-top: 2%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 1px 5px;
+    box-shadow: 5px 5px 10px;
+    margin-bottom: 15px;
+}
+
+#desc_wrap {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#date_wrap {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.event-item a {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
