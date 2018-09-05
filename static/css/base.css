@@ -3,6 +3,7 @@
 @import "imports/appform.css";
 @import "imports/nightmode.css";
 @import "imports/slider.css";
+@import "imports/events.css";
 
 html, body {
     background-color: #e4ebf0;
