@@ -4,11 +4,43 @@ Forms belonging to users or consultants.
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth import authenticate, login
+import pickle
 
 from .models import Consultant, User
 
 
+# Can be removed without affecting the form
+class QualificationWidget(forms.widgets.MultiWidget):
+    def __init__(self, attrs=None):
+        widgets = [forms.TextInput(),
+                   forms.TextInput(),
+                   forms.TextInput()]
+        super(QualificationWidget, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return pickle.loads(value)
+        else:
+            return ['', '', '']
+
+
+class QualificationField(forms.fields.MultiValueField):
+    widget = QualificationWidget
+
+    def __init__(self, *args, **kwargs):
+        list_fields = [forms.fields.CharField(max_length=40),
+                       forms.fields.CharField(max_length=40),
+                       forms.fields.CharField(max_length=40)]
+        super(QualificationField, self).__init__(list_fields, *args, **kwargs)
+
+    def compress(self, values):
+        return pickle.dumps(values)
+
+
 class ConsultantApplicationForm(ModelForm):
+    certification = QualificationField()
+    certification.label = "Certification(s)"
+    
     """
     A form to allow users to apply to become
     a consultant.
