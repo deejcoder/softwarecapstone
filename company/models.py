@@ -58,7 +58,6 @@ class Company(models.Model):
     # type_of_business = models.CharField(max_length=25)
     type_of_business = models.CharField(max_length=25, choices=BUSINESS_CHOICES, default='serv')
     address = models.CharField(max_length=80)
-    ird_no = models.CharField(max_length=20)
     summer_students = models.BooleanField(default=False)
 
     def save(self, **kwargs):
@@ -145,3 +144,5 @@ class CompanyMembers(models.Model):
         ).values_list('user', flat=True)
         return \
             User.objects.filter(id__in=member_ids)
+
+        
