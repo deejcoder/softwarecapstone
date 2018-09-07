@@ -123,12 +123,11 @@ class Consultant(models.Model):
     )
 
     @classmethod
-    def search_consultants(cls, term: str, show_approved_only=True):
+    def search_consultants(cls, term: str, status=ApprovalStatus.Approved):
         """
         Searches consultants or shows all if `term` is None
         :param term: the search string
-        :param show_approved_only: True will only output consultants who have been
-        approved. False will show all consultants approved, pending or denied.
+        :param status: filter results by application status, None to show all.
         :return: list of consultants
         """
         if term is None:
@@ -148,8 +147,8 @@ class Consultant(models.Model):
                 search=search_query
             )
 
-        if show_approved_only:
-            return result.filter(status=cls.ApprovalStatus.Approved)
+        if status is not None:
+            return result.filter(status=status)
         else:
             return result
             
