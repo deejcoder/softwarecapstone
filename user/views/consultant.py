@@ -30,7 +30,7 @@ class Listing(View):
         # no
         except KeyError:
             # get all consultants
-            consultants = Consultant.objects.all()
+            consultants = Consultant.search_consultants(None)
 
         # divide consultants by five per page
         paginator = Paginator(consultants, 5)

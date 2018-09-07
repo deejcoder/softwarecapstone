@@ -8,6 +8,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
+from djchoices import ChoiceItem, DjangoChoices
 from PIL import Image
 
 
@@ -102,6 +103,11 @@ class Consultant(models.Model):
     Model: Consultant
     There is a one-to-one relationship with the User model.
     """
+    class ApprovalStatus(DjangoChoices):
+        Pending = ChoiceItem("pending")
+        Approved = ChoiceItem("approved")
+        Denied = ChoiceItem("denied")
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE
@@ -110,24 +116,40 @@ class Consultant(models.Model):
     current_occupation = models.CharField(max_length=120, default=None)
     work_phone = models.CharField(max_length=14, null=True, default=None)
     website = models.CharField(max_length=30, null=True, default=None)
-    status = models.CharField(max_length=20, default="Pending")
+    status = models.CharField(
+        max_length=20,
+        choices=ApprovalStatus.choices,
+        default=ApprovalStatus.Pending
+    )
 
-    @staticmethod
-    def search_consultants(term: str):
+    @classmethod
+    def search_consultants(cls, term: str, show_approved_only=True):
         """
-        Searches consultants
+        Searches consultants or shows all if `term` is None
         :param term: the search string
+        :param show_approved_only: True will only output consultants who have been
+        approved. False will show all consultants approved, pending or denied.
         :return: list of consultants
         """
-        search_query = SearchQuery(term)
-        search_vector = SearchVector('services_offered')
+        if term is None:
+            result = cls.objects.all()
+        
+        else:
+            search_query = SearchQuery(term)
+            search_vector = SearchVector('services_offered')
 
-        search_vector += SearchVector('user__username') \
-            + SearchVector('user__first_name') \
-            + SearchVector('user__last_name')
+            search_vector += SearchVector('user__username') \
+                + SearchVector('user__first_name') \
+                + SearchVector('user__last_name')
 
-        return Consultant.objects.annotate(
-            search=search_vector
-        ).filter(
-            search=search_query
-        )
+            result = cls.objects.annotate(
+                    search=search_vector
+            ).filter(
+                search=search_query
+            )
+
+        if show_approved_only:
+            return result.filter(status=cls.ApprovalStatus.Approved)
+        else:
+            return result
+            
