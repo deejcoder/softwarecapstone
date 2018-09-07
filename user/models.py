@@ -132,7 +132,7 @@ class Consultant(models.Model):
         """
         if term is None:
             result = cls.objects.all()
-        
+
         else:
             search_query = SearchQuery(term)
             search_vector = SearchVector('services_offered')
@@ -142,7 +142,7 @@ class Consultant(models.Model):
                 + SearchVector('user__last_name')
 
             result = cls.objects.annotate(
-                    search=search_vector
+                search=search_vector
             ).filter(
                 search=search_query
             )
@@ -151,4 +151,3 @@ class Consultant(models.Model):
             return result.filter(status=status)
         else:
             return result
-            
