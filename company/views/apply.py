@@ -1,17 +1,15 @@
-from django.shortcuts import render
-from .forms import CompanyApplicationForm
-
-# Create your views here.
-
-#Temp view for company application form template
-
-def company(request):
-    label_list = ["IRD number", "Company name", "Street address", "Postal address", "Contact details", "Website", ]
-    return render(request, 'company/comp_appform.html', {'list': label_list})
+"""
+Defines the views for handling company applications
+"""
+from django.shortcuts import redirect, render
+from django.views import View
+from ..forms import CompanyApplicationForm
 
 
 # Rough view for comp_appform.html
 class ApplyCompany(View):
+    """Application form"""
+    
     def get(self, request):
         """
         User wants to apply

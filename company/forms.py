@@ -1,13 +1,17 @@
-from django.forms import ModelForm
-from .models import Company
 import pickle
+
 from django import forms
+from django.forms import ModelForm
+
+from .models import Company
 
 
 class AddressWidget(forms.widgets.MultiWidget):
     def __init__(self, attrs=None):
-        widgets = [forms.TextInput(),
-                   forms.TextInput()]
+        widgets = [
+            forms.TextInput(),
+            forms.TextInput()
+        ]
         super(AddressWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -21,8 +25,10 @@ class AddressField(forms.fields.MultiValueField):
     widget = AddressWidget
 
     def __init__(self, *args, **kwargs):
-        list_fields = [forms.fields.CharField(max_length=40),
-                       forms.fields.CharField(max_length=40)]
+        list_fields = [
+            forms.fields.CharField(max_length=40),
+            forms.fields.CharField(max_length=40)
+        ]
         super(AddressField, self).__init__(list_fields, *args, **kwargs)
 
     def compress(self, values):
@@ -38,7 +44,7 @@ class CompanyApplicationForm(ModelForm):
 
         fields = [
             'name',
-            'ird_no',
+            # 'ird_no',
             'avatar',
             'contact_phone',
             'contact_email',
