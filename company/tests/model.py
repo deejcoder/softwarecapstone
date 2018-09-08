@@ -1,11 +1,12 @@
 """
 Tests the Company & CompanyMembers models
 """
+import datetime
 from user.models import User
 
 from django.test import TestCase
 
-from ..models import Company, CompanyMembers
+from ..models import Company, CompanyMembers, CompanyApplication
 
 
 class CompanyModelTestCase(TestCase):
@@ -61,3 +62,36 @@ class CompanyModelTestCase(TestCase):
         self.assertTrue(CompanyMembers.is_editor(editors[0], company))
         self.assertTrue(CompanyMembers.is_editor(editors[1], company))
 
+        # test company applications
+        self.assertEqual(
+            company.application.date_submitted,
+            datetime.date.today()
+        )
+
+        company.application.approve(
+            user=editors[0],
+            comment="A well made application, approved!"
+        )
+        self.assertEqual(
+            company.application.status,
+            CompanyApplication.StatusType.Approved
+        )
+
+        print("""
+            Company test successful. A single company was created,
+            company.name=%s
+            company.size=%d
+            total company editors: %d
+            editor #1: %s
+            editor #2: %s
+            A company application was also created with this company,
+            company.application.date_submitted=%s
+            company.application.date_approved=%s
+            company.application.approved_by=%s
+            company.application.comment=%s
+            """ % (
+                company.name, company.size, len(editors), editors[0], editors[1],
+                company.application.date_submitted, company.application.date_approved, company.application.approved_by,
+                company.application.comment
+            )
+        )

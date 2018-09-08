@@ -37,11 +37,6 @@ class Company(models.Model):
         Services = ChoiceItem('services')
         Hybrid = ChoiceItem('hybrid')
 
-    class StatusType(DjangoChoices):
-        Pending = ChoiceItem('pending')
-        Approved = ChoiceItem('approved')
-        Denied = ChoiceItem('denied')
-
     # FIELDS
     name = models.CharField(max_length=80)
     avatar = models.ImageField(
@@ -66,11 +61,6 @@ class Company(models.Model):
     )
     address = models.CharField(max_length=80)
     summer_students = models.BooleanField(default=False)
-    status = models.CharField(
-        max_length=20,
-        choices=StatusType.choices,
-        default=StatusType.Pending
-    )
 
     # METHODS
     def save(self, **kwargs):
