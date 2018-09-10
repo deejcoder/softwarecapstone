@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head %}
+<script src="{% static 'js/profile_card.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!--The avatar banner is a placeholder-->
+<div class="container" id="content-container">
+    <div class="row">
+        <div class="col-md-x">
+            <div class="media">
+                <form id="avatar_form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" id="upload_company_avatar" name="avatar" style='display:none;'>
+                    <div id="imageContainer">
+                        <img src="{% static 'images/purple_dragons.jpg' %}" id="avatar" class="center-block">
+                    </div>
+                </form>
+            </div>
+            <div id="banner">
+                <h4>Purple Dragons</h4>
+                <span class="badge badge-secondary">Company</span>
+            </div>
+        </div>
+        <div class="container col-md-8" id="profile-info">
+            <!---->
+            <form method="post">
+                {% with form.name as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="name">Company Name:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.address as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="address">Postal address:</label>
+                    <div class="col-lg-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.contact_phone as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="phone">Phone no.:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.contact_email as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="email">Business e-mail:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.website as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="website">Website:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.size as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="size">No. of employees:</label>
+                    <div class="col-sm-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.type_of_business as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="size">Business model:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.industry as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="industry">Industry:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.specialist_area as field %}
+                <div class="form-group">
+                    <label for="specialist_area">Specialist area:</label>
+                    {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                {% with form.summer_students as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="summer_students">Does your business employ students during the summer?</label>
+                    <div class="col-sm-8">
+                        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+                <input class="btn btn-info col-md-6 center-block" type="submit" value="Submit changes">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
