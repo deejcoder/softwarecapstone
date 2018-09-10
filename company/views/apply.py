@@ -6,6 +6,12 @@ from django.views import View
 from ..forms import CompanyApplicationForm
 
 
+# Temporary view for editing company profile
+def edit_comp(request):
+    dummy_form = CompanyApplicationForm()
+    return render(request, 'company/edit_comp_profile.html', {'form':dummy_form})
+
+
 # Rough view for comp_appform.html
 class ApplyCompany(View):
     """Application form"""
