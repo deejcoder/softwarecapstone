@@ -3,3 +3,4 @@ Pillow==5.2.0
 django_cleanup
 psycopg2
 django-choices
+django-widget-tweaks
