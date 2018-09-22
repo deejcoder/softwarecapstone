@@ -39,28 +39,28 @@ class CompanyModelTestCase(TestCase):
             first_name="Master",
             last_name="Chief"
         )
-        CompanyMembers.objects.create(
+        Member.objects.create(
             company=c,
             user=u1,
-            role=CompanyMembers.Roles.EDITOR
+            role=Member.Roles.EDITOR
         )
-        CompanyMembers.objects.create(
+        Member.objects.create(
             company=c,
             user=u2,
-            role=CompanyMembers.Roles.OWNER
+            role=Member.Roles.OWNER
         )
 
     def test_editors(self):
         # get editors & owners
-        editors = CompanyMembers.get_members(CompanyMembers.Roles.EDITOR) | \
-            CompanyMembers.get_members(CompanyMembers.Roles.OWNER)
+        editors = Member.get_members(Member.Roles.EDITOR) | \
+            Member.get_members(Member.Roles.OWNER)
         company = Company.objects.get(name="Activision")
 
         # there are two editors (1 owner, 1 editor)
         self.assertTrue(len(editors) == 2)
         # the users are editors
-        self.assertTrue(CompanyMembers.is_editor(editors[0], company))
-        self.assertTrue(CompanyMembers.is_editor(editors[1], company))
+        self.assertTrue(Member.is_editor(editors[0], company))
+        self.assertTrue(Member.is_editor(editors[1], company))
 
         # test company applications
         self.assertEqual(
