@@ -6,7 +6,7 @@ from user.models import User
 
 from django.test import TestCase
 
-from ..models import Company, CompanyMembers, CompanyApplication
+from ..models import Company, Member, CompanyApplication
 
 
 class CompanyModelTestCase(TestCase):
