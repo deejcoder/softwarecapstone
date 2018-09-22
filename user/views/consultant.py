@@ -24,7 +24,7 @@ class Listing(View):
 
         # search? yes
         try:
-            search_term = request.GET['search']
+            search_term = request.GET.get('search')
             consultants = Consultant.search_consultants(search_term)
 
         # no

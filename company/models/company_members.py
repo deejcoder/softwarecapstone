@@ -9,7 +9,7 @@ from djchoices import ChoiceItem, DjangoChoices
 from ..models import Company
 
 
-class CompanyMembers(models.Model):
+class Member(models.Model):
     """
     A company has many members (users) with different permissions (roles).
     """
@@ -21,7 +21,7 @@ class CompanyMembers(models.Model):
 
     # fields
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='members')
     role = models.CharField(max_length=30, choices=Roles.choices)
 
     class Meta:

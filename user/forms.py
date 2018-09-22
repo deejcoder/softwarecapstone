@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login
 import pickle
 
 from .models import Consultant, User
+from django.conf import settings
+from captcha.fields import ReCaptchaField
 
 
 # Can be removed without affecting the form
@@ -114,6 +116,7 @@ class UserRegistrationForm(ModelForm):
     """
 
     confirm_password = forms.CharField(widget=forms.PasswordInput)
+    captcha = ReCaptchaField()
 
     class Meta:
         model = User

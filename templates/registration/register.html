@@ -3,16 +3,16 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 
 {% block content %}
 <div class="container" id="content-container">
     <div class="container col-md-8" id="signup-form">
-        <h2 class="text-center">Create your account</h2>
+        <h4 class="text-center">Create your account</h4>
         <br />
         <form method="post">
             {% csrf_token %}
-
             <div class="form-group">
                 <!--<label for="{{form.username.id_for_label}}">{{form.username.label}}</label>-->
                 <input type="{{form.username.field.widget.input_type}}"
@@ -74,9 +74,10 @@
                 <div class='invalid-feedback'>{{form.confirm_password.errors}}</div>
             </div>
 
-            <hr />
+            {{ form.captcha }}
+
             <div class="text-center">
-                <button type="submit" class="btn btn-outline-dark" value="Submit">Register</button>
+                <button type="submit" id="form-submit" class="btn btn-primary btn-sm" value="Submit">Register</button>
             </div>
         </form>
     </div>

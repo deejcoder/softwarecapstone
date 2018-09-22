@@ -1,0 +1,9 @@
+{% for company in companies %}
+{{ company.name }}
+
+<ul>
+{% for member in company.member_set.all %}
+    <li><b>{{ member.role|title }}</b> {{ member.user.full_name}}</li>
+{% endfor %}
+</ul>
+{% endfor %}

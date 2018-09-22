@@ -4,3 +4,4 @@ django_cleanup
 psycopg2
 django-choices
 django-widget-tweaks
+django-recaptcha

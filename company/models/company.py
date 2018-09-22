@@ -77,17 +77,26 @@ class Company(models.Model):
         image.save(self.avatar.path)
 
     @classmethod
-    def search_companies(cls, term: str) -> []:
+    def search_companies(cls, term: str):
         """
-        Search all companies
+        Searches companies or shows all if `term` is None
+        :param term: the search string
         :return: list of companies
         """
-        search_query = SearchQuery(term)
-        search_vector = SearchVector('company_name') \
-            + SearchVector('industry')
+        if term is None:
+            result = cls.objects.all()
 
-        return cls.objects.annotate(
-            search=search_vector
-        ).filter(
-            search=search_query
-        )
+        else:
+            search_query = SearchQuery(term)
+            search_vector = SearchVector('name')
+
+            search_vector += SearchVector('industry') \
+                + SearchVector('specialist_area')
+
+            result = cls.objects.annotate(
+                search=search_vector
+            ).filter(
+                search=search_query
+            )
+
+        return result

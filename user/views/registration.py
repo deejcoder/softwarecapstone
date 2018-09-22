@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
+import requests
+
 
 from .. import forms
 
@@ -26,7 +28,9 @@ class Register(View):
         """
 
         form = forms.UserRegistrationForm(request.POST)
+
         # if form does not contain errors,
+        print(form.errors)
         if form.is_valid():
 
             username = form.cleaned_data.get('username')
