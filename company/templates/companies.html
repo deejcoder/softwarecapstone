@@ -1,3 +1,32 @@
+{% extends 'common/listing/base_listing.html' %}
+
+
+<!-- Search results -->
+{% block results %}
+    {% if companies %}
+    <div class="container">
+        {% for company in companies %}
+            <div class="card p-2 m-1">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <img src="{{ company.avatar_url }}" class="img-fluid" style="height:128px;width:128px;" alt="View profile">
+                    </div>
+                    <div class="col">
+                        <div class="card-block px-2">
+                            <h6 class="card-title">{{ company.name }}</h6>
+                            <p class="card-text">{{ company.contact_phone }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No results matching the criteria found.</p>
+    {% endif %}
+{% endblock %}
+
+
 {% for company in companies %}
 {{ company.name }}
 
