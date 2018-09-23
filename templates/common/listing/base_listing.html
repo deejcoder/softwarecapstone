@@ -10,14 +10,19 @@
 <!--The variables used in the for loops and if statements can be renamed to whatever.
 Just make sure they're consistent over all files!-->
 
-
+<div class="container mt-4">
+    <h3 class="title">
+        {% block title %}
+        {% endblock %}
+    </h3>
+</div>
 
 <br />
 <div class="container row">
-    <div class="d-flex justify-content-center align-items-start align-content-center flex-column col-2.3 px-2" id="filters" >
-        <h5 style="text-align:center" class="align-self-center">Advanced Search</h5>
+    <div class="align-content-center flex-column px-2" >
         <form action="" method="get">
-            <div class="input-group justify-content-center" id="searchBar">
+            <p class="small p-0 mb-0">Looking for a company?</p>
+            <div class="input-group" id="searchBar"> <!-- Should be class rather than ID -->
                 <input type="text" class="form-control"  placeholder="Search" name="search">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary " type="submit" value="Search">
@@ -25,8 +30,18 @@ Just make sure they're consistent over all files!-->
                     </button>
                 </div>
             </div>
+            <input class="form-check-input ml-1" type="checkbox" value="" id="studentWork">
+            <label class="form-check-label ml-4" for="studentWork">
+                Summer work
+            </label>
+            <br>
+            <input class="form-check-input ml-1" type="checkbox" value="" id="something">
+            <label class="form-check-label ml-4" for="something">
+                Something
+            </label>
+            <br>
+            <a href="." class="">Reset</a>
         </form>
-        <a href="." class="align-self-center mt-auto p-2 btn btn-block btn-outline-secondary">Reset</a>
     </div>
 
 

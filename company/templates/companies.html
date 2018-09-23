@@ -1,5 +1,8 @@
 {% extends 'common/listing/base_listing.html' %}
 
+{% block title %}
+    Companies
+{% endblock%}
 
 <!-- Search results -->
 {% block results %}
@@ -8,8 +11,9 @@
         {% for company in companies %}
             <div class="media border-bottom border-gray pb-2 p-2">
                 <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
+
                 <div class="media-body ml-2">
-                    <h5 class="mt-0">{{ company.name }}</h5>
+                    <h5 class="mt-0"><a style="cursor: pointer;" href="/company/{{ company.name }}/">{{ company.name }}</a></h5>
                     <p>Extremity direction existence as dashwoods do up. Securing marianne led welcomed offended but offering six raptures. Conveying concluded newspaper rapturous oh at.</p>
                 </div>
             </div>
@@ -19,14 +23,3 @@
         <p>No results matching the criteria found.</p>
     {% endif %}
 {% endblock %}
-
-
-{% for company in companies %}
-{{ company.name }}
-
-<ul>
-{% for member in company.member_set.all %}
-    <li><b>{{ member.role|title }}</b> {{ member.user.full_name}}</li>
-{% endfor %}
-</ul>
-{% endfor %}
