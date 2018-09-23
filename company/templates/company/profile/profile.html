@@ -1,0 +1,32 @@
+{% extends "common/profile/base_profile.html" %}
+
+{% block avatar %}
+    {% with avatar_url=company.avatar_url %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block sidepane %}
+    <h4>{{ company.name|title }}</h4>
+
+    <h6>Industry</h6>
+    <div>{{ company.industry|title }}</div>
+    <h6>Type of business</h6>
+    <div>{{ company.type_of_business|title }}</div>
+    <h6>Contact details</h6>
+    <div>{{ company.contact_phone }}</div>
+    <div>{{ company.contact_email }}</div>
+    <div><a href="{{ company.website }}">{{ company.website }}</a></div>
+    <div>{{ company.address }}</div>
+
+    <br>
+
+    {% if is_owner %}
+        <a href="edit">Edit profile</a>
+    {% endif %}
+{% endblock %}
+
+<!-- Edit profile information -->
+
+{% block profile-content %}
+{% endblock %}

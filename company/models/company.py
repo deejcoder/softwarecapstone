@@ -16,7 +16,7 @@ def _upload_company_avatar(company, filename):
     """
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
-    return "companies/%s/%s" % (company.id, filename)
+    return "companies/%s" % (filename)
 
 
 class Company(models.Model):
@@ -75,6 +75,17 @@ class Company(models.Model):
         image = Image.open(self.avatar.path)
         image.thumbnail((200, 200), Image.ANTIALIAS)
         image.save(self.avatar.path)
+    
+    @property
+    def avatar_url(self):
+        """
+        Returns the default avatar URL if
+        the company does not have an avatar
+        """
+        if self.avatar and hasattr(self.avatar, 'url'):
+            return self.avatar.url
+        else:
+            return "/media/companies/default/avatar.png"
 
     @classmethod
     def search_companies(cls, term: str):

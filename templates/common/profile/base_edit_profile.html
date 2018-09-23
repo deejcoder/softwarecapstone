@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}" />
+
+    <script src="{% static 'js/profile_card.js' %}"></script> 
+
+{% endblock %}
+{% block content %}
+<div class="container" id="content-container">
+    <div class="row">
+        <!-- Content header -->
+        <div class="col-md-x" id="profile-banner">
+
+            <!-- Profile picture -->
+            <div class="media">
+                <form id="avatar_form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% block avatar %}
+                        <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
+                        <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
+                            <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
+                        </div>
+                    {% endblock %}
+                </form>
+            </div>
+
+            <div id="banner">
+                {% block sidepane %}
+                {% endblock %}
+            </div>
+        </div>
+        <!-- Edit profile information -->
+
+        <div class="container col-md-8" id="profile-info">
+            {% block profile-content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,58 +1,45 @@
-{% extends "base.html" %}
-{% load static %}
-{% block head %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/view_profile.css' %}" />
+{% extends "common/profile/base_profile.html" %}
 
-    <script src="{% static 'js/profile_card.js' %}"></script> 
+<!-- Define the avatar URL to use -->
+{% block avatar %}
+    {% with avatar_url=user.avatar_url %}
+        {{ block.super }}
+    {% endwith %}
 {% endblock %}
-{% block content %}
-<div class="container" id="content-container">
-    <div class="row">
-        <!-- Content header -->
-        <div class="col-md-x" id="profile-banner">
 
-            <!-- Profile picture -->
-            <div class="media">
-                    <div id="imageContainer" style="background-image:url('{{ viewing.avatar_url }}')">
-                            <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
-                    </div>
-            </div>
+<!-- Side pane on the left -->
+{% block sidepane %}
+    <h4>{{ viewing.full_name }}</h4>
 
-            <div id="banner">
-                <h4>{{ viewing.full_name }}</h4>
-                {% if viewing.is_staff %}
-                <span class="badge badge-primary">Administrator</span>
-                {% endif %}
-                {% if viewing.is_consultant %}
-                <span class="badge badge-secondary">Consultant</span>
-                <div>{{ viewing.consultant.current_occupation }}</div>
-                <div><a href="#">{{ viewing.consultant.website }}</a></div>
-                {% endif %}
-                <br>
+    {% if viewing.is_staff %}
+        <span class="badge badge-primary">Administrator</span>
+    {% endif %}
+    {% if viewing.is_consultant %}
+        <span class="badge badge-secondary">Consultant</span>
+        <div>{{ viewing.consultant.current_occupation }}</div>
+        <div><a href="#">{{ viewing.consultant.website }}</a></div>
+    {% endif %}
+    <br>
 
-                {% if is_owner %}<a href="edit">Edit profile</a>{% endif %}
-            </div>
+    {% if is_owner %}
+        <a href="edit">Edit profile</a>
+    {% endif %}
+{% endblock %}
+
+<!-- Profile information (body content of profile) -->
+{% block profile-content %}
+    {% if viewing.is_consultant %}
+        <h5>Services offered</h5>
+        <hr>
+        <div>{{ viewing.consultant.services_offered }}</div><br />
+        <h5>Area of expertise</h5>
+        <hr>
+        <div>
+            Posuere dapibus suspendisse tincidunt tempus commodo mollis vehicula volutpat mattis vulputate lorem, tincidunt tortor turpis condimentum nisl odio taciti consectetur consequat turpis habitant, hendrerit ut pharetra habitant faucibus viverra curabitur massa leo consectetur.
         </div>
-        <!-- Edit profile information -->
-
-        <div class="container col-md-8" id="profile-info">
-            {% if viewing.is_consultant %}
-                <h5>Services offered</h5>
-                <hr>
-                <div>{{ viewing.consultant.services_offered }}</div><br />
-                <h5>Area of expertise</h5>
-                <hr>
-                <div>
-                    Posuere dapibus suspendisse tincidunt tempus commodo mollis vehicula volutpat mattis vulputate lorem, tincidunt tortor turpis condimentum nisl odio taciti consectetur consequat turpis habitant, hendrerit ut pharetra habitant faucibus viverra curabitur massa leo consectetur.
-                </div>
-            {% else %}
-                <h5>Bio</h5>
-                <hr>
-                <div>{{ viewing.bio }}</div>
-            {% endif %}
-        </div>
-
-    </div>
-</div>
+    {% else %}
+        <h5>Bio</h5>
+        <hr>
+        <div>{{ viewing.bio }}</div>
+    {% endif %}
 {% endblock %}
