@@ -53,3 +53,24 @@ class CompanyApplicationForm(ModelForm):
             'size',
             'specialist_area'
         ]
+
+
+class EditCompanyForm(ModelForm):
+    """
+    Form for updating company information
+    """
+
+    class Meta:
+        model = Company
+        fields = (
+            'name',
+            'size',
+            'industry',
+            'specialist_area',
+            'contact_phone',
+            'contact_email',
+            'website',
+            'type_of_business',
+            'address',
+            'summer_students'
+        )
