@@ -2,31 +2,69 @@
 
 {% block avatar %}
     {% with avatar_url=company.avatar_url %}
-        {{ block.super }}
+{{ block.super }}
     {% endwith %}
 {% endblock %}
 
 {% block sidepane %}
-    <h4>{{ company.name|title }}</h4>
-
-    <h6>Industry</h6>
-    <div>{{ company.industry|title }}</div>
-    <h6>Type of business</h6>
-    <div>{{ company.type_of_business|title }}</div>
-    <h6>Contact details</h6>
+<br />
+    <h6>Contact</h6>
     <div>{{ company.contact_phone }}</div>
     <div>{{ company.contact_email }}</div>
     <div><a href="{{ company.website }}">{{ company.website }}</a></div>
-    <div>{{ company.address }}</div>
 
-    <br>
 
     {% if is_owner %}
-        <a href="edit">Edit profile</a>
+<a href="edit">Edit profile</a>
     {% endif %}
 {% endblock %}
 
 <!-- Edit profile information -->
-
 {% block profile-content %}
+<script>
+    function toggleShow() {
+        var x = document.getElementById("profile-info");
+        var y = document.getElementById("additional-info")
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            y.style.display = "block";
+            x.style.display = "none";
+        }
+    }
+</script>
+    <div class="d-flex justify-content-between">
+        <h3 class="mr-auto">{{ company.name|title }}</h3>
+        <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">More</button>
+    </div>
+    <br />
+    <div>*TODO* Company Description here, its expected to be long so I need to type random words to make sure I have enough space for the bio so that the CSS isnt munted when I work on the other things in the html.</div>
+    <br />    
+    <h6>Address</h6>
+    <div>{{ company.address}}</div>
+
+
+{% endblock %}
+
+{% block additional-info %}
+    <div class="container col-md-8" id="additional-info">
+        <div class="d-flex justify-content-between">
+            <h3 class="mr-auto">{{ company.name|title }}</h3>
+            <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">Less</button>
+        </div>
+        <br />
+        <h6>Company Size</h6>
+        <div>{{ company.size }} members</div>
+        <br />
+        <h6>Industry</h6>
+        <div>{{ company.industry|title }} / {{ company.type_of_business|title }}</div>
+        <br />
+        <h6>Specialist Area</h6>
+        <div>{{ company.specialist_area|title }}</div>
+        <br />
+        {% if company.summer_students %}
+            <div>We are recruiting students over the summer!</div>
+        {% endif %}
+    </div>
 {% endblock %}

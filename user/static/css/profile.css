@@ -7,9 +7,15 @@
 }
 
 div #profile-info {
-    padding:20px;
-    background-color:white;
-    border-radius:15px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+div #additional-info {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    display: none;
 }
 
 div #profile-banner {

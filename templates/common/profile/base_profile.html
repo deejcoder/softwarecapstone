@@ -16,11 +16,11 @@
                 <!-- Profile picture -->
                 <div class="media">
                     {% block avatar %}
-                        <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
-                                <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
-                        </div>
+                    <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
+                        <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
+                    </div>
                     {% endblock %}
-                    
+
                 </div>
 
                 <!-- sidepane content -->
@@ -34,6 +34,9 @@
                 {% block profile-content %}
                 {% endblock %}
             </div>
+
+            {% block additional-info %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
