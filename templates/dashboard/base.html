@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 {% load static %}
 
 <html lang="en">
@@ -84,8 +84,17 @@
                     </ul>
                 </div>
             </nav>
+            
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <br />
+                <br />
+                {% block content %}
+                {% endblock %}
+            </main>
         </div>
     </div>
+    
+    
 
     <!-- Icons
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

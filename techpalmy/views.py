@@ -14,3 +14,12 @@ class Index(TemplateView):
 	template_name = 'index.html'
 	def index(self, TemplateView):
 		return render(request, 'index.html')
+
+class Dashboard(TemplateView):
+	"""
+	Render dashboard homepage
+	"""
+
+	template_name = "dashboard/index.html"
+	def index(self, TemplateView):
+		return render(request, 'dashboard/index.html')
