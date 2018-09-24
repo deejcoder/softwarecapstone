@@ -29,5 +29,5 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('company.urls')),
     path('events/', include('event.urls')),
-	path('admin/', views.Dashboard.as_view(), name='dashboard')
+    path('admin/', include('dashboard.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'event',
     'company',
+    'dashboard',
     'django_cleanup',  # always have django_cleanup at the bottom
 ]
 
