@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from ..forms import EditCompanyForm
-from ..models import Company
+from ..models import Company, Member
 
 
 class Profile(View):
@@ -32,7 +32,8 @@ class Profile(View):
         form = EditCompanyForm()
         return render(request, 'company/profile/profile.html', {
             'company': company_obj,
-            'is_owner': company_obj.is_owner(),
+            'is_owner': Member.is_owner(request.user, company_obj),
+            'is_editor': Member.is_editor(request.user, company_obj),
             'form': form,
         })
 
@@ -59,6 +60,7 @@ class Profile(View):
 
         return render(request, 'company/profile/profile.html', {
             'company': company,
-            'is_owner': company.is_owner(),
+            'is_owner': Member.is_owner(request.user, company),
+            'is_editor': Member.is_editor(request.user, company),
             'form': form
         })

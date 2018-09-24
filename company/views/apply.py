@@ -4,6 +4,7 @@ Defines the views for handling company applications
 from django.shortcuts import redirect, render
 from django.views import View
 from ..forms import CompanyApplicationForm
+from ..models import Member
 
 
 # Temporary view for editing company profile
@@ -29,9 +30,15 @@ class ApplyCompany(View):
         """
         form = CompanyApplicationForm(request.POST)
         if form.is_valid():
-            app = form.save(commit=False)
-            app.user = request.user
-            app.save()
+            app = form.save(commit=True)
+
+            # make the user the owner of the company
+            member = Member.objects.create(
+                company=app,
+                user=request.user,
+                role=Member.Roles.OWNER
+            )
+            member.save()
 
         return redirect('/')
     

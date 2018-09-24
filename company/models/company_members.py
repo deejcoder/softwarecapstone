@@ -3,6 +3,7 @@ This model maps many users to a single company, and defines their role.
 """
 from user.models import User
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 
@@ -27,8 +28,8 @@ class Member(models.Model):
     class Meta:
         unique_together = ('company', 'user')
 
-    @classmethod
-    def is_editor(cls, user: User, company: Company) -> bool:
+    @staticmethod
+    def is_editor(user: User, company: Company) -> bool:
         """
         An editor is an EDITOR or an OWNER.
         An editor can edit a company.
@@ -36,22 +37,39 @@ class Member(models.Model):
         :param company: the company the user belongs to
         :return: True if the user is administrator+ else False
         """
-        member = cls.objects.filter(
-            user=user,
-            company=company
-        )[0]
+        try:
+            member = Member.objects.filter(
+                user=user,
+                company=company
+            )[0]
+        except IndexError:
+            return False
 
-        if member.role in [cls.Roles.EDITOR, cls.Roles.OWNER]:
+        if member.role in [Member.Roles.EDITOR, Member.Roles.OWNER]:
             return True
         return False
 
-    @classmethod
-    def get_members(cls, role: Roles) -> []:
+    @staticmethod
+    def is_owner(user: User, company: Company) -> bool:
+        try:
+            member = Member.objects.filter(
+                user=user,
+                company=company
+            )[0]
+        except IndexError:
+            return False
+
+        if member.role == Member.Roles.OWNER:
+            return True
+        return False
+
+    @staticmethod
+    def get_members(role: Roles) -> []:
         """
         :param role: Get members with the specific role
         :return: a list of Members (users)
         """
-        member_ids = cls.objects.filter(
+        member_ids = Member.objects.filter(
             role=role
         ).values_list('user', flat=True)
         return \
