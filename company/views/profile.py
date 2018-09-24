@@ -7,6 +7,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views import View
 
+from ..forms import EditCompanyForm
 from ..models import Company
 
 
@@ -25,7 +26,9 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        form = EditCompanyForm()
         return render(request, 'company/profile/profile.html', {
             'company': company_obj,
             'is_owner': False,
+            'form': form,
         })
