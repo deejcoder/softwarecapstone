@@ -21,7 +21,7 @@ class ApplyCompany(View):
         User wants to apply
         """
         form = CompanyApplicationForm()
-        return render(request, 'company/comp_appform.html', {'form': form})
+        return render(request, 'company/apply.html', {'form': form})
 
     def post(self, request):
         """
@@ -33,5 +33,5 @@ class ApplyCompany(View):
             app.user = request.user
             app.save()
 
-        return redirect('/company/')
+        return redirect('/')
     

@@ -95,7 +95,7 @@ class Company(models.Model):
         :return: list of companies
         """
         if term is None:
-            result = cls.objects.all()
+            result = cls.objects.filter(application__status="pending")
 
         else:
             search_query = SearchQuery(term)
@@ -108,6 +108,8 @@ class Company(models.Model):
                 search=search_vector
             ).filter(
                 search=search_query
+            ).filter(
+                application__status="pending" # change to accepted
             )
 
         return result

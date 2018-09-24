@@ -17,7 +17,7 @@ class Listing(View):
     def get(self, request):
 
         try:
-            search_term = request.GET.get('page')
+            search_term = request.GET.get('search')
             companies = Company.search_companies(search_term)
 
         except KeyError:

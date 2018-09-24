@@ -44,8 +44,6 @@ class CompanyApplicationForm(ModelForm):
 
         fields = [
             'name',
-            # 'ird_no',
-            'avatar',
             'contact_phone',
             'contact_email',
             'website',
