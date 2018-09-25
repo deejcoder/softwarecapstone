@@ -20,7 +20,7 @@ Just make sure they're consistent over all files!-->
 <br />
 <div class="container row">
     <div class="align-content-center flex-column px-2" >
-        <form action="" method="get">
+        <form action="" method="get" class="mb-4">
             <p class="small p-0 mb-0">Looking for a company?</p>
             <div class="input-group" id="searchBar"> <!-- Should be class rather than ID -->
                 <input type="text" class="form-control"  placeholder="Search" name="search">
@@ -30,18 +30,14 @@ Just make sure they're consistent over all files!-->
                     </button>
                 </div>
             </div>
-            <input class="form-check-input ml-1" type="checkbox" value="" id="studentWork">
-            <label class="form-check-label ml-4" for="studentWork">
-                Summer work
-            </label>
-            <br>
-            <input class="form-check-input ml-1" type="checkbox" value="" id="something">
-            <label class="form-check-label ml-4" for="something">
-                Something
-            </label>
-            <br>
             <a href="." class="">Reset</a>
+
         </form>
+        <div id="side-bottom-pane">
+                {% block sidepane %}
+                {% endblock %}
+            
+        </div>
     </div>
 
 

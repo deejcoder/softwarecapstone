@@ -21,8 +21,8 @@ class Member(models.Model):
         OWNER = ChoiceItem('owner')
 
     # fields
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='members')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='members')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='member')
     role = models.CharField(max_length=30, choices=Roles.choices)
 
     class Meta:

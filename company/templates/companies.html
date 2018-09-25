@@ -4,6 +4,12 @@
     Companies
 {% endblock%}
 
+
+{% block sidepane %}
+    <p class="small mb-1">Want to create a company profile?</p>
+    <a href="/company/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+{% endblock %}
+
 <!-- Search results -->
 {% block results %}
     {% if companies %}
