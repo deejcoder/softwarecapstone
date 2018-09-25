@@ -8,11 +8,13 @@ TODO:
 
 from user.models import Consultant, User
 
-from company.models import Company, CompanyApplication
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views import View
+
+from company.models import Company, CompanyApplication
 
 
 class Index(View):
@@ -60,7 +62,6 @@ class CompanyApplications(View):
             'companies': companies
         })
 
-
     def post(self, request):
         """
         Approves or denies an application provided a
@@ -83,3 +84,6 @@ class CompanyApplications(View):
 
         else:
             company.application.deny(request.user, '')
+
+        messages.success(request, f"You have approved the company application for: {company.name}")
+        return render(request, 'dashboard/index.html')
