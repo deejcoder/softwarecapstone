@@ -4,12 +4,18 @@
     Companies
 {% endblock%}
 
+
+{% block sidepane %}
+    <p class="small mb-1">Want to create a company profile?</p>
+    <a href="/company/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+{% endblock %}
+
 <!-- Search results -->
 {% block results %}
     {% if companies %}
     <div class="container bg-white rounded shadow-sm">
         {% for company in companies %}
-            <div class="media border-bottom border-gray pb-2 p-2">
+            <div class="media border-bottom border-gray pb-2 p-2 pb-4">
                 <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
 
                 <div class="media-body ml-2">
@@ -21,5 +27,21 @@
     </div>
     {% else %}
         <p>No results matching the criteria found.</p>
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+    {% if companies.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ companies.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+    Page {{ companies.number }} of {{ companies.paginator.num_pages }}
+    </span>
+
+    {% if companies.has_next %}
+        <a href="?page={{ companies.next_page_number }}">next</a>
+        <a href="?page={{ companies.paginator.num_pages }}">last &raquo;</a>
     {% endif %}
 {% endblock %}

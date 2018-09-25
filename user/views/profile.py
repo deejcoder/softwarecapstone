@@ -16,6 +16,7 @@ from django.urls import reverse
 
 from .. import forms
 from ..models import User
+from company.models import Company
 
 User = get_user_model()
 
@@ -37,10 +38,13 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        companies = Company.objects.filter(members__user=user)
+
         return render(request, 'profile/profile.html', {
             'viewing': user,
             'user': request.user,
-            'is_owner': user == request.user
+            'is_owner': user == request.user,
+            'companies': companies
         })
 
 

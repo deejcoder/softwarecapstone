@@ -23,12 +23,11 @@ class Listing(View):
         except KeyError:
             companies = Company.search_companies(None)
 
-        paginator = Paginator(companies, 5)
+        paginator = Paginator(companies, 6)
         page = request.GET.get('page')
         show_companies = paginator.get_page(page)
 
-        return render(
-            request,
-            'companies.html',
-            {'companies': show_companies}
-        )
+        return render(request, 'companies.html', {
+            'companies': show_companies,
+            'page': page
+        })

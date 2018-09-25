@@ -46,27 +46,30 @@
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/consultants/">Consultants</a>
-						</li>
-						<li class="nav-item">
-								<a class="nav-link" href="/companies/">Companies</a>
-						</li>
-						<li class="nav-item">
-								<a class="nav-link" href="#">Groups</a>
-						</li>
+                            	<a class="nav-link" href="/consultants/">Consultants</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/companies/">Companies</a>
+			</li>
+		    	<li class="nav-item">
+				<a class="nav-link" href="/events/">Events</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Groups</a>
+			</li>
                     </ul>
                     <div class="col-sm-3">
-						<form method="get" action="/consultants/">
-							{% csrf_token %}
-							<div class="input-group">
-								<input style="width:20%" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" name="search">
-								<div class="input-group-append">
-									<button class="btn btn-outline-secondary " type="submit">
-										<i class="fa fa-search"></i>
-									</button>
-								</div>
-							</div>
-						</form>
+			<form method="get" action="/consultants/">
+				{% csrf_token %}
+				<div class="input-group">
+					<input style="width:20%" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" name="search">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary " type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
 
                     </div>
                     <ul class="navbar-nav ">

@@ -1,5 +1,6 @@
 {% extends "common/profile/base_profile.html" %}
 
+
 <!-- Define the avatar URL to use -->
 {% block avatar %}
     {% with avatar_url=user.avatar_url %}
@@ -24,6 +25,17 @@
     {% if is_owner %}
         <a href="edit">Edit profile</a>
     {% endif %}
+
+    <p class="small">
+        Companies
+    </p>
+
+    {% for company in companies %}
+        <a href="/company/{{company.name}}">
+            <img class="card img-thumbnail" title="{{ company.name }}" style="height:82px;" src="{{ company.avatar_url }}" />
+        </a>
+    {% endfor %}
+
 {% endblock %}
 
 <!-- Profile information (body content of profile) -->
