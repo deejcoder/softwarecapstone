@@ -1,0 +1,106 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<script>
+$(document).ready(function () {
+    $(".btndeny").click(function () {
+        id = this.id;
+        message = "Generic Deny Message"
+        data = { "cid": id, "approved": false, "message": message };
+        pathname = window.location.pathname;
+        $.post(pathname, data, function (data, status) {
+            console.log('${data} and status is ${status}')
+        });
+    });
+    $(".btnapprove").click(function () {
+        id = this.id;
+        data = { "cid": id, "approved": true };
+        pathname = window.location.pathname;
+        $.post(pathname, data, function (data, status) {
+            console.log('${data} and status is ${status}')
+        });
+    });
+});
+    function toggleMore(button, id) {
+        var x = document.getElementById("out"+id);
+        var y = document.getElementById("in"+id)
+        if (x.style.overflow === "hidden") {
+            x.style.overflow = "visible";
+            x.style.maxHeight = "none";
+            y.style.height = "auto";
+            button.textContent = "Less";
+        } else {
+            x.style.overflow = "hidden";
+            x.style.maxHeight = "90px";
+            y.style.height = "70px";
+            button.textContent = "More";
+        }
+    }
+    function approve(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", post);
+        form.setAttribute("action", "/")
+
+    }
+    function deny(id) {
+
+    }
+</script>
+<br />
+<h3 style="text-align:center">
+    Pending Applications for Companies
+</h3>
+<br />
+
+    {% if companies %}
+    {% for company in companies %}
+<div class="container bg-white shadow-sm pb-2 mb-3" id="out{{ company.id }}" style="max-height:none; overflow:hidden; border-radius:10px">
+
+    <div class="media p-2">
+        <div class="container p-0 d-flex justify-content-between align-content-center" id="in{{ company.id }}" style="height:70px">
+            <img class="align-self-start rounded mt-1" src="{{ company.avatar_url }}" height="70px" alt="View profile" />
+            <div class="flex-shrink-1 pl-3">
+                <h5 class="">{{ company.name|title }}</h5>
+                <p id="description">*TODO* Company Description here, its expected to be long so I need to type random words to make sure I have enough space for the bio so that the CSS isnt munted when I work on the other things in the html.</p>
+                <div id="hide{{ company.id }}">
+                    <h6>Contact Info</h6>
+                    <div>Phone: {{ company.contact_phone }}</div>
+                    <div>Email: {{ company.contact_email }}</div>
+                    <div><a href="{{ company.website }}">{{ company.website }}</a></div>
+                    <br />
+                    <h6>Address</h6>
+                    <div>{{ company.address }}</div>
+                    <br />
+                    <h6>Company Size</h6>
+                    <div>{{ company.size }} members</div>
+                    <br />
+                    <h6>Industry / Type of Business</h6>
+                    <div>{{ company.industry|title }} / {{ company.type_of_business|title }}</div>
+                    <br />
+                    <h6>Specialist Area</h6>
+                    <div>{{ company.specialist_area|title }}</div>
+                    <br />
+                    <h6>Summer Students</h6>
+                    <div>{{ company.summer_students|title }}</div>
+                </div>
+            </div>
+            <div class="pl-3" style="align-items:center; width:48%!important; padding-top:20px">
+                <span class="mr-2">
+                    <button class="btn btn-outline-secondary" onclick="toggleMore(this, {{ company.id }})" id="moreButton" style="width:65px">More</button>
+                </span>
+                <button class="btn btn-outline-danger btndeny" id="{{ company.id }}" style="width:85px">Deny</button>
+                <button class="btn btn-outline-success btnapprove" id="{{ company.id }}" style="width:85px">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endfor %}
+
+    {% else %}
+<div class="media border-bottom border-gray pb-2 p-2">
+    <h2>There are no pending applications!</h2>
+</div>
+    {% endif %}
+{% endblock %}
+

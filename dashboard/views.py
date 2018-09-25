@@ -54,6 +54,6 @@ class CompanyApplications(View):
     def get(self, request):
         companies = Company.objects.filter(application__status="pending")
 
-        return render(request, 'dashboard/company_apps.html', {
+        return render(request, 'dashboard/companyapps.html', {
             'companies': companies
         })
