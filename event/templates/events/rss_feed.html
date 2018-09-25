@@ -7,22 +7,19 @@
         $("#rss-feeds").rss("https://techevents.nz/rss/all", {
             limit: 100,
             filter: function(entry, tokens) {
-                return tokens.title.indexOf('Palmerston') > -1
+                var events = tokens.title.indexOf('Palmerston') > -1;
+                return events;
             },
             layoutTemplate: "<ul style='list-style:none;'>{entries}</ul>",
-            entryTemplate: "<li class='event-item'><a href='{url}'>{newtitle}</a><br/>{desc}</li>",
+            entryTemplate: "<li class='event-item bg-light mt-2 mb-2 p-2 border border-light rounded'><a href='{url}'>{newtitle}</a><br/>{desc}</li>",
             tokens: {
-                newtitle: function(entry, tokens) {return tokens.title.substring(2)},
-                <!--This section can be cleaned up later, if need be-->
-                <!--It took FOREVER to get right!-->
+                newtitle: function(entry, tokens) {return tokens.title},
                 desc: function(entry, tokens) {
                     var s = tokens.body.toString();
                     var wrapper = document.createElement('div');
                     var desc_container = document.createElement('div');
                     var date_container = document.createElement('div');
-                    wrapper.id = "item_wrap";
-                    desc_container.id = "desc_wrap";
-                    date_container.id = "date_wrap";
+                    date_container.classList.add("font-weight-bold");
                     wrapper.innerHTML = s;
                     var strongText = wrapper.getElementsByTagName("strong");
                     var date_time = strongText[1];
@@ -42,6 +39,7 @@
         })
     })
 </script>
+<h2>Events in Palmerston North</h2>
 <div id="rss-feeds"></div>
 
 {% endblock %}
