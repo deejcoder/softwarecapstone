@@ -26,3 +26,4 @@ def events(request):
         new_event['url'] = event_urls[2*i]
         all_events.append(new_event)
     return render(request, 'events/rss_feed.html'. {'tree': all_events})
+
