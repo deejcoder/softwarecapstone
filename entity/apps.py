@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class GroupsConfig(AppConfig):
-    name = 'groups'
+    name = 'entity'
     
     def ready(self):
-        import company.signals
+        import entity.signals

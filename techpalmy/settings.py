@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'captcha',
     'user',
     'event',
-    'company',
+    'entity',
     'dashboard',
     'django_cleanup',  # always have django_cleanup at the bottom
 ]

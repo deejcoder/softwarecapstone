@@ -10,8 +10,9 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from ..forms import EditCompanyForm
-from ..models import Company, Member
+from entity.forms import EditCompanyForm
+from entity.models import Member
+from entity.models.company import Company
 
 
 class Profile(View):

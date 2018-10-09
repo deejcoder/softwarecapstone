@@ -6,7 +6,7 @@ from user.models import User
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 
-from ..models import Group
+from ..models import Entity
 
 
 class Member(models.Model):
@@ -20,15 +20,15 @@ class Member(models.Model):
         OWNER = ChoiceItem('owner')
 
     # fields
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='members')
+    entity = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='members')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='member')
     role = models.CharField(max_length=30, choices=Roles.choices)
 
     class Meta:
-        unique_together = ('group', 'user')
+        unique_together = ('entity', 'user')
 
     @staticmethod
-    def is_editor(user: User, group: Group) -> bool:
+    def is_editor(user: User, entity: Entity) -> bool:
         """
         An editor is an EDITOR or an OWNER.
         An editor can edit a company.
@@ -37,10 +37,7 @@ class Member(models.Model):
         :return: True if the user is administrator+ else False
         """
         try:
-            member = Member.objects.filter(
-                user=user,
-                group=group
-            )[0]
+            member = Member.objects.filter(user=user, entity=entity)[0]
         except IndexError:
             return False
 
@@ -49,12 +46,9 @@ class Member(models.Model):
         return False
 
     @staticmethod
-    def is_owner(user: User, group: Group) -> bool:
+    def is_owner(user: User, entity: Entity) -> bool:
         try:
-            member = Member.objects.filter(
-                user=user,
-                group=group
-            )[0]
+            member = Member.objects.filter(user=user, entity=entity)[0]
         except IndexError:
             return False
 
@@ -68,8 +62,7 @@ class Member(models.Model):
         :param role: Get members with the specific role
         :return: a list of Members (users)
         """
-        member_ids = Member.objects.filter(
-            role=role
-        ).values_list('user', flat=True)
-        return \
-            User.objects.filter(id__in=member_ids)
+        member_ids = Member.objects.filter(role=role) \
+            .values_list('user', flat=True)
+            
+        return User.objects.filter(id__in=member_ids)

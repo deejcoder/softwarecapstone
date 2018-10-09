@@ -4,10 +4,10 @@ Models which defines a company
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
-from groups.models import Group
+from entity.models import Entity
 
 
-class Company(models.Model):
+class Company(Entity):
     """
     A company can also have profile pictures (logos)
     TODO: add regular expressions to restrict input
@@ -26,7 +26,7 @@ class Company(models.Model):
         Hybrid = ChoiceItem('hybrid')
 
     # FIELDS
-    group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name='company')
+    name = models.CharField(max_length=80)
     size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
     specialist_area = models.CharField(max_length=30)

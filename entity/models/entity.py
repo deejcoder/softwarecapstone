@@ -4,37 +4,23 @@ Models which defines a company
 import uuid
 
 from django.db import models
-from djchoices import ChoiceItem, DjangoChoices
 from PIL import Image
 
 
-def _upload_company_avatar(group, filename):
+def _upload_company_avatar(entity, filename):
     """
     Helper function for Company model
     :return: file name with uuid filename
     """
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
-    prefix = str()
 
-    if group.category == Group.Category.Club:
-        prefix = "clubs"
-    else:
-        prefix = "companies"
-
-    return "groups/%s/%s" % (prefix, filename)
+    return "entities/%s" % (filename)
 
 
-class Group(models.Model):
-
-    # TYPE DEFINITIONS
-    class Category(DjangoChoices):
-        Club = ChoiceItem('club')
-        Company = ChoiceItem('company')
+class Entity(models.Model):
 
     # FIELDS
-    name = models.CharField(max_length=80)
-    category = models.CharField(max_length=30, choices=Category.choices)
     avatar = models.ImageField(
         upload_to=_upload_company_avatar,
         default=None,
@@ -46,7 +32,7 @@ class Group(models.Model):
         """
         Manages saving of company avatar
         """
-        super(Group, self).save()
+        super(Entity, self).save()
 
         if not self.avatar:
             return

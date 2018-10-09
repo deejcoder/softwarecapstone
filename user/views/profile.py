@@ -16,7 +16,7 @@ from django.urls import reverse
 
 from .. import forms
 from ..models import User
-from company.models import Company
+from entity.models.company import Company
 
 User = get_user_model()
 

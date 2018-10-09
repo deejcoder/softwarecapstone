@@ -3,7 +3,7 @@ import pickle
 from django import forms
 from django.forms import ModelForm
 
-from .models import Company
+from entity.models.company import Company
 
 
 class AddressWidget(forms.widgets.MultiWidget):

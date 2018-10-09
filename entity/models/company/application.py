@@ -11,10 +11,10 @@ from user.models import User
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 
-from groups.models.company import Company
+from entity.models.company import Company
 
 
-class CompanyApplication(models.Model):
+class Application(models.Model):
 
     class StatusType(DjangoChoices):
         Pending = ChoiceItem('pending')
