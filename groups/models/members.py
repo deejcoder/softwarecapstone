@@ -3,11 +3,10 @@ This model maps many users to a single company, and defines their role.
 """
 from user.models import User
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 
-from ..models import Company
+from ..models import Group
 
 
 class Member(models.Model):
@@ -21,15 +20,15 @@ class Member(models.Model):
         OWNER = ChoiceItem('owner')
 
     # fields
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='members')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='members')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='member')
     role = models.CharField(max_length=30, choices=Roles.choices)
 
     class Meta:
-        unique_together = ('company', 'user')
+        unique_together = ('group', 'user')
 
     @staticmethod
-    def is_editor(user: User, company: Company) -> bool:
+    def is_editor(user: User, group: Group) -> bool:
         """
         An editor is an EDITOR or an OWNER.
         An editor can edit a company.
@@ -40,7 +39,7 @@ class Member(models.Model):
         try:
             member = Member.objects.filter(
                 user=user,
-                company=company
+                group=group
             )[0]
         except IndexError:
             return False
@@ -50,11 +49,11 @@ class Member(models.Model):
         return False
 
     @staticmethod
-    def is_owner(user: User, company: Company) -> bool:
+    def is_owner(user: User, group: Group) -> bool:
         try:
             member = Member.objects.filter(
                 user=user,
-                company=company
+                group=group
             )[0]
         except IndexError:
             return False

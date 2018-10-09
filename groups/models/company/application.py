@@ -7,10 +7,11 @@ model.
 
 import datetime
 from user.models import User
-from ..models import Company
 
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
+
+from groups.models.company import Company
 
 
 class CompanyApplication(models.Model):
@@ -20,20 +21,12 @@ class CompanyApplication(models.Model):
         Approved = ChoiceItem('approved')
         Denied = ChoiceItem('denied')
 
-    company = models.OneToOneField(
-        Company,
-        on_delete=models.CASCADE,
-        related_name='application',
-    )
+    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name='application')
     approved_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     date_approved = models.DateField(null=True, default=None)
     date_submitted = models.DateField(default=datetime.date.today())
     comment = models.TextField(max_length=300, null=True, default=None)
-    status = models.CharField(
-        max_length=20,
-        choices=StatusType.choices,
-        default=StatusType.Pending
-    )
+    status = models.CharField(max_length=20, choices=StatusType.choices, default=StatusType.Pending)
 
     def approve(self, user: User, comment: str) -> bool:
         """

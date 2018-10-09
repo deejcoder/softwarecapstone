@@ -1,22 +1,10 @@
 """
 Models which defines a company
 """
-import uuid
-
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
-from PIL import Image
-
-
-def _upload_company_avatar(company, filename):
-    """
-    Helper function for Company model
-    :return: file name with uuid filename
-    """
-    ext = filename.split('.')[-1]
-    filename = "%s.%s" % (uuid.uuid4(), ext)
-    return "companies/%s" % (filename)
+from groups.models import Group
 
 
 class Company(models.Model):
@@ -38,54 +26,16 @@ class Company(models.Model):
         Hybrid = ChoiceItem('hybrid')
 
     # FIELDS
-    name = models.CharField(max_length=80)
-    avatar = models.ImageField(
-        upload_to=_upload_company_avatar,
-        default=None,
-        null=True
-    )
+    group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name='company')
     size = models.DecimalField(max_digits=5, decimal_places=0)
-    industry = models.CharField(
-        max_length=30,
-        choices=IndustryType.choices,
-        default=IndustryType.Primary
-    )
+    industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
     specialist_area = models.CharField(max_length=30)
     contact_phone = models.CharField(max_length=15)
     contact_email = models.EmailField(max_length=20)
     website = models.URLField(max_length=20)
-    type_of_business = models.CharField(
-        max_length=25,
-        choices=BusinessType.choices,
-        default=BusinessType.Services
-    )
+    type_of_business = models.CharField(max_length=25, choices=BusinessType.choices, default=BusinessType.Services)
     address = models.CharField(max_length=80)
     summer_students = models.BooleanField(default=False)
-
-    # METHODS
-    def save(self, **kwargs):
-        """
-        Manages saving of company avatar
-        """
-        super(Company, self).save()
-
-        if not self.avatar:
-            return
-
-        image = Image.open(self.avatar.path)
-        image.thumbnail((200, 200), Image.ANTIALIAS)
-        image.save(self.avatar.path)
-    
-    @property
-    def avatar_url(self):
-        """
-        Returns the default avatar URL if
-        the company does not have an avatar
-        """
-        if self.avatar and hasattr(self.avatar, 'url'):
-            return self.avatar.url
-        else:
-            return "/media/companies/default/avatar.png"
 
     @classmethod
     def search_companies(cls, term: str):
@@ -104,12 +54,8 @@ class Company(models.Model):
             search_vector += SearchVector('industry') \
                 + SearchVector('specialist_area')
 
-            result = cls.objects.annotate(
-                search=search_vector
-            ).filter(
-                search=search_query
-            ).filter(
-                application__status="pending" # change to accepted
-            )
+            result = cls.objects.annotate(search=search_vector) \
+                .filter(search=search_query) \
+                .filter(application__status="pending")  # change to accepted
 
         return result
