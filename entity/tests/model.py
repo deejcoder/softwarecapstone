@@ -6,7 +6,8 @@ from user.models import User
 
 from django.test import TestCase
 
-from ..models import Company, Member, CompanyApplication
+from entity.models import Member
+from entity.models.company import Company, Application
 
 
 class CompanyModelTestCase(TestCase):
@@ -40,12 +41,12 @@ class CompanyModelTestCase(TestCase):
             last_name="Chief"
         )
         Member.objects.create(
-            company=c,
+            entity=c,
             user=u1,
             role=Member.Roles.EDITOR
         )
         Member.objects.create(
-            company=c,
+            entity=c,
             user=u2,
             role=Member.Roles.OWNER
         )
@@ -74,7 +75,7 @@ class CompanyModelTestCase(TestCase):
         )
         self.assertEqual(
             company.application.status,
-            CompanyApplication.StatusType.Approved
+            Application.StatusType.Approved
         )
 
         print("""
