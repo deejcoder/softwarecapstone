@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class CompanyConfig(AppConfig):
-    name = 'company'
-
+class GroupsConfig(AppConfig):
+    name = 'groups'
+    
     def ready(self):
         import company.signals
