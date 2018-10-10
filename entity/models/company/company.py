@@ -8,12 +8,7 @@ from entity.models import Entity
 
 
 class Company(Entity):
-    """
-    A company can also have profile pictures (logos)
-    TODO: add regular expressions to restrict input
-    """
 
-    # TYPE DEFINITIONS
     class IndustryType(DjangoChoices):
         Primary = ChoiceItem('primary')
         Secondary = ChoiceItem('secondary')
@@ -25,7 +20,6 @@ class Company(Entity):
         Services = ChoiceItem('services')
         Hybrid = ChoiceItem('hybrid')
 
-    # FIELDS
     name = models.CharField(max_length=80)
     size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
@@ -45,17 +39,17 @@ class Company(Entity):
         :return: list of companies
         """
         if term is None:
-            result = cls.objects.filter(application__status="pending")
+            result = cls.objects.filter(application__status="accepted")
 
         else:
             search_query = SearchQuery(term)
-            search_vector = SearchVector('name')
 
-            search_vector += SearchVector('industry') \
+            search_vector = SearchVector('name') \
+                + SearchVector('industry') \
                 + SearchVector('specialist_area')
 
             result = cls.objects.annotate(search=search_vector) \
                 .filter(search=search_query) \
-                .filter(application__status="pending")  # change to accepted
+                .filter(application__status="accepted")  # change to accepted
 
         return result

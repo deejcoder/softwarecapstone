@@ -5,4 +5,4 @@ class EntityConfig(AppConfig):
     name = 'entity'
     
     def ready(self):
-        import entity.signals
+        pass

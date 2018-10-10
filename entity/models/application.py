@@ -9,8 +9,8 @@ import datetime
 from user.models import User
 
 from django.db import models
-from djchoices import ChoiceItem, DjangoChoices
 from django.utils import timezone
+from djchoices import ChoiceItem, DjangoChoices
 
 from entity.models import Entity
 

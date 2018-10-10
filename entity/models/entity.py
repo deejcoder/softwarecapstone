@@ -4,6 +4,7 @@ Models which defines a company
 import uuid
 
 from django.db import models
+from django.apps import apps
 from PIL import Image
 
 
@@ -27,13 +28,24 @@ class Entity(models.Model):
         null=True
     )
 
+    def create_application(self):
+        application = apps.get_model('entity', 'Application')
+        application.objects.create(entity=self)
+
     # METHODS
-    def save(self, **kwargs):
+    def save(self, *args, **kwargs):
         """
         Manages saving of company avatar
         """
-        super(Entity, self).save()
+        # determine if the entity was just created
+        created = self.pk is None
+        super(Entity, self).save(*args, **kwargs)
+        
 
+        if created:
+            self.create_application()
+
+        # Uploaded an avatar?
         if not self.avatar:
             return
 
