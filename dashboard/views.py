@@ -14,7 +14,8 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from django.views import View
 
-from entity.models.company import Company, Application
+from entity.models import Application
+from entity.models.company import Company
 
 
 class Index(View):

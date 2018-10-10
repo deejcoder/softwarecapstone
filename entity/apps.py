@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class GroupsConfig(AppConfig):
+class EntityConfig(AppConfig):
     name = 'entity'
     
     def ready(self):

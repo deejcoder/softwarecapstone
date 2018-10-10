@@ -10,8 +10,9 @@ from user.models import User
 
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
+from django.utils import timezone
 
-from entity.models.company import Company
+from entity.models import Entity
 
 
 class Application(models.Model):
@@ -21,10 +22,10 @@ class Application(models.Model):
         Approved = ChoiceItem('approved')
         Denied = ChoiceItem('denied')
 
-    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name='application')
+    entity = models.OneToOneField(Entity, on_delete=models.CASCADE, related_name='application')
     approved_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     date_approved = models.DateField(null=True, default=None)
-    date_submitted = models.DateField(default=datetime.date.today())
+    date_submitted = models.DateField(default=timezone.now)
     comment = models.TextField(max_length=300, null=True, default=None)
     status = models.CharField(max_length=20, choices=StatusType.choices, default=StatusType.Pending)
 

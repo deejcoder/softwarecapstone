@@ -6,8 +6,8 @@ from user.models import User
 
 from django.test import TestCase
 
-from entity.models import Member
-from entity.models.company import Company, Application
+from entity.models import Member, Application
+from entity.models.company import Company
 
 
 class CompanyModelTestCase(TestCase):
@@ -30,6 +30,7 @@ class CompanyModelTestCase(TestCase):
             website="activision",
             type_of_business="Security"
         )
+        c.save()
         u1 = User.objects.create_user(
             username="activision",
             first_name="Dylan",
