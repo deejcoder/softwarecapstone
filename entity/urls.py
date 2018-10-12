@@ -14,5 +14,5 @@ urlpatterns = [
     path('groups/', group.Listing.as_view(), name='group_listing'),
     path('groups/<group>/', group.Profile.as_view(), name='group_profile'),
     # only restrict the below URL 'entity' to groups or companies
-    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[0-9A-Za-z]{0,20})/members', get_members, name='group_members'),
+    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,20})/members', get_members, name='group_members'),
 ]

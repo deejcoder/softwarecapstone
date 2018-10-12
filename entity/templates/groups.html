@@ -11,7 +11,7 @@ Below are listings of accepted groups.
     </th>
     {% for group in groups %}
     <tr>
-        <td>{{ group.name }}</td>
+        <td><a href="./{{ group.name }}/">{{ group.name }}</a></td>
         <td>{{ group.description }}</td>
         <td>{{ group.website }}</td>
     </tr>

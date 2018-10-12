@@ -2,14 +2,18 @@
 Models which defines a company
 """
 from django.contrib.postgres.search import SearchQuery, SearchVector
+from django.core.validators import RegexValidator
 from django.db import models
+
 from entity.models import Entity
 
 
 class Group(Entity):
 
     # FIELDS
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, validators=[
+        RegexValidator(regex='^[\w|\W]*$', message="Your name can only include characters 0-9, A-Z or a-z.")
+    ])
     description = models.CharField(max_length=500)
     website = models.CharField(max_length=100)
 
