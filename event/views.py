@@ -6,7 +6,7 @@ import requests
 def events(request):
     page = requests.get('https://techevents.nz/pnorth')
     tree = html.fromstring(page.content)
-    event = tree.xpath('//div[@class="event "]')[0]
+    event = tree.xpath('//div[contains(@class,"event")]')[0]
     event_months = event.xpath('//div[@class="date"]/strong/text()')
     event_days = event.xpath('//div[@class="date"]/big/text()')
     event_times = event.xpath('//div[@class="date"]/text()')
