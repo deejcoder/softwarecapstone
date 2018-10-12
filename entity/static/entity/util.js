@@ -21,7 +21,7 @@ var entity = (function() {
         /* When the server returns a list of members... */
         function process_members(data) {
 
-            if(data.members) {
+            if(data.members.length !== 0) {
 
                 for(var i in data.members) {
 
@@ -33,7 +33,7 @@ var entity = (function() {
                 
             }
             else {
-                $(elem).html("There are no members to show");
+                $(appendto).html("There are no members to show");
             }
         }
         // Send an AJAX request
