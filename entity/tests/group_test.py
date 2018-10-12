@@ -47,11 +47,9 @@ class GroupModelTestCase(TestCase):
         )
 
     def test_editors(self):
-        # get editors & owners
-        editors = Member.get_members(Member.Roles.EDITOR) | \
-            Member.get_members(Member.Roles.OWNER)
-
+        # get group & its members
         group = Group.objects.get(name="PUGB")
+        editors = Member.get_members(group)
 
         # there are two editors (1 owner, 1 editor)
         self.assertTrue(len(editors) == 2)

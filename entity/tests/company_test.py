@@ -53,9 +53,8 @@ class CompanyModelTestCase(TestCase):
 
     def test_editors(self):
         # get editors & owners
-        editors = Member.get_members(Member.Roles.EDITOR) | \
-            Member.get_members(Member.Roles.OWNER)
         company = Company.objects.get(name="Activision")
+        editors = Member.get_members(company)
 
         # there are two editors (1 owner, 1 editor)
         self.assertTrue(len(editors) == 2)
