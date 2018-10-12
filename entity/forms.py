@@ -3,7 +3,9 @@ import pickle
 from django import forms
 from django.forms import ModelForm
 
+from entity.models import Member
 from entity.models.company import Company
+from entity.models.group import Group
 
 
 class AddressWidget(forms.widgets.MultiWidget):
@@ -74,3 +76,27 @@ class EditCompanyForm(ModelForm):
             'address',
             'summer_students'
         )
+
+
+class EditGroupForm(ModelForm):
+    """
+    Form for updating group information
+    """
+
+    class Meta:
+        model = Group
+        fields = (
+            'name',
+            'website',
+            'description'
+        )
+
+
+class AddMembeerForm(forms.Form):
+    """
+    Allows some entity to add members to their entity
+    """
+
+    username = forms.CharField(label='Username', max_length=50)
+    role = forms.ChoiceField(label='User\'s role', choices=Member.Roles.choices)
+    

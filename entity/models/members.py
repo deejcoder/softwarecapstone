@@ -57,12 +57,12 @@ class Member(models.Model):
         return False
 
     @staticmethod
-    def get_members(role: Roles) -> []:
+    def get_members(entity: Entity) -> []:
         """
         :param role: Get members with the specific role
         :return: a list of Members (users)
         """
-        member_ids = Member.objects.filter(role=role) \
+        member_ids = Member.objects.filter(entity=entity) \
             .values_list('user', flat=True)
             
         return User.objects.filter(id__in=member_ids)

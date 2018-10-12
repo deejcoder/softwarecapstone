@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from entity.models import Member, Application, company
+from entity.models import Member, Application, company, group
 
 
 @admin.register(company.Company)
@@ -15,4 +15,9 @@ class CompanyApplicationAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class CompanyMembersAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(group.Group)
+class GroupAdmin(admin.ModelAdmin):
     pass

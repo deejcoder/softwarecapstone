@@ -39,7 +39,7 @@ class Company(Entity):
         :return: list of companies
         """
         if term is None:
-            result = cls.objects.filter(application__status="accepted")
+            result = cls.objects.filter(application__status="approved")
 
         else:
             search_query = SearchQuery(term)
@@ -50,6 +50,6 @@ class Company(Entity):
 
             result = cls.objects.annotate(search=search_vector) \
                 .filter(search=search_query) \
-                .filter(application__status="accepted")  # change to accepted
+                .filter(application__status="approved")  # change to accepted
 
         return result

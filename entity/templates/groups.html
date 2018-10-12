@@ -1,0 +1,19 @@
+Should be able to search by adding ?search={search term} to the URL
+Below are listings of accepted groups.
+
+<table>
+    <th>
+        <tr>
+            <td><b>Name</b></td>
+            <td><b>Description</b></td>
+            <td><b>Website</b></td>
+        </tr>
+    </th>
+    {% for group in groups %}
+    <tr>
+        <td>{{ group.name }}</td>
+        <td>{{ group.description }}</td>
+        <td>{{ group.website }}</td>
+    </tr>
+    {% endfor %}
+</table>
