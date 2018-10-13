@@ -23,13 +23,15 @@ var entity = (function() {
 
             if(data.members.length !== 0) {
 
+                var $ul = $("<ul></ul>");
                 for(var i in data.members) {
 
                     var $template = $($(template).html());
                     $template.find('.member_username').html(data.members[i]['username']);
                     $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
+                    $ul.append($template);
                 }
-                $(appendto).html($template);
+                $(appendto).html($ul);
                 
             }
             else {
