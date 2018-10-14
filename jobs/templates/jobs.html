@@ -1,0 +1,47 @@
+{% extends 'common/listing/base_listing.html' %}
+
+{% block title %}
+    Jobs
+{% endblock%}
+
+
+{% block sidepane %}
+<p class="small mb-1">Want to create a job listing?</p>
+<a href="/company/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+{% endblock %}
+
+<!-- Search results -->
+{% block results %}
+    {% if jobs %}
+<div class="container bg-white rounded shadow-sm">
+    {% for job in jobs %}
+    <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+        <img class="align-self-start mr-2 rounded" src="{{ job.avatar_url }}" height="128" width="128" alt="View profile" />
+
+        <div class="media-body ml-2">
+            <h5 class="mt-0"><a style="cursor: pointer;" href="/company/{{ job.name }}/">{{ job.name }}</a></h5>
+            <p>Extremity direction existence as dashwoods do up. Securing marianne led welcomed offended but offering six raptures. Conveying concluded newspaper rapturous oh at.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    {% else %}
+<p>No results matching the criteria found.</p>
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+    {% if companies.has_previous %}
+<a href="?page=1">&laquo; first</a>
+<a href="?page={{ jobs.previous_page_number }}">previous</a>
+    {% endif %}
+
+<span class="current">
+    Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}
+</span>
+
+    {% if companies.has_next %}
+<a href="?page={{ jobs.next_page_number }}">next</a>
+<a href="?page={{ jobs.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+{% endblock %}
