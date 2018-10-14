@@ -27,7 +27,13 @@ urlpatterns = [
     path('django/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('', include('user.urls')),
-    path('', include('company.urls')),
+    path('', include('entity.urls')),
     path('events/', include('event.urls')),
     path('admin/', include('dashboard.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
