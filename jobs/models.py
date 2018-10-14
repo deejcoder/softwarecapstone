@@ -49,6 +49,6 @@ class Job(models.Model):
         jobs = Job.objects \
             .filter(company=company) \
             .filter(expiry__lt=timezone.now()) \
-            .order_by('date_posted')[:4]
+            .order_by('-date_posted')[:4]
 
         return jobs
