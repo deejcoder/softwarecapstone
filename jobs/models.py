@@ -17,6 +17,7 @@ class Job(models.Model):
     contact_phone = models.CharField(max_length=15, validators=[
         RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")
     ])
+    date_posted = models.DateTimeField(default=timezone.now())
     expiry = models.DateTimeField(default=(timezone.now()+datetime.timedelta(days=14)))
     external_link = models.CharField(blank=True, max_length=2083, default=None)  # IE has URL max length=2083
 
@@ -38,3 +39,14 @@ class Job(models.Model):
                 .filter(search=search_query)
 
         return result
+
+    @classmethod
+    def get_recent_jobs(company: Company):
+        """
+        Returns the four most recent job postings for a company
+        """
+        jobs = Job.objects \
+            .filter(company=company) \
+            .order_by('date_posted')[:4]
+            
+        return jobs
