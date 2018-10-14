@@ -28,9 +28,10 @@ def get_members(request, entity, entity_name):
     members_data = []
     for member in members:
         members_data.append({
-            'username': member.username,
-            'full_name': member.full_name,
-            'avatar': member.avatar_url
+            'role': member.role,
+            'username': member.user.username,
+            'full_name': member.user.full_name,
+            'avatar': member.user.avatar_url
         })
     data = {
         'members': members_data

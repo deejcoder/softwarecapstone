@@ -62,7 +62,7 @@ class Member(models.Model):
         :param role: Get members with the specific role
         :return: a list of Members (users)
         """
-        member_ids = Member.objects.filter(entity=entity) \
-            .values_list('user', flat=True)
-            
-        return User.objects.filter(id__in=member_ids)
+
+        members = Member.objects.filter(entity=entity).select_related('user')
+        return members
+
