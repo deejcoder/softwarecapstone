@@ -12,6 +12,7 @@ class Job(models.Model):
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='jobs')
     title = models.CharField(max_length=30)
+    location = models.CharField(max_length=80)
     description = models.TextField(max_length=500*5.1)  # average word length=5.1
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=15, validators=[
@@ -20,7 +21,6 @@ class Job(models.Model):
     date_posted = models.DateTimeField(default=timezone.now())
     expiry = models.DateTimeField(default=(timezone.now()+datetime.timedelta(days=14)))
     external_link = models.CharField(blank=True, max_length=2083, default=None)  # IE has URL max length=2083
-    location = models.CharField(max_length=80)
 
     @classmethod
     def search_jobs(cls, term: str):
