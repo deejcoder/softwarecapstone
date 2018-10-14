@@ -1,5 +1,7 @@
 {% extends 'common/listing/base_listing.html' %}
 
+{% load humanize %}
+
 {% block title %}
     Jobs
 {% endblock%}
@@ -16,11 +18,19 @@
 <div class="container bg-white rounded shadow-sm">
     {% for job in jobs %}
     <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-        <img class="align-self-start mr-2 rounded" src="{{ job.avatar_url }}" height="128" width="128" alt="View profile" />
-
         <div class="media-body ml-2">
-            <h5 class="mt-0"><a style="cursor: pointer;" href="/company/{{ job.name }}/">{{ job.name }}</a></h5>
-            <p>Extremity direction existence as dashwoods do up. Securing marianne led welcomed offended but offering six raptures. Conveying concluded newspaper rapturous oh at.</p>
+            <h5 class="mt-0"><a style="cursor: pointer;" href="/jobs/{{ job.title }}/">{{ job.title }}</a></h5>
+            <p>{{ job.short_description }}</p>
+            <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
+            </a>
+            <br />
+            <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
+            <br />
+            <small>Located in <strong>{{ job.location }}</strong></small>
+            <br />
+            <i>THIS IS TEMPORARY</i>
+
         </div>
     </div>
     {% endfor %}
