@@ -20,6 +20,7 @@ class Job(models.Model):
     date_posted = models.DateTimeField(default=timezone.now())
     expiry = models.DateTimeField(default=(timezone.now()+datetime.timedelta(days=14)))
     external_link = models.CharField(blank=True, max_length=2083, default=None)  # IE has URL max length=2083
+    location = models.CharField(max_length=80)
 
     @classmethod
     def search_jobs(cls, term: str):
@@ -47,6 +48,7 @@ class Job(models.Model):
         """
         jobs = Job.objects \
             .filter(company=company) \
+            .filter(expiry__lt=timezone.now()) \
             .order_by('date_posted')[:4]
-            
+
         return jobs
