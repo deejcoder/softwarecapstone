@@ -59,8 +59,8 @@ class CompanyModelTestCase(TestCase):
         # there are two editors (1 owner, 1 editor)
         self.assertTrue(len(editors) == 2)
         # the users are editors
-        self.assertTrue(Member.is_editor(editors[0], company))
-        self.assertTrue(Member.is_editor(editors[1], company))
+        self.assertTrue(Member.is_editor(editors[0].user, company))
+        self.assertTrue(Member.is_editor(editors[1].user, company))
 
         # test company applications
         self.assertEqual(
@@ -69,7 +69,7 @@ class CompanyModelTestCase(TestCase):
         )
 
         company.application.approve(
-            user=editors[0],
+            user=editors[0].user,
             comment="A well made application, approved!"
         )
         self.assertEqual(

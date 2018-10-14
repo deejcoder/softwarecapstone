@@ -54,8 +54,8 @@ class GroupModelTestCase(TestCase):
         # there are two editors (1 owner, 1 editor)
         self.assertTrue(len(editors) == 2)
         # the users are editors
-        self.assertTrue(Member.is_editor(editors[0], group))
-        self.assertTrue(Member.is_editor(editors[1], group))
+        self.assertTrue(Member.is_editor(editors[0].user, group))
+        self.assertTrue(Member.is_editor(editors[1].user, group))
 
         # test company applications
         self.assertEqual(
@@ -64,7 +64,7 @@ class GroupModelTestCase(TestCase):
         )
 
         group.application.approve(
-            user=editors[0],
+            user=editors[0].user,
             comment="A well made application, approved!"
         )
         self.assertEqual(
