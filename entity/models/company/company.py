@@ -20,7 +20,6 @@ class Company(Entity):
         Services = ChoiceItem('services')
         Hybrid = ChoiceItem('hybrid')
 
-    name = models.CharField(max_length=80)
     size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
     specialist_area = models.CharField(max_length=30)
@@ -30,6 +29,9 @@ class Company(Entity):
     type_of_business = models.CharField(max_length=25, choices=BusinessType.choices, default=BusinessType.Services)
     address = models.CharField(max_length=80)
     summer_students = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{0} ({1})".format(super().name, self.pk)
 
     @classmethod
     def search_companies(cls, term: str):

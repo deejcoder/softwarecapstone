@@ -3,8 +3,9 @@ Models which defines a company
 """
 import uuid
 
-from django.db import models
 from django.apps import apps
+from django.core.validators import RegexValidator
+from django.db import models
 from PIL import Image
 
 
@@ -22,11 +23,17 @@ def _upload_company_avatar(entity, filename):
 class Entity(models.Model):
 
     # FIELDS
+    name = models.CharField(max_length=80, validators=[
+        RegexValidator(regex='^[\w|\W]*$', message="Your name can only include characters 0-9, A-Z or a-z.")
+    ])
     avatar = models.ImageField(
         upload_to=_upload_company_avatar,
         default=None,
         null=True
     )
+
+    def __str__(self):
+        return "{0} ({1})".format(self.name, self.pk)
 
     def create_application(self):
         application = apps.get_model('entity', 'Application')
