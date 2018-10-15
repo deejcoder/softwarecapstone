@@ -19,7 +19,7 @@
     {% for job in jobs %}
     <div class="media border-bottom border-gray pb-2 p-2 pb-4">
         <div class="media-body ml-2">
-            <h5 class="mt-0"><a style="cursor: pointer;" href="/jobs/{{ job.title }}/">{{ job.title }}</a></h5>
+            <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
             <p>{{ job.short_description }}</p>
             <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
                 <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
