@@ -49,18 +49,20 @@
                     </div>
 
                     <div class="modal-footer">
+                        {% if is_editor %}
                         <div class="container">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Username</span>    
                                 </div>
                                 <input type="text" class="form-control">
-                                <div class="input-group-prepend">
-                                    <button type="submit" class="btn btn-outline-secondary">Add user</button>
+                                <div class="input-group-prepend input-group-btn">
+                                    <button type="submit" class="btn btn-outline-secondary rounded-right">Add user</button>
                                 </div>
                                 
                             </div>  
                         </div>
+                        {% endif %}
                     </div>
 
                 </div>
