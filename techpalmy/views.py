@@ -2,7 +2,7 @@
 This view file consists of general pages e.g homepage, contact-us.
 """
 from django.shortcuts import render
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django import forms
 
 
