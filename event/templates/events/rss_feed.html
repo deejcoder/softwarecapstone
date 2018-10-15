@@ -2,22 +2,43 @@
 
 {% block content %}
 <h2>Events in Palmerston North</h2>
-<div id="rss-feeds">
-    {% if tree %}
+<a class="btn btn-success pull-right" href="{% url 'event:create_event' %}">Create event</a>
+<div id="rss-feeds" class="pt-1">
+        
+    
+
     <ul style='list-style:none;'>
-        {% for branch in tree %}
-            <li class='bg-light mt-5 p-2 border border-light rounded'>
-                <a href='{{ branch.url }}'>{{ branch.heading }}</a><br/>
-                <div class="font-weight-bold">
-                    <p>{{ branch.day }} {{ branch.month }} {{ branch.time}}</p>
-                </div>
-                <div>
-                    <p>{{ branch.desc }}</p>
-                </div>
-            </li>
-        {% endfor %}
+        {% if events %}
+            {% for event in events %}
+                <li class='bg-light mt-5 p-2 border border-light rounded'>
+                    <a href="{% url 'event:event_details' event_title=event.title event_id=event.id %}">{{ event.title }}</a>
+                    <div class="font-weight-bold">
+                        <p>{{ event.time }}</p>
+                    </div>
+                    <div>
+                        <p>{{ event.description }}</p>
+                    </div>
+
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        {% if tree %}
+
+            {% for branch in tree %}
+                <li class='bg-light mt-5 p-2 border border-light rounded'>
+                    <a href='{{ branch.url }}'>{{ branch.heading }}</a><br/>
+                    <div class="font-weight-bold">
+                        <p>{{ branch.day }} {{ branch.month }} {{ branch.time}}</p>
+                    </div>
+                    <div>
+                        <p>{{ branch.desc }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        {% endif %}
     </ul>
-    {% else %}
+    {% if not events and not tree %}
     <p>No upcoming events in Palmerston North.</p>
     {% endif %}
 </div>

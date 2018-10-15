@@ -13,43 +13,31 @@
 {% endblock %}
 
 {% block sidepane %}
-    {% if is_owner %}
-<a href="edit">Edit profile</a>
+    {% if is_editor %}
+        <div>
+            <a href="edit">Edit profile</a>
+        </div>
     {% endif %}
+    <div>
+        <a href="#" onclick="entity.get_members('#member_list .modal-body', '#member_template');" 
+            data-toggle="modal" data-target="#member_list"
+        >Show members
+        </a>
+    </div>
+    {% include 'members.html' %}
+
+    <!-- contact info -->
+    <div>
+        <a href="{{ group.website }}">{{ group.website }}</a>
+    </div>
 {% endblock %}
 
-<!-- Edit profile information -->
 {% block profile-content %}
     <div class="d-flex justify-content-between">
         <h3 class="mr-auto">{{ group.name|title }}</h3>
     </div>
-    {{ group.website }}
-    {{ group.description }}
-
-    <div>
-
-        <!-- You can get some members by doing...
-        {% for member in members %}
-            {{ member.username }}
-            {{ member.avatar_url }}
-        {% endfor %}
-
-        This could be put into a bootstrap modal
-        -->
-        <div id="members">
-
-            <!-- A template for each member to use -->
-            <script id="member_template" type="text/template">
-                <li>
-                    <img class='member_avatar' height=32 width=32/>
-                    <span class='member_username'></span>
-                </li>
-            </script>
-
-            <!-- Members will be appended here -->
-            <div id="member_list"></div>
-            <a href="#" onclick="entity.get_members('#member_list', '#member_template');">See all members</a>
-        </div>
+    <div class="d-flex justify-content-between">
+        <p class="text-justify" style="word-break: break-all;" >{{ group.description }}</p>
     </div>
 
 {% endblock %}
