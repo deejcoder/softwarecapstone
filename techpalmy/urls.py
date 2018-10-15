@@ -31,7 +31,7 @@ urlpatterns = [
     path('events/', include('event.urls')),
     path('about/', views.About.as_view(), name='about'),
     path('contact/', views.contact_form, name='contact'),
-    path('admin/', include('dashboard.urls'))
+    path('admin/', include('dashboard.urls')),
     path('', include('jobs.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -45,10 +45,10 @@ class Listing(View):
 
         # determine if the user is an editor of any company
         try:
-            is_editor = Member.objects \
+            Member.objects \
                 .filter(user=request.user) \
-                .filter(role=Member.Roles.EDITOR)[0] \
-                .exists()
+                .filter(role=Member.Roles.EDITOR)[0]
+            is_editor = True
         except IndexError:
             is_editor = False
 
