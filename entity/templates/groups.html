@@ -1,19 +1,47 @@
-Should be able to search by adding ?search={search term} to the URL
-Below are listings of accepted groups.
+{% extends 'common/listing/base_listing.html' %}
 
-<table>
-    <th>
-        <tr>
-            <td><b>Name</b></td>
-            <td><b>Description</b></td>
-            <td><b>Website</b></td>
-        </tr>
-    </th>
-    {% for group in groups %}
-    <tr>
-        <td><a href="./{{ group.name }}/">{{ group.name }}</a></td>
-        <td>{{ group.description }}</td>
-        <td>{{ group.website }}</td>
-    </tr>
-    {% endfor %}
-</table>
+{% block title %}
+    Interest Groups
+{% endblock %}
+
+{% block sidepane %}
+    <p class="small mb-1">Want to create a group profile?</p>
+    <a href="/group/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+{% endblock %}
+
+{% block results %}
+    {% if groups %}
+        <div class="container bg-white rounded shadow-sm">
+            {% for group in groups %}
+                <div class="media border-bottom border-gray pb-2 p-2">
+                    <div class="center-me">
+                        <img class="mr-2 rounded" src="{{ group.avatar_url }}" height="140" width="140" alt="View profile" />
+                    </div>
+                    <div class="media-body ml-2">
+                        <h5 class="mt-0"><a style="cursor: pointer;" href="/groups/{{ group.name }}/">{{ group.name }}</a></h5>
+                        <p><a style="cursor: pointer;" href="https://{{ group.website }}/">Website</a></p>
+                        <p>{{ group.description|truncatechars:200 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results matching the criteria found.</p>
+    {% endif %}
+{% endblock %}
+
+{% block pagination %}
+    {% if groups.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ groups.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+    Page {{ groups.number }} of {{ groups.paginator.num_pages }}
+    </span>
+
+    {% if groups.has_next %}
+        <a href="?page={{ groups.next_page_number }}">next</a>
+        <a href="?page={{ groups.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+{% endblock %}
