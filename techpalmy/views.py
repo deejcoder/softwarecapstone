@@ -26,7 +26,7 @@ class Dashboard(TemplateView):
 	
 class About(View):
     def index(self):
-        return render(request, 'abour.html')
+        return render(request, 'about.html')
 
 
 def contact_form(request):
