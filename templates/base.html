@@ -55,10 +55,10 @@
 				<a class="nav-link" href="/events/">Events</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Groups</a>
-			</li>
-                    </ul>
-                    <div class="col-sm-3">
+				<a class="nav-link" href="{% url 'entity:group_listing' %}">Groups</a>
+            </li>
+            </ul>
+            <div class="col-sm-3">
 			<form method="get" action="/consultants/">
 				{% csrf_token %}
 				<div class="input-group">

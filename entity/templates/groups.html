@@ -6,7 +6,8 @@
 
 {% block sidepane %}
     <p class="small mb-1">Want to create a group profile?</p>
-    <a href="/group/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+    <a href="/groups/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+    {% include 'members.html' %}
 {% endblock %}
 
 {% block results %}
@@ -17,10 +18,9 @@
                     <div class="center-me">
                         <img class="mr-2 rounded" src="{{ group.avatar_url }}" height="140" width="140" alt="View profile" />
                     </div>
-                    <div class="media-body ml-2">
+                    <div class="media-body">
                         <h5 class="mt-0"><a style="cursor: pointer;" href="/groups/{{ group.name }}/">{{ group.name }}</a></h5>
-                        <p><a style="cursor: pointer;" href="https://{{ group.website }}/">Website</a></p>
-                        <p>{{ group.description|truncatechars:200 }}</p>
+                        <p style="word-break: break-all;">{{ group.description|truncatechars:200 }}</p>
                     </div>
                 </div>
             {% endfor %}

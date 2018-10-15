@@ -13,9 +13,23 @@
 {% endblock %}
 
 {% block sidepane %}
-    {% if is_owner %}
-        <a class="btn btn-dark btn-block mt-2" role="button" href="edit">Edit profile</a>
+    {% if is_editor %}
+        <div>
+            <a href="edit">Edit profile</a>
+        </div>
     {% endif %}
+    <div>
+        <a href="#" onclick="entity.get_members('#member_list .modal-body', '#member_template');" 
+            data-toggle="modal" data-target="#member_list"
+        >Show members
+        </a>
+    </div>
+    {% include 'members.html' %}
+
+    <!-- contact info -->
+    <div>
+        <a href="{{ group.website }}">{{ group.website }}</a>
+    </div>
 {% endblock %}
 
 {% block profile-content %}
@@ -23,34 +37,7 @@
         <h3 class="mr-auto">{{ group.name|title }}</h3>
     </div>
     <div class="d-flex justify-content-between">
-        <p class="text-justify">{{ group.description }}</p>
-    </div>
-    <a href="https://{{ group.website }}/">Learn more here.</a>
-    <hr>
-    <div class="d-flex justify-content-between">
-        <h5>Events associated with this group:</h5>
-
-    </div>
-    <hr>
-    <div>
-        <h5>Group members:</h5>
-        <div id="members">
-            <script id="member_template" type="text/template">
-                <li class="mb-2">
-                    <img class='member_avatar rounded' height=32 width=32/>
-                    <span class='member_username'></span>
-                    {% if is_owner %}
-                        <span class="delete_button_owner"></span>
-                    {% endif %}
-                    {% if is_editor %}
-                        <span class="delete_button_editor"></span>
-                    {% endif %}
-                </li>
-            </script>
-            <div id="member_list"></div>
-            <a href="#" onclick="entity.get_members('#member_list', '#member_template');">See all members</a>
-
-        </div>
+        <p class="text-justify" style="word-break: break-all;" >{{ group.description }}</p>
     </div>
 
 {% endblock %}

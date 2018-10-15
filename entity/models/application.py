@@ -29,6 +29,9 @@ class Application(models.Model):
     comment = models.TextField(max_length=300, null=True, default=None)
     status = models.CharField(max_length=20, choices=StatusType.choices, default=StatusType.Pending)
 
+    def __str__(self):
+        return "Application: {0} ({1})".format(self.entity.name, self.pk)
+
     def approve(self, user: User, comment: str) -> bool:
         """
         Approves a company's application

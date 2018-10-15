@@ -7,8 +7,19 @@
 var entity = (function() {
 
     function init() {
-        $(document).ready(function() {});
+        $(document).ready(function() {
+
+        });
     }
+
+    /**
+     * Takes a word and capitalizes the first letter
+     * @param {string} word 
+     */
+    function upper(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
     /**
      * Gets all members assiocated with an entity and
      * attaches a list of members to the given HTML element
@@ -23,44 +34,24 @@ var entity = (function() {
 
             if(data.members.length !== 0) {
 
-                var $ul = $("<ul style='list-style:none;'></ul>");
-                $ul.append('<h6>Owner(s):</h6>')
+                var $ul = $("<ul class='list-group list-group-flush'></ul>");
+
                 for(var i in data.members) {
-                    if (data.members[i]['role'] == 'owner') {
-                        var $template = $($(template).html());
-                        $template.find('.member_username').html(data.members[i]['username']);
-                        $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
-                        $ul.append($template);
+                    var $template = $($(template).html());
+                    $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
+                    $template.find('.member_username').html(data.members[i]['username']);
+                    $template.find('.member_role').html(upper(data.members[i]['role']));
+
+                    if(data.members[i]['role'] != "owner") {
+                        $template.find('.delete_button_editor').html('<a href="#" class="pull-right">Remove</a>');
                     }
+                    $ul.append($template);
                 }
-                $ul.append('<br/><h6>Editors(s):</h6>')
-                for(var i in data.members) {
-                    if (data.members[i]['role'] == 'editor') {
-                        var $template = $($(template).html());
-                        $template.find('.member_username').html(data.members[i]['username']);
-                        $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
-                        $template.find('.delete_button_owner').html('<button class="btn pull-right" type="submit">Delete</button>');
-                        $ul.append($template);
-                    }
-                }
-                $ul.append('<br/><h6>Member(s):</h6>')
-                for(var i in data.members) {
-                    if (data.members[i]['role'] == 'member') {
-                        var $template = $($(template).html());
-                        $template.find('.member_username').html(data.members[i]['username']);
-                        $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
-                        $template.find('.delete_button_editor').html('<button class="btn pull-right" type="submit">Delete</button>');
-                        $ul.append($template);
-                    }
-                }
-                $ul.append('<button class="btn" type="submit">Add user</button>');
                 $(appendto).html($ul);
 
             }
             else {
                 $(appendto).html("There are no members to show");
-                $(appendto).append('<br/><button type="submit">Add user</button>');
-            }
             }
         }
         // Send an AJAX request

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -69,7 +70,7 @@ class EditProfile(View):
             return HttpResponseNotFound
 
         # is the user an editor (or owner)?
-        if not group.is_editor(request.user):
+        if not Member.is_editor(request.user, group):
             return HttpResponseRedirect(request.path)
 
         form = EditGroupForm(instance=group, data=request.POST)
@@ -80,10 +81,4 @@ class EditProfile(View):
             messages.success(request, 'The group profile has successfully been updated.')
             form = EditGroupForm()
 
-        return render(request, 'group/edit_profile.html', {
-            'group': group,
-            'is_owner': Member.is_owner(request.user, group),
-            'is_editor': Member.is_editor(request.user, group),
-            'form': form
-        })
-
+        return HttpResponseRedirect(reverse('entity:group_profile_edit', args=[group.name]))
