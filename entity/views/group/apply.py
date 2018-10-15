@@ -6,7 +6,7 @@ from entity.forms import GroupApplicationForm
 
 
 # Rough view for comp_appform.html
-class ApplyGroup(View):
+class Apply(View):
 
     def get(self, request):
         form = GroupApplicationForm()
