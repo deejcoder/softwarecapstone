@@ -37,6 +37,28 @@ class Profile(View):
             'is_editor': Member.is_editor(request.user, group_obj),
         })
 
+
+class EditProfile(View):
+    @method_decorator(login_required)
+    def get(self, request, group):
+        """
+        User is viewing a profile
+        """
+
+        try:
+            group_obj = Group.objects.get(name=group)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        form = EditGroupForm(instance=group_obj, data=request.GET)
+
+        return render(request, 'group/edit_profile.html', {
+            'group': group_obj,
+            'is_owner': Member.is_owner(request.user, group_obj),
+            'is_editor': Member.is_editor(request.user, group_obj),
+            'form': form,
+        })
+
     @method_decorator(login_required)
     def post(self, request, group):
 
@@ -49,18 +71,19 @@ class Profile(View):
         # is the user an editor (or owner)?
         if not group.is_editor(request.user):
             return HttpResponseRedirect(request.path)
-        
+
         form = EditGroupForm(instance=group, data=request.POST)
 
         # save company if valid
         if form.is_valid():
             form.save()
-            messages.success(request, 'The company profile has successfully been updated.')
+            messages.success(request, 'The group profile has successfully been updated.')
             form = EditGroupForm()
 
-        return render(request, 'group/profile.html', {
+        return render(request, 'group/edit_profile.html', {
             'group': group,
             'is_owner': Member.is_owner(request.user, group),
             'is_editor': Member.is_editor(request.user, group),
             'form': form
         })
+
