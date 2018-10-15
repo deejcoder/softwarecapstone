@@ -1,14 +1,20 @@
-from django.shortcuts import render
-from lxml import html
 import requests
-
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from .forms import CreateEventForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseNotFound
+from django.shortcuts import render
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
+from lxml import html
 
-# Create your views here.
+from entity.models import Member
+from event.models import Event
+
+from .forms import CreateEventForm
+
+
 def events(request):
     page = requests.get('https://techevents.nz/pnorth')
     tree = html.fromstring(page.content)
@@ -31,17 +37,45 @@ def events(request):
         new_event['desc'] = event_desc[i]
         new_event['url'] = event_urls[2*i]
         all_events.append(new_event)
-    return render(request, 'events/rss_feed.html', {'tree': all_events})
+
+    # get all events belonging to techpalmy
+    techpalmy_events = Event.objects.all()
+
+    return render(request, 'events/rss_feed.html', {
+        'tree': all_events,
+        'events': techpalmy_events,
+    })
+
+
+class EventDetails(View):
+    """
+    Details page for a particular event
+    """
+    def get(self, request, event_title, event_id):
+
+        try:
+            event = Event.objects.get(pk=event_id)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        return render(request, 'events/event_details.html', {
+            'event': event,
+        })
 
 
 class CreateEvent(View):
+    """
+    Allow company/group editors to create events
+    using an application
+    """
     @method_decorator(login_required)
     def get(self, request):
 
         form = CreateEventForm(data=request.GET)
 
-        return render(request, 'events/create_event.html',
-                      {'form': form, })
+        return render(request, 'events/create_event.html', {
+            'form': form,
+        })
 
     @method_decorator(login_required)
     def post(self, request):
@@ -49,10 +83,15 @@ class CreateEvent(View):
         form = CreateEventForm(data=request.POST)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, 'The event has successfully been created.')
-            form = CreateEventForm()
 
-        return render(request, 'events/create_event.html',
-                      {'form': form, })
-    
+            # assure they own the company/group they are creating an event for
+            # this also needs to be adjusted in the form
+            entity = form.cleaned_data.get('entity')
+            if Member.is_editor(request.user, entity):
+                form.save()
+                messages.success(request, 'The event has successfully been created.')
+                form = CreateEventForm()
+            else:
+                messages.error(request, 'You must be an editor of the company or group you are creating an event for.')
+
+        return reverse('event:events_listing')
