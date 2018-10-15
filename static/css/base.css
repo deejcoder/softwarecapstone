@@ -28,12 +28,17 @@
 }
 
 #wrapper {
-    min-height:100%;
-    position:relative;
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 80px;
 }
 
 #document-container {
-    padding-bottom:50px;
+    padding-bottom: 80px;
+}
+
+.center-me {
+    margin: auto;
 }
 
 .footer {
@@ -41,8 +46,7 @@
     width: 100%;
     bottom: 0;
     left: 0;
-    /* Set the fixed height of the footer here */
-    min-height: 40px;
+    min-height: 80px;
 }
 
 /* width */
