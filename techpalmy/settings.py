@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,6 +146,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda r: False,  # disables it
+    # '...
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

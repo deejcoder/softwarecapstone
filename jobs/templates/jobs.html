@@ -4,6 +4,7 @@
 
 {% block title %}
     Jobs
+
 {% endblock%}
 
 
@@ -14,6 +15,8 @@
 
 <!-- Search results -->
 {% block results %}
+<i>THIS IS TEMPORARY CSS</i>
+
     {% if jobs %}
 <div class="container bg-white rounded shadow-sm">
     {% for job in jobs %}
@@ -29,14 +32,24 @@
             <br />
             <small>Located in <strong>{{ job.location }}</strong></small>
             <br />
-            <i>THIS IS TEMPORARY</i>
 
         </div>
     </div>
     {% endfor %}
+    <a style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
+        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+            <div class="media-body ml-2">
+                <h5 class="mt-0">TradeMe Jobs</h5>
+                <br />
+                <p>Cant find what you are looking for?</p>
+                <p>Find more jobs at trademe.co.nz/jobs!</p>
+                <img style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
+                <br />
+            </div>
+        </div>
+    </a>
 </div>
     {% else %}
-<p>No results matching the criteria found.</p>
     {% endif %}
 {% endblock %}
 

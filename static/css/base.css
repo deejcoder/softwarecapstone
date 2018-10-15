@@ -5,17 +5,58 @@
 @import "imports/slider.css";
 @import "imports/events.css";
 
-
 @font-face {
-    font-family: "Pacifico";
-    src: url("fonts/Pacifico-Regular.ttf");
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans.otf");
 }
 @font-face {
-    font-family: "Hyperspace-Bold";
-    src: url("fonts/Hyperspace-Bold.otf");
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Italic.otf");
+    font-style: italic;
 }
 
-    html, body {
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Bold.otf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Bold_Italic.otf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Medium.otf");
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Medium_Italic.otf");
+    font-weight: bolder;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Light.otf");
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: "Blogger Sans";
+    src: url("fonts/Blogger_Sans-Light_Italic.otf");
+    font-weight: lighter;
+    font-style: italic;
+}
+
+
+
+
+html, body {
     background-color: #e4ebf0;
     margin: 0;
     padding: 0;

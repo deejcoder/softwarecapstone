@@ -1,0 +1,193 @@
+@font-face {
+    font-family: "Pacifico";
+    src: url("fonts/Pacifico-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Hyperspace-Bold";
+    src: url("fonts/Hyperspace-Bold.otf");
+}
+
+html, body {
+    font-size: 100%;
+    height: 100%;
+}
+body {
+    background-color: #23272a;
+}
+.card h5{
+    font-family: "Blogger Sans";
+    font-weight: bolder;
+    font-size: 2rem;
+    display: none;
+}
+.card p {
+    font-family: "Blogger Sans";
+    font-size: 1.1rem;
+    font-weight: lighter;
+}
+.card .btn {
+    width: 120px;
+    font-family: "Blogger Sans";
+    font-size: 1.3rem;
+}
+
+.card .textbig{
+    font-size: 1.5rem;
+}
+.navbar .navmargin {
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+    position: absolute !important;
+}
+.dropdown-divider {
+    border-top: 1px solid #23272a !important;
+}
+
+#title h4 {
+    font-family: "Pacifico";
+    font-size: 55px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+#title h1 {
+    font-family: "Hyperspace-Bold";
+    font-size: 90px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+#title button{
+    font-family: "Blogger Sans";
+    font-size: 1.5rem;
+}
+
+#overlay {
+    height: 100%;
+    left: 0;
+    position: relative;
+    top: 0;
+    transition: background-color 300ms ease;
+    width: 100%;
+}
+
+
+#hero-vid {
+    backface-visibility: hidden;
+    background-size: cover;
+    top: 0;
+    max-width: 101%;
+    position: fixed;
+    left: 0;
+    width: auto;
+    z-index: -1;
+}
+
+#title{
+    height: 100vh;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+#content {
+    background-color: #23272a;
+}
+
+
+.card {
+    background-color: #2e3438 !important;
+    border-radius: 15px;
+    border-width: 4px;
+    border-color: #39b54a;
+}
+
+.btn-outline-secondary {
+    color: white;
+    border-color: #39b54a;
+    background-color: rgba(0,0,0,0);
+}
+
+.btn-outline-secondary:hover {
+    background-color: #39b54a;
+    border-color: #39b54a;
+}
+
+.btn-outline-secondary:active {
+    background-color: #39b54a !important;
+    border-color: #39b54a !important;
+    box-shadow: 0 0 0 0.2rem rgba(57,181,74, 0.2) !important;
+}
+
+.btn-outline-secondary:focus {
+    border-color: #39b54a;
+    box-shadow: 0 0 0 0.2rem rgba(57,181,74, 0.2);
+}
+
+@media only screen and (max-width:768px) {
+    #overlay {
+        height: auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 575.98px) {
+    
+}
+
+@media (max-width: 767.98px) {
+    
+}
+
+@media (max-width: 991.98px) {
+    #hero-vid{
+        max-width:none;
+        left: -40vh;
+        top: -20vh;
+    }
+    #title .col-9 {
+        max-width: none;
+    }
+    #title .col-3 {
+        display: none;
+    }
+    .backgroundoverlay{
+        height: auto !important;
+    }
+}
+
+@media (min-width: 991.98px) {
+    #hero-vid {
+        max-width: 101%;
+    }
+}
+
