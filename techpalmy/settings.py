@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'event',
     'entity',
     'dashboard',
+    'jobs',
     'django_cleanup',  # always have django_cleanup at the bottom
 ]
 
