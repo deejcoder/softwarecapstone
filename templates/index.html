@@ -1,16 +1,79 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block background %}
 
-<br />
-<h2>
-    Welcome to TechPalmy!
-</h2>
-<br/>
-<p>
-    Nothing much going on at the moment...
-</p>
-<br/>
-<br/>
+<style>
+    .vidblock {
+        display: block;
+        position: relative;
+        min-height: 25rem;
+        width: 100%;
+        overflow: hidden;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+    }
+    .vidblock video {
+        float: left;
+        max-width: 100%;
+        min-height: 100%;
+        z-index: 0;
+    }
+    .vidblock .vidtitle{
+        position:absolute;
+        top:36%;
+        left:70%;
+    }
+
+    .vidblock .container {
+        position: absolute;
+        z-index: 2;
+    }
+    @media (pointer: coarse) and (hover: none) {
+        .vidblock {
+            background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+        }
+
+        .vidblock video {
+            display: none;
+        }
+    }
+    .vidblock h1{
+        font-family: 'Hyperspace-Bold';
+        font-size: 90px;
+    }
+    .vidblock h4 { 
+        font-family: 'Pacifico';
+        font-size: 50px;
+
+    }
+    .vidblock .btn-outline-secondary {
+        color: white;
+        border-color: #39b54a;
+    }
+</style>
+
+
+<div class="vidblock">
+    <div class="container h-100">
+        <div class="d-flex text-center h-100">
+            <div class="my-auto w-100 text-white vidtitle">
+                <h4 class="">Welcome To</h4>
+                <h1>techpalmy</h1>
+                <button class="mt-2 btn btn-lg btn-outline-secondary">Explore</button>
+            </div>
+        </div>
+    </div>
+    <video playsinline autoplay muted loop poster="static/homevid.jpg" id="bgvid">
+        <source src="static/Sequence.webm" type="video/webm">
+    </video>
+
+</div>
+
+
+{% endblock %}
+
+{% block content %}
 
 {% endblock %}

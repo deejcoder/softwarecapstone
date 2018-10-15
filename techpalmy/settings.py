@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+	'django.contrib.humanize',
     'widget_tweaks',
     'debug_toolbar',
     'captcha',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'event',
     'entity',
     'dashboard',
+    'jobs',
     'django_cleanup',  # always have django_cleanup at the bottom
 ]
 

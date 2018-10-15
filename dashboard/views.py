@@ -86,5 +86,5 @@ class CompanyApplications(View):
         else:
             company.application.deny(request.user, '')
 
-        messages.success(request, "You have approved the company application for:{}".format({company.name}))
+        messages.success(request, "You have approved the company application for: {0}".format(company.name))
         return render(request, 'dashboard/index.html')

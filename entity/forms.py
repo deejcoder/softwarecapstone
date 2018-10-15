@@ -77,6 +77,20 @@ class EditCompanyForm(ModelForm):
             'summer_students'
         )
 
+        
+class GroupApplicationForm(ModelForm):
+    class Meta:
+        model = Group
+        fields = {
+            'name',
+            'website',
+            'description',
+        }
+
+        widgets = {
+            'description': forms.Textarea
+        }        
+
 
 class EditGroupForm(ModelForm):
     """

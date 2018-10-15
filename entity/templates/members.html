@@ -1,0 +1,53 @@
+<div id="members">
+    <!-- This template is used to format individual members -->
+    <script id="member_template" type="text/template">
+        <li class="list-group-item container">
+            <div class="row">
+                <img class='member_avatar rounded' height=32 width=32/>
+                <span class='member_username col-sm-5'></span>
+                <span class='member_role col-sm-3'></span>
+            
+                {% if is_editor %}
+                    <span class="delete_button_editor col-sm-3"></span>
+                {% endif %}
+            </div>
+        </li>
+    </script>
+
+    <!-- Modal used to show members -->
+    <div id="member_list" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="members_modal_title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="members_modal_title">Members</h5>
+                    <span class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </span>
+                </div>
+
+                <div class="modal-body">
+                    <!-- members will be attached here -->
+                </div>
+
+                <div class="modal-footer">
+                    {% if is_editor %}
+                    <div class="container">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Username</span>    
+                            </div>
+                            <input type="text" class="form-control">
+                            <div class="input-group-prepend input-group-btn">
+                                <button type="submit" class="btn btn-success rounded-right">Add</button>
+                            </div>
+                            
+                        </div>  
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
