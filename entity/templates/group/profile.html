@@ -14,41 +14,42 @@
 
 {% block sidepane %}
     {% if is_owner %}
-<a href="edit">Edit profile</a>
+        <a class="btn btn-dark btn-block mt-2" role="button" href="edit">Edit profile</a>
     {% endif %}
 {% endblock %}
 
-<!-- Edit profile information -->
 {% block profile-content %}
     <div class="d-flex justify-content-between">
         <h3 class="mr-auto">{{ group.name|title }}</h3>
     </div>
-    {{ group.website }}
-    {{ group.description }}
+    <div class="d-flex justify-content-between">
+        <p class="text-justify">{{ group.description }}</p>
+    </div>
+    <a href="https://{{ group.website }}/">Learn more here.</a>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <h5>Events associated with this group:</h5>
 
+    </div>
+    <hr>
     <div>
-
-        <!-- You can get some members by doing...
-        {% for member in members %}
-            {{ member.username }}
-            {{ member.avatar_url }}
-        {% endfor %}
-
-        This could be put into a bootstrap modal
-        -->
+        <h5>Group members:</h5>
         <div id="members">
-
-            <!-- A template for each member to use -->
             <script id="member_template" type="text/template">
-                <li>
-                    <img class='member_avatar' height=32 width=32/>
+                <li class="mb-2">
+                    <img class='member_avatar rounded' height=32 width=32/>
                     <span class='member_username'></span>
+                    {% if is_owner %}
+                        <span class="delete_button_owner"></span>
+                    {% endif %}
+                    {% if is_editor %}
+                        <span class="delete_button_editor"></span>
+                    {% endif %}
                 </li>
             </script>
-
-            <!-- Members will be appended here -->
             <div id="member_list"></div>
             <a href="#" onclick="entity.get_members('#member_list', '#member_template');">See all members</a>
+
         </div>
     </div>
 
