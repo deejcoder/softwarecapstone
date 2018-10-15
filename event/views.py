@@ -2,6 +2,12 @@ from django.shortcuts import render
 from lxml import html
 import requests
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from .forms import CreateEventForm
+from django.contrib import messages
+from django.views import View
+
 # Create your views here.
 def events(request):
     page = requests.get('https://techevents.nz/pnorth')
@@ -27,3 +33,26 @@ def events(request):
         all_events.append(new_event)
     return render(request, 'events/rss_feed.html', {'tree': all_events})
 
+
+class CreateEvent(View):
+    @method_decorator(login_required)
+    def get(self, request):
+
+        form = CreateEventForm(data=request.GET)
+
+        return render(request, 'events/create_event.html',
+                      {'form': form, })
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        form = CreateEventForm(data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The event has successfully been created.')
+            form = CreateEventForm()
+
+        return render(request, 'events/create_event.html',
+                      {'form': form, })
+    
