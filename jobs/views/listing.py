@@ -6,9 +6,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views import View
 
-from jobs.models import Job
 from entity.models import Member
 from jobs.forms import JobCreationForm
+from jobs.models import Job
 
 
 class Listing(View):
@@ -44,10 +44,13 @@ class Listing(View):
         create_job_form = JobCreationForm()
 
         # determine if the user is an editor of any company
-        is_editor = Member.objects \
-            .filter(user=request.user) \
-            .filter(role=Member.Roles.EDITOR)[0] \
-            .exists()
+        try:
+            is_editor = Member.objects \
+                .filter(user=request.user) \
+                .filter(role=Member.Roles.EDITOR)[0] \
+                .exists()
+        except IndexError:
+            is_editor = False
 
         return render(request, 'jobs.html', {
             'is_company_editor': is_editor,
