@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'css/view_profile.css' %}" />
+
+<script src="{% static 'js/profile_card.js' %}"></script>
+{{ block.super }}
+
+{% endblock %}
+{% block content %}
+<div class="container" id="content-container">
+    <div class="row">
+        <!-- Content header -->
+        <div class="col-md-x" id="profile-banner">
+
+            <!-- sidepane content -->
+            <div id="banner">
+                {% block sidepane %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="container col-md-8" id="profile-info">
+            {% block profile-content %}
+            {% endblock %}
+        </div>
+
+        {% block additional-info %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
