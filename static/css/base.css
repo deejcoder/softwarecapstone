@@ -5,7 +5,17 @@
 @import "imports/slider.css";
 @import "imports/events.css";
 
-html, body {
+
+@font-face {
+    font-family: "Pacifico";
+    src: url("fonts/Pacifico-Regular.ttf");
+}
+@font-face {
+    font-family: "Hyperspace-Bold";
+    src: url("fonts/Hyperspace-Bold.otf");
+}
+
+    html, body {
     background-color: #e4ebf0;
     margin: 0;
     padding: 0;
