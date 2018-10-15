@@ -13,6 +13,14 @@
     {% endwith %}
 {% endblock %}
 
+{% block sidepane %}
+    <a href="#" onclick="entity.get_members('#member_list .modal-body', '#member_template');" 
+    data-toggle="modal" data-target="#member_list"
+    >Manage members
+    </a>
+    {% include 'members.html' %}
+{% endblock %}
+
 {% block profile-content %}
     <form id="group_form" method="post">
         {% csrf_token %}
@@ -37,15 +45,7 @@
             </div>
         </div>
         <hr>
-        <div class="form-group d-flex justify-content-between">
-            <label>Add/remove event(s):</label>
-        </div>
-        <hr>
-        <div class="form-group d-flex justify-content-between">
-            <label>Add/remove group member(s):</label>
-
-        </div>
-        <hr>
-        <input class="btn btn-dark btn-block" type="submit" value="Submit">
+        <button type="submit" class="btn btn-outline-dark">Update</button>
+        <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
     </form>
 {% endblock %}

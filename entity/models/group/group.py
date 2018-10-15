@@ -10,8 +10,8 @@ from entity.models import Entity
 class Group(Entity):
 
     # FIELDS
-    description = models.CharField(max_length=500)
-    website = models.CharField(max_length=100)
+    description = models.TextField(max_length=500*5.1)  # 5.1 chars = average word length
+    website = models.CharField(max_length=2056)
 
     def __str__(self):
         return "{0} ({1})".format(super().name, self.pk)
