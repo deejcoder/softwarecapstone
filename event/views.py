@@ -60,7 +60,7 @@ class EventDetails(View):
             return HttpResponseNotFound()
 
         geolocator = Nominatim()
-        location = geolocator.geocode(event.location + ", Palmerston North")
+        location = geolocator.geocode(event.location)
 
         return render(request, 'events/event_details.html', {
             'event': event,
