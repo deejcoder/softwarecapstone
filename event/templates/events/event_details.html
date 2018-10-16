@@ -8,10 +8,12 @@
 
 {% endblock %}
 
-<div onload="displayStaticMap({{lat}}, {{lon}}, 'location')" class="container mt-3 p-3 bg-light rounded col-md-7">
+{% block content %}
+<div class="container mt-5 p-3 bg-light rounded col-md-7">
     <h3>{{ event.title }}</h3>
     <strong>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</strong>
     <hr>
     <p>{{ event.description }}</p>
 </div>
+{% endblock %}
 
