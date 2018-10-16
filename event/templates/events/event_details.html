@@ -1,22 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block head %}
-
-{% endblock %}
-
 {% block title %}
 {{ event.title }} - Details
 {% endblock %}
 
 
 {% block content %}
-<div class="container mt-3 p-3 bg-light rounded col-md-7">
+<div class="container mt-5 p-3 bg-light rounded col-md-7">
+>>>>>>> bf7345afc5ea401bb69944d7e9fb2e95bbe382fe
     <h3>{{ event.title }}</h3>
     <strong>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</strong>
     <hr>
     <p>{{ event.description }}</p>
     <button type="submit" class="btn btn-danger pull-right mt-4">Delete</button>
 </div>
+{% endblock %}
 
 {% endblock %}
