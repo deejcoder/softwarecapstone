@@ -2,7 +2,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -100,4 +100,4 @@ class CreateEvent(View):
             else:
                 messages.error(request, 'You must be an editor of the company or group you are creating an event for.')
 
-        return reverse('event:events_listing')
+        return HttpResponseRedirect(reverse('event:events_listing'))

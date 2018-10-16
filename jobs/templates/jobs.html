@@ -9,33 +9,36 @@
 
 
 {% block sidepane %}
-<p class="small mb-1">Want to create a job listing?</p>
-<a href="/company/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+    <p class="small mb-1">Want to create a job listing?</p>
+    
+    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#job_create">Create Job</a>
+    {% include 'jobs/create.html' %}
 {% endblock %}
 
 <!-- Search results -->
 {% block results %}
-<i>THIS IS TEMPORARY CSS</i>
+    <i>THIS IS TEMPORARY CSS</i>
 
     {% if jobs %}
-<div class="container bg-white rounded shadow-sm">
+        <div class="container bg-white rounded shadow-sm">
     {% for job in jobs %}
-    <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-        <div class="media-body ml-2">
-            <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
-            <p>{{ job.short_description }}</p>
-            <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
-                <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
-            </a>
-            <br />
-            <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
-            <br />
-            <small>Located in <strong>{{ job.location }}</strong></small>
-            <br />
+        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+            <div class="media-body ml-2">
+                <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
+                <p>{{ job.short_description }}</p>
+                <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                    <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
+                </a>
+                <br />
+                <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
+                <br />
+                <small>Located in <strong>{{ job.location }}</strong></small>
+                <br />
 
+            </div>
         </div>
-    </div>
     {% endfor %}
+
     <a style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
         <div class="media border-bottom border-gray pb-2 p-2 pb-4">
             <div class="media-body ml-2">

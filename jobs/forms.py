@@ -12,12 +12,12 @@ class JobCreationForm(ModelForm):
         model = Job
 
         fields = [
+            'company',
             'title',
             'description',
             'location',
             'contact_email',
             'contact_phone',
-            'expiry',
             'external_link',
         ]
 

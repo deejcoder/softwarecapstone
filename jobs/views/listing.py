@@ -3,12 +3,16 @@ Lists all jobs, allows companies to add new jobs
 """
 
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 
 from entity.models import Member
 from jobs.forms import JobCreationForm
 from jobs.models import Job
+
+from django.contrib import messages
 
 
 class Listing(View):
@@ -58,3 +62,11 @@ class Listing(View):
             'page': page,
             'creation_form': create_job_form
         })
+
+    def post(self, request):
+        form = JobCreationForm(request.POST)
+        if form.is_valid():
+            job = form.save(commit=True)
+            messages.success(request, "Your new job has been created!")
+            return HttpResponseRedirect(reverse('jobs:job_details', args=[job.title, job.id]))
+        return HttpResponseRedirect(reverse('jobs:job_listing'))

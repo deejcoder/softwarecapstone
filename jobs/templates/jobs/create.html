@@ -1,0 +1,38 @@
+{% load static %}
+{% load add_class %}
+<!-- Modal used to create a new job -->
+<div id="job_create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="job_modal_title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="job_modal_title">Create a job</h5>
+                <span class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </span>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    
+                        
+                        {% for field in creation_form %}
+                            
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field|addclass:"form-control" }}
+
+                                <div class='invalid-feedback'>{{ field.errors }}</div>
+                            </div>
+                        {% endfor %}
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-success mx-auto">Create</button>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
