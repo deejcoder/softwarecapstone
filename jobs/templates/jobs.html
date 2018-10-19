@@ -2,72 +2,66 @@
 
 {% load humanize %}
 
-{% block title %}
-    Jobs
-
-{% endblock%}
-
-
 {% block sidepane %}
-    <p class="small mb-1">Want to create a job listing?</p>
+    <p class="small mb-1 text-muted">Want to create a job listing?</p>
     
-    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#job_create">Create Job</a>
+    <a href="#" class="btn btn-secondary btn-sm b-green" data-toggle="modal" data-target="#job_create">Create Job</a>
     {% include 'jobs/create.html' %}
 {% endblock %}
 
 <!-- Search results -->
 {% block results %}
-    <i>THIS IS TEMPORARY CSS</i>
-
     {% if jobs %}
-        <div class="container bg-white rounded shadow-sm">
-    {% for job in jobs %}
-        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-            <div class="media-body ml-2">
-                <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
-                <p>{{ job.short_description }}</p>
-                <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
-                    <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
-                </a>
-                <br />
-                <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
-                <br />
-                <small>Located in <strong>{{ job.location }}</strong></small>
-                <br />
-
+    <div class="container-fluid" id="results">
+        {% for job in jobs %}
+        <div class="container bg-dark rounded shadow-sm m-3">
+            <div class="media pb-2 p-2 pt-4">
+                <div class="media-body ml-2">
+                    <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
+                    <p>{{ job.short_description }}</p>
+                    <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                        <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
+                    </a>
+                    <br />
+                    <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
+                    <br />
+                    <small>Located in <strong>{{ job.location }}</strong></small>
+                    <br />
+                </div>
             </div>
         </div>
-    {% endfor %}
-
-    <a style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
-        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-            <div class="media-body ml-2">
-                <h5 class="mt-0">TradeMe Jobs</h5>
-                <br />
-                <p>Cant find what you are looking for?</p>
-                <p>Find more jobs at trademe.co.nz/jobs!</p>
-                <img style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
-                <br />
-            </div>
+        {% endfor %}
+        <div class="container bg-dark rounded shadow-sm m-3">
+            <a style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
+                <div class="media pb-2 p-2 pt-4">
+                    <div class="media-body ml-2">
+                        <h5 class="mt-0">TradeMe Jobs</h5>
+                        <br />
+                        <p>Cant find what you are looking for?</p>
+                        <p>Find more jobs at trademe.co.nz/jobs!</p>
+                        <img style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
+                        <br />
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
-</div>
-    {% else %}
-    {% endif %}
+    </div>
+{% else %}
+{% endif %}
 {% endblock %}
 
 {% block pagination %}
-    {% if companies.has_previous %}
+{% if companies.has_previous %}
 <a href="?page=1">&laquo; first</a>
 <a href="?page={{ jobs.previous_page_number }}">previous</a>
-    {% endif %}
+{% endif %}
 
 <span class="current">
     Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}
 </span>
 
-    {% if companies.has_next %}
+{% if companies.has_next %}
 <a href="?page={{ jobs.next_page_number }}">next</a>
 <a href="?page={{ jobs.paginator.num_pages }}">last &raquo;</a>
-    {% endif %}
+{% endif %}
 {% endblock %}

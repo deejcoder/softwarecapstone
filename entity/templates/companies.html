@@ -1,26 +1,21 @@
 {% extends 'common/listing/base_listing.html' %}
 
-{% block title %}
-    Companies
-{% endblock%}
-
-
 {% block sidepane %}
-    <p class="small mb-1">Want to create a company profile?</p>
-    <a href="/company/apply" type='button' class="btn btn-primary btn-sm">Apply</a>
+    <p class="small mb-1 text-muted">Want to create a company profile?</p>
+    <a href="/company/apply" class="btn btn-secondary b-green btn-sm rounded">Apply</a>
 {% endblock %}
 
 <!-- Search results -->
 {% block results %}
     {% if companies %}
-    <div class="container bg-white rounded shadow-sm">
+    <div class="container bg-dark rounded">
         {% for company in companies %}
-            <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+            <div class="media p-2 pb-4 pt-4">
                 <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
 
                 <div class="media-body ml-2">
-                    <h5 class="mt-0"><a style="cursor: pointer;" href="/company/{{ company.name }}/">{{ company.name }}</a></h5>
-                    <p>Extremity direction existence as dashwoods do up. Securing marianne led welcomed offended but offering six raptures. Conveying concluded newspaper rapturous oh at.</p>
+                    <h5 class="mt-0 "><a class="text-white" style="cursor: pointer;" href="/company/{{ company.name }}/">{{ company.name }}</a></h5>
+                    <p class="text-muted">Extremity direction existence as dashwoods do up. Securing marianne led welcomed offended but offering six raptures. Conveying concluded newspaper rapturous oh at.</p>
                 </div>
             </div>
         {% endfor %}
