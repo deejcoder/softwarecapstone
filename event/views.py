@@ -3,13 +3,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from lxml import html
 
-from entity.models import Member
+from entity.models import Member, Entity
 from event.models import Event
 
 from .forms import CreateEventForm
@@ -95,3 +95,23 @@ class CreateEvent(View):
                 messages.error(request, 'You must be an editor of the company or group you are creating an event for.')
 
         return HttpResponseRedirect(reverse('event:events_listing'))
+
+    
+@method_decorator(login_required)
+def remove_event(request, event_title, event_id):
+    try:
+        event_obj = Event.objects.get(pk=event_id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound
+
+    entity_obj = Event.objects.get(title=event_title).entity
+
+    if not Member.is_owner(request.user, entity_obj):
+        return HttpResponseRedirect(request.path)
+
+    remove = get_object_or_404(Event, pk=event_obj.id)
+    instance = Event.objects.get(id=event_obj.id)
+    instance.delete()
+    remove.delete()
+    return redirect("/")
+    
