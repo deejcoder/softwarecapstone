@@ -105,6 +105,44 @@ class CreateEvent(View):
         return HttpResponseRedirect(reverse('event:events_listing'))
 
     
+class EditEvent(View):
+    @method_decorator(login_required)
+    def get(self, request, event_title, event_id):
+
+        form = EditEventForm(data=request.GET)
+        event = Event.objects.get(pk=event_id)
+        entity_obj = event.entity
+
+        try:
+            event_obj = Event.objects.get(title=event_title)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        return render(request, 'events/edit_event.html', {
+            'form': form,
+            'is_owner': Member.is_owner(request.user, entity_obj),
+            'is_editor': Member.is_editor(request.user, entity_obj),
+            'event': event_obj,
+        })
+
+    @method_decorator(login_required)
+    def post(self, request, event_title, event_id):
+
+        try:
+            event_obj = Event.objects.get(title=event_title)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        form = EditEventForm(instance=event_obj, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The event has successfully been updated.')
+            form = EditEventForm()
+
+        return HttpResponseRedirect(reverse('event:events_listing'))
+    
+    
 @method_decorator(login_required)
 def remove_event(request, event_title, event_id):
     try:
