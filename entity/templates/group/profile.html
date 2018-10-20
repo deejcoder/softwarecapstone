@@ -39,5 +39,18 @@
     <div class="d-flex justify-content-between">
         <p class="text-justify" style="word-break: break-all;" >{{ group.description }}</p>
     </div>
+    <hr>
+    <div>
+        <h5>Events associated with this group:</h5>
+        {% if events %}
+            <ul style="list-style:none;">
+                {% for event in events %}
+                    <li><a href="/events/{{event.title}}-{{event.id}}">{{ event.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <p>No events associated with this group.</p>
+        {% endif %}
+    </div>
 
 {% endblock %}
