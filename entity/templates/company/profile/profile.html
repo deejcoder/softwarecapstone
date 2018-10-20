@@ -41,8 +41,9 @@
     <br />
     <div>*TODO* Company Description here, its expected to be long so I need to type random words to make sure I have enough space for the bio so that the CSS isnt munted when I work on the other things in the html.</div>
     <br />    
-    <h6>Address</h6>
-    <div>{{ company.address}}</div>
+    <h5>Address:</h5>
+    <div class="d-flex justify-content-center"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=200x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{company.address}}"/></div>
+    <div class="d-flex justify-content-center"><p>{{ company.address }}</p></div>
 
 
 {% endblock %}
