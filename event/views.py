@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from lxml import html
+from geopy.geocoders import Nominatim
 
 from entity.models import Member, Entity
 from event.models import Event
@@ -58,8 +59,15 @@ class EventDetails(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        entity_obj = event.entity
+        location = Nominatim.geocode(self=Nominatim(), query=event.location)
+
         return render(request, 'events/event_details.html', {
             'event': event,
+            'is_owner': Member.is_owner(request.user, entity_obj),
+            'is_editor': Member.is_editor(request.user, entity_obj),
+            'lat': location.latitude,
+            'lon': location.longitude
         })
 
 
