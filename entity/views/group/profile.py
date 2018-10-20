@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -82,3 +82,20 @@ class EditProfile(View):
             form = EditGroupForm()
 
         return HttpResponseRedirect(reverse('entity:group_profile_edit', args=[group.name]))
+
+
+@method_decorator(login_required)
+def group_remove(request, group):
+    try:
+        group_obj = Group.objects.get(name=group)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound
+
+    if not Member.is_owner(request.user, group_obj):
+        return HttpResponseRedirect(request.path)
+
+    remove = get_object_or_404(Group, pk=group_obj.id)
+    instance = Group.objects.get(id=group_obj.id)
+    instance.delete()
+    remove.delete()
+    return redirect("/")    
