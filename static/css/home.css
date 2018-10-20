@@ -7,53 +7,7 @@
     font-family: "Hyperspace-Bold";
     src: url("fonts/Hyperspace-Bold.otf");
 }
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans.otf");
-}
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Italic.otf");
-    font-style: italic;
-}
 
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Bold.otf");
-    font-weight: bold;
-}
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Bold_Italic.otf");
-    font-weight: bold;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Medium.otf");
-    font-weight: bolder;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Medium_Italic.otf");
-    font-weight: bolder;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Light.otf");
-    font-weight: lighter;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Light_Italic.otf");
-    font-weight: lighter;
-    font-style: italic;
-}
 
 
 html, body {
@@ -61,23 +15,15 @@ html, body {
     height: 100%;
 }
 body {
-    background-color: #23272a;
+    background-color: #2a2d2f;
 }
 .card h5{
-    font-family: "Blogger Sans";
-    font-weight: bolder;
-    font-size: 2rem;
     display: none;
 }
 .card p {
-    font-family: "Blogger Sans";
-    font-size: 1.1rem;
-    font-weight: lighter;
 }
 .card .btn {
-    width: 120px;
-    font-family: "Blogger Sans";
-    font-size: 1.3rem;
+    width: 124px;
 }
 
 .card .textbig{
@@ -118,10 +64,6 @@ body {
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
-#title button{
-    font-family: "Blogger Sans";
-    font-size: 1.5rem;
-}
 
 #overlay {
     height: 100%;
@@ -160,12 +102,11 @@ body {
 
 
 #content {
-    background-color: #23272a;
+    background-color: #2a2d2f;
 }
 
 
 .card {
-    background-color: #2e3438 !important;
     border-radius: 15px;
     border-width: 4px;
     border-color: #39b54a;
@@ -201,13 +142,6 @@ body {
 
 
 
-
-
-
-
-
-
-
 @media (max-width: 575.98px) {
     
 }
@@ -238,4 +172,26 @@ body {
         max-width: 101%;
     }
 }
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1d1f20;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #3e454c;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #49525a;
+    }
 

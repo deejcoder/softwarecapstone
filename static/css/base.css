@@ -5,53 +5,6 @@
 @import "imports/slider.css";
 @import "imports/events.css";
 
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans.otf");
-}
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Italic.otf");
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Bold.otf");
-    font-weight: bold;
-}
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Bold_Italic.otf");
-    font-weight: bold;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Medium.otf");
-    font-weight: bolder;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Medium_Italic.otf");
-    font-weight: bolder;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Light.otf");
-    font-weight: lighter;
-}
-
-@font-face {
-    font-family: "Blogger Sans";
-    src: url("fonts/Blogger_Sans-Light_Italic.otf");
-    font-weight: lighter;
-    font-style: italic;
-}
 
 
 
@@ -61,6 +14,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow-x: hidden
 }
 
 #main {
@@ -184,9 +138,22 @@ html, body {
 }
 
 
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 
-
-
+.nodecoration{
+    text-decoration: none;
+}
+.nodecoration:hover {
+    text-decoration: none;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -195,7 +162,7 @@ html, body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #1d1f20;
 }
 
 /* Handle */
@@ -203,7 +170,18 @@ html, body {
     background: #3e454c;
 }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #343a40;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #49525a;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #23272a !important;
+}
+
+
+@media (max-width: 1399.98px) {
+    #sidepane{
+        margin-left: 1rem !important;
     }
+}

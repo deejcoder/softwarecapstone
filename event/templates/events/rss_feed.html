@@ -1,45 +1,84 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
-{% block content %}
-</br>
-</br>
-<a class="btn btn-success pull-right" href="{% url 'event:create_event' %}">Create event</a>
-<div id="rss-feeds" class="pt-1">
-    <h4>techpalmy Events</h4>
-    {% if events %}
-    <ul style='list-style:none;'>
-        {% for event in events %}
-        <li class='bg-light mt-5 p-2 border border-light rounded'>
-            <a href="{{event.title}}-{{event.id}}">{{ event.title }}</a><br />
-            <div class="font-weight-bold">
-                <p>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</p>
+{% block title %}
+    Event Listings
+{% endblock %}
+
+
+{% block background %}
+<div class="col-md-2 bg-dark mb-auto m-5 mr-1 p-4 position-absolute rounded" id="sidepane" style="overflow:hidden; left:0px;">
+    <div class="sidebar-sticky">
+        <div id="side-bottom-pane">
+            <div class="row">
+                <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Events</h5>
+                <p class="col-12 small mb-2 text-center text-muted">Event 1 Link</p>
+                <p class="col-12 small mb-2 text-center text-muted">Event 2 Link</p>
+                <p class="col-12 small mb-2 text-center text-muted">Event 3 Link</p>
+                <p class="col-12 small mb-2 text-center text-muted">Event 4 Link</p>
+                <p class="col-12 small mb-2 text-center text-muted">Event 5 Link</p>
+                <p class="col-12 small mb-4 text-center text-muted">Event 6 Link</p>
             </div>
-            <div>
-                <p>{{ event.description }}</p>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>There are no upcoming events!</p>
-    {% endif %}
-    <hr>
-    <h4>Other Events</h4>
-    {% if tree %}
-        {% for branch in tree %}
-        <div class='bg-light mt-2 mb-2 p-3 rounded'>
-            <a href='{{ branch.url }}'>{{ branch.heading }}</a><br />
-            <div class="font-weight-bold">
-                <p>{{ branch.day }} {{ branch.month }} {{ branch.time}}</p>
-            </div>
-            <div>
-                <p>{{ branch.desc }}</p>
+            <div class="row">
+                <p class="col-12 mb-2 text-center text-muted">Want to create an event?</p>
+                <a href="{% url 'event:create_event' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
             </div>
         </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="mt-4">
+    <div id="rss-feeds" class="col-lg-10 px-5 mx-auto">
+        <h4 class="text-muted">techpalmy Events</h4>
+        {% if events %}
+        {% for event in events %}
+        <a href="{{event.title}}-{{event.id}}" class="nodecoration">
+            <div class='bg-dark mb-4 p-4 mt-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <h5>{{ event.title }}</h5>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ event.date|naturalday:"F j" }}, {{ event.time|time:'g:i a'}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ event.description|truncatechars:430 }}</p>
+                </div>
+            </div>
+        </a>
         {% endfor %}
-    {% else %}
-    <p>No upcoming events.</p>
-    {% endif %}
+        {% else %}
+        <p class="text-muted">There are no upcoming events!</p>
+        {% endif %}
+        <hr class="bg-dark my-3">
+        <h4 class="text-muted">Other Events</h4>
+        {% if tree %}
+        {% for branch in tree %}
+
+        <a href="{{ branch.url }}" class="nodecoration">
+            <div class='bg-dark mb-4 p-4 mt-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <h5>{{ branch.heading }}</h5>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ branch.desc }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+        {% else %}
+        <p class="text-muted">No upcoming events.</p>
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

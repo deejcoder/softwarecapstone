@@ -3,56 +3,141 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/consultant.css' %}" />
+<script>
+
+    $(document).ready(function () {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var uri = url.searchParams.get("search");
+        var searchterm = decodeURIComponent(uri);
+        if (searchterm != 'null') {
+            $('#sbar').val(searchterm);
+        }
+    });
+
+    function advancedTog() {
+        button = $('#advbtn');
+        txt = $('#advtxt');
+        box = $("#filters");
+        showing = false;
+
+        if ($('#filters').css('display') == 'none') {
+            $('#filters').slideDown('fast');
+            txt.addClass("fa-arrow-up");
+            txt.removeClass("fa-arrow-down");
+            $('#advbtn').css('background-color', '#39b54a');
+            showing = true;
+        } else {
+            $('#filters').slideUp('fast');
+            txt.addClass("fa-arrow-down");
+            txt.removeClass("fa-arrow-up");
+            $('#advbtn').css('background-color', 'rgba(0,0,0,0)');
+            showing = false;
+        }
+    }
+
+</script>
 {% endblock %}
+
+{% block background %}
+<div class="col-md-2 bg-dark mb-auto m-5 mr-1 p-4 position-absolute rounded" id="sidepane" style="overflow:hidden; left:0px;">
+    <div class="sidebar-sticky">
+        <div id="side-bottom-pane">
+            {% block sidepane %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 
 {% block content %}
 
-<!--The variables used in the for loops and if statements can be renamed to whatever.
-Just make sure they're consistent over all files!-->
-
-<div class="container mt-4">
-    <h3 class="title">
-        {% block title %}
-        {% endblock %}
-    </h3>
-</div>
-
-<br />
-<div class="container row">
-    <div class="align-content-center flex-column px-2" >
-        <form action="" method="get" class="mb-4">
-            <div class="input-group" id="searchBar"> <!-- Should be class rather than ID -->
-                <input type="text" class="form-control bg-dark bd-green text-light f-green"  placeholder="Search" name="search">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary b-green" type="submit" value="Search">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-            <a href="." class="">Reset</a>
-
-        </form>
-        <div id="side-bottom-pane">
-                {% block sidepane %}
-                {% endblock %}
-            
-        </div>
-    </div>
-
-
-    <div class="col-lg-9 px-10">
+<div class="container row mt-5">
+    <div class="col-lg-10 px-5 mx-auto">
         <div class="wrapper" id="wrap">
+            <div class="container bg-dark rounded mb-3 pt-0 p-2">
+                <form action="" method="get" class="p-3">
+                    <div class="input-group p-0" id="searchBar">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary b-green text-muted" id="advbtn" type="button" onClick="advancedTog(); return false;">
+                                <i id="advtxt" class="fa fa-arrow-down text-muted"></i>
+                            </button>
+                        </div>
+                        <input type="search" id="sbar" class="form-control bg-dark bd-green text-light f-green" placeholder="Search" name="search">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary b-green" type="submit" value="Search">
+                                <i class="fa fa-search text-muted"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container filters noselect" id="filters" style="display: none;">
+                        <div class="pt-3 text-muted row">
+                            <div class="form-check col-4-sm p-1 pl-4 ml-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 ml-auto mr-auto">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                <label class="form-check-label" for="exampleCheck2">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 mr-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                                <label class="form-check-label" for="exampleCheck3">Check me out</label>
+                            </div>
+
+                            <div class="w-100"></div>
+
+                            <div class="form-check col-4-sm p-1 pl-4 ml-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck4">
+                                <label class="form-check-label" for="exampleCheck4">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 ml-auto mr-auto">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck5">
+                                <label class="form-check-label" for="exampleCheck5">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 mr-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck6">
+                                <label class="form-check-label" for="exampleCheck6">Check me out</label>
+                            </div>
+
+                            <div class="w-100"></div>
+
+                            <div class="form-check col-4-sm p-1 pl-4 ml-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck7">
+                                <label class="form-check-label" for="exampleCheck7">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 ml-auto mr-auto">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck8">
+                                <label class="form-check-label" for="exampleCheck8">Check me out</label>
+                            </div>
+                            <div class="form-check col-4-sm p-1 pl-4 mr-2">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck9">
+                                <label class="form-check-label" for="exampleCheck9">Check me out</label>
+                            </div>
+
+                            <div class="w-100"></div>
+
+                            <div class="col-4-sm p-1 pl-4 ml-auto mr-auto pt-3">
+                                <a class="btn btn-danger b-red" href=".">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
             {% block results %}
 
             {% endblock %}
-        </div>
-
-        <span class="step-links">
             {% block pagination %}
 
             {% endblock %}
+        </div>
+        
 
-        </span>
+
+
         <br />
     </div>
 </div>

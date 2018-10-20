@@ -2,50 +2,70 @@
 
 {% load humanize %}
 
+{% block title %}
+    Job Listings
+{% endblock %}
+
 {% block sidepane %}
-    <p class="small mb-1 text-muted">Want to create a job listing?</p>
-    
-    <a href="#" class="btn btn-secondary btn-sm b-green" data-toggle="modal" data-target="#job_create">Create Job</a>
-    {% include 'jobs/create.html' %}
+{% include 'jobs/create.html' %}
+<div class="row">
+    <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Job Listings</h5>
+    <p class="col-12 small mb-2 text-center text-muted">Listing 1 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Listing 2 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Listing 3 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Listing 4 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Listing 5 Link</p>
+    <p class="col-12 small mb-4 text-center text-muted">Listing 6 Link</p>
+</div>
+<div class="row">
+    <p class="col-12 mb-2 text-center text-muted">Want to create a job listing?</p>
+    <a href="#" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto" data-toggle="modal" data-target="#job_create">Create</a>
+</div>
+
 {% endblock %}
 
 <!-- Search results -->
 {% block results %}
     {% if jobs %}
-    <div class="container-fluid" id="results">
-        {% for job in jobs %}
-        <div class="container bg-dark rounded shadow-sm m-3">
-            <div class="media pb-2 p-2 pt-4">
-                <div class="media-body ml-2">
-                    <h5 class="mt-0"><a style="cursor: pointer;" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">{{ job.title }}</a></h5>
-                    <p>{{ job.short_description }}</p>
-                    <a style="cursor: pointer;" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
-                        <img style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
-                    </a>
-                    <br />
-                    <small>Posted <strong>{{ job.date_posted|naturaltime }}</strong></small>
-                    <br />
-                    <small>Located in <strong>{{ job.location }}</strong></small>
-                    <br />
+    {% for job in jobs %}
+<div class="container bg-dark rounded shadow-sm my-3 text-white">
+    <div class="media pb-4 p-2 pt-4">
+        <div class="media-body ml-2 row">
+            <div class="col-9">
+                <a class="nodecoration text-white d-block" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">
+                    <h5 class="mb-4">{{ job.title }}</h5>
+                    <p class="text-muted ">{{ job.short_description }}</p>
+                    <p class="text-white mt-4 mb-2">Located in <strong>{{ job.location }}</strong></p>
+                </a>
+            </div>
+            <div class="col text-center my-auto">
+                <a class="text-muted nodecoration" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                    <p class="mb-2">{{ job.company.name|title }}</p>
+
+                    <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
+                    <p><small><strong>{{ job.date_posted|naturaltime }}</strong></small></p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+<div class="container bg-dark rounded shadow-sm my-3 text-white">
+    <a class="nodecoration" style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
+        <div class="media pb-4 p-2 pt-4">
+            <div class="media-body ml-2 row">
+                <div class="col-9">
+                    <h5 class="mb-4 text-white">TradeMe Jobs</h5>
+                    <p class="text-white ">Cant find what you are looking for?</p>
+                    <p class="text-white ">Find more jobs at trademe.co.nz/jobs!</p>
+                </div>
+                <div class="col text-center my-auto">
+                    <img class="rounded m-auto d-block mb-2 mt-4" style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
                 </div>
             </div>
         </div>
-        {% endfor %}
-        <div class="container bg-dark rounded shadow-sm m-3">
-            <a style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
-                <div class="media pb-2 p-2 pt-4">
-                    <div class="media-body ml-2">
-                        <h5 class="mt-0">TradeMe Jobs</h5>
-                        <br />
-                        <p>Cant find what you are looking for?</p>
-                        <p>Find more jobs at trademe.co.nz/jobs!</p>
-                        <img style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
-                        <br />
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+    </a>
+</div>
 {% else %}
 {% endif %}
 {% endblock %}
@@ -56,7 +76,7 @@
 <a href="?page={{ jobs.previous_page_number }}">previous</a>
 {% endif %}
 
-<span class="current">
+<span class="current text-muted">
     Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}
 </span>
 
