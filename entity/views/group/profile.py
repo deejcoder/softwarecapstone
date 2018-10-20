@@ -12,8 +12,9 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from entity.forms import EditGroupForm
-from entity.models import Member
+from entity.models import Member, Entity
 from entity.models.group import Group
+from event.models import Event
 
 
 class Profile(View):
@@ -31,8 +32,12 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        entity_obj = Entity.objects.get(group=group_obj)
+        events = Event.get_events(entity_obj)
+
         return render(request, 'group/profile.html', {
             'group': group_obj,
+            'events': events,
             'members': Member.get_members(group_obj),
             'is_owner': Member.is_owner(request.user, group_obj),
             'is_editor': Member.is_editor(request.user, group_obj),
