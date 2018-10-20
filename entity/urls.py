@@ -10,7 +10,7 @@ app_name = "entity"
 
 urlpatterns = [
     path('company/apply', company.ApplyCompany.as_view(), name='company_application'),
-    path('company/profile/edit', company.edit_comp, name='company_application'),
+    path('company/<company>/edit', company.EditProfile.as_view(), name='company_application'),
     path('companies/', company.Listing.as_view(), name='company_listing'),
     path('company/<company>/', company.Profile.as_view(), name='company_profile'),
     path('company/<company>/remove/', company_remove, name='remove_group'),
