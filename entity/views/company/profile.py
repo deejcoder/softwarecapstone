@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -65,3 +65,20 @@ class Profile(View):
             'is_editor': Member.is_editor(request.user, company),
             'form': form
         })
+
+
+def company_remove(request, company):
+    try:
+        company_obj = Company.objects.get(name=company)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound
+
+    if not Member.is_owner(request.user, company_obj):
+        return HttpResponseRedirect(request.path)
+
+    remove = get_object_or_404(Company, pk=company_obj.id)
+    instance = Company.objects.get(id=company_obj.id)
+    instance.delete()
+    remove.delete()
+    return redirect("/")    
+ 
