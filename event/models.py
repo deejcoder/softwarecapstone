@@ -13,9 +13,11 @@ class Event(models.Model):
 
     def __str__(self):
         return "{0} ({1})".format(self.title, self.pk)
-
-#     Causing issues!
-#     class Meta:
-#         ordering = ('-time')
-
-
+    
+    def get_events(entity: Entity) -> []:
+        """
+        Returns a list of events associated with a particular entity (group or company)
+        """
+        events = Event.objects.filter(entity=entity).select_related('entity')
+        return events
+    
