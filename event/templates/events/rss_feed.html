@@ -1,10 +1,8 @@
-{% extends 'base.html' %}
-{% load humanize %}
+{% extends 'common/listing/base_listing.html' %}
 
 {% block title %}
     Event Listings
 {% endblock %}
-
 
 {% block background %}
 <div class="col-md-2 bg-dark mb-auto m-5 mr-1 p-4 position-absolute rounded" id="sidepane" style="overflow:hidden; left:0px;">
@@ -28,58 +26,34 @@
 </div>
 {% endblock %}
 
-
-{% block content %}
-<div class="mt-4">
-    <div id="rss-feeds" class="col-lg-10 px-5 mx-auto">
-        <h4 class="text-muted">techpalmy Events</h4>
-        {% if events %}
+{% block results %}
+    {% if events %}
+    <div class="container bg-white rounded shadow-sm">
         {% for event in events %}
-        <a href="{{event.title}}-{{event.id}}" class="nodecoration">
-            <div class='bg-dark mb-4 p-4 mt-4 rounded text-white' style="height: 18vh; overflow: hidden">
-                <div class="row">
-                    <div class="col">
-                        <h5>{{ event.title }}</h5>
-                    </div>
-                    <div class="col ml-auto text-right mr-2">
-                        <p>{{ event.date|naturalday:"F j" }}, {{ event.time|time:'g:i a'}}</p>
-                    </div>
-                </div>
-                <div class="text-muted" style="overflow: hidden">
-                    <p>{{ event.description|truncatechars:430 }}</p>
+            <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+                <div class="media-body ml-2">
+                    <h5 class="mt-0"><a style="cursor: pointer;" href="{{event.title}}-{{event.id}}">{{ event.title }}</a></h5>
+                    <p class="text-dark">{{ event.description }}</p>
                 </div>
             </div>
-        </a>
         {% endfor %}
-        {% else %}
-        <p class="text-muted">There are no upcoming events!</p>
-        {% endif %}
-        <hr class="bg-dark my-3">
-        <h4 class="text-muted">Other Events</h4>
-        {% if tree %}
-        {% for branch in tree %}
-
-        <a href="{{ branch.url }}" class="nodecoration">
-            <div class='bg-dark mb-4 p-4 mt-4 rounded text-white' style="height: 18vh; overflow: hidden">
-                <div class="row">
-                    <div class="col">
-                        <h5>{{ branch.heading }}</h5>
-                    </div>
-                    <div class="col ml-auto text-right mr-2">
-                        <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
-                    </div>
-                </div>
-                <div class="text-muted" style="overflow: hidden">
-                    <p>{{ branch.desc }}</p>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% else %}
-        <p class="text-muted">No upcoming events.</p>
-        {% endif %}
     </div>
-</div>
-
+    {% else %}
+        <p>No results matching the criteria found.</p>
+    {% endif %}
+    {% if tree %}
+    <div class="container bg-white rounded shadow-sm">
+        {% for branch in tree %}
+        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
+            <div class="media-body ml-2">
+                <h5 class="mt-0"><a style="cursor: pointer;" href="{{branch.urk}}">{{ branch.heading }}</a></h5>
+                <p class="text-dark">{{ branch.desc }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No results matching the criteria found.</p>
+    {% endif %}
 {% endblock %}
 
