@@ -21,3 +21,22 @@ class Event(models.Model):
         events = Event.objects.filter(entity=entity).select_related('entity')
         return events
     
+    @classmethod
+    def search_events(cls, term: str):
+        """
+        Searches companies or shows all if `term` is None
+        :param term: the search string
+        :return: list of companies
+        """
+        if term is None:
+            result = cls.objects.all()
+
+        else:
+            search_query = SearchQuery(term)
+
+            search_vector = SearchVector('title') + SearchVector('entity') + SearchVector('description')
+
+            result = cls.objects.annotate(search=search_vector).filter(search=search_query)
+
+        return result
+    
