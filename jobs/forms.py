@@ -21,3 +21,24 @@ class JobCreationForm(ModelForm):
             'external_link',
         ]
 
+        
+class EditJobForm(ModelForm):
+    class Meta:
+        model = Job
+
+        fields = [
+            'company',
+            'title',
+            'short_description',
+            'description',
+            'location',
+            'contact_email',
+            'contact_phone',
+            'external_link',
+            'expiry',
+        ]
+
+        widgets = {
+            'description': forms.Textarea,
+            'expiry': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }   
