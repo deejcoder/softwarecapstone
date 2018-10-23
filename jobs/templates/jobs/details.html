@@ -10,29 +10,50 @@
 
 {% endblock %}
 {% block content %}
-<div class="container" id="content-container">
+<div class="container mt-2 p-3 col-lg-10">
     <div class="row">
-        <!-- Content header -->
-        <div class="col-md-x" id="profile-banner">
-            <!-- sidepane content -->
+        <div class="col-md-4">
             <div id="banner">
                 <br />
-
-                <p>
-                    TODO: Sidepane info
-                    eg:
-                    Company: {{ job.company.name }}
-                </p>
-                <br />
+                <h6>Details:</h6>
+                <br/>
+                <p>Company:<br/>{{ job.company.name }}</p>
+                <p>Location:<br/>{{ job.location }}</p>
+                <p>Date posted:<br/>{{ job.date_posted }}</p>
+                <p><strong>Expires:<br/>{{ job.expiry }}</strong></p>
             </div>
         </div>
-        <!-- Body -->
-        <div style="word-wrap: break-word" class="container col-12" id="profile-info">
-            <h4>{{ job.title }}</h4>
-            <br />
+        <div class="container mt-3 p-3 bg-light text-dark rounded col-md-8">
+            <div>
+                {% if is_owner %}
+                    <a class="btn btn-info pull-right" href="edit">Edit</a>
+                {% endif %}
+                <h3>{{ job.title }}</h3>
+            </div>
+            <hr>
             <p>{{ job.description }}</p>
-            <br />
-            <p><strong>SIDEBAR: </strong>View the full listing <strong><a href="{{ job.external_link }}">Here</a></strong></p>
+            <hr>
+            <p><a href="https://{{ job.external_link }}">Full listing here</a></p>
+            {% if is_owner %}
+            <hr>
+            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete</button>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Confirmation of deletion</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this job?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" href="/jobs/{{job.title}}-{{job.id}}/remove">Yes</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
