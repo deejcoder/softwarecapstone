@@ -92,11 +92,8 @@ class EditProfile(View):
         if username != request.user.username:
             return HttpResponseRedirect(request.path)
 
-        try:
-            request.FILES['avatar']
-            self._update_user_avatar(user, request)
-        except MultiValueDictKeyError:
-            self._update_info(user, request)
+        self._update_user_avatar(user, request)
+        self._update_info(user, request)
 
         return HttpResponseRedirect(request.path)
 
@@ -112,12 +109,6 @@ class EditProfile(View):
             messages.success(
                 request,
                 "Your profile picture has successfully been updated."
-            )
-        
-        else:
-            messages.error(
-                request,
-                "Your profile picture was of invalid format."
             )
 
     def _update_info(self, user: User, request):

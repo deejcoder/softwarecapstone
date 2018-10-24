@@ -29,24 +29,24 @@
         <div class="form-group d-flex justify-content-between">
             <label class="mt-1">Group Name:</label>
             <div class="col-md-8 text-right">
-                {% render_field form.name class="form-control" %}
+                {% render_field form.name class="form-control" value=group.name %}
             </div>
         </div>
         <div class="form-group d-flex justify-content-between">
             <label class="mt-1">Website URL:</label>
             <div class="col-md-8 text-right">
-                {% render_field form.website class="form-control" %}
+                {% render_field form.website class="form-control" value=group.website %}
             </div>
         </div>
         <div class="form-group">
             <label class="mt-1">Edit group description:</label>
             <div class="input-group">
-                {% render_field form.description class="form-control" %}
+                {% render_field form.description class="form-control" value=group.description %}
             </div>
         </div>
         <hr>
         <button type="submit" class="btn btn-outline-dark">Update</button>
-        <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
+        <a href="../{{ group.name }}" class="btn btn-outline-danger">Cancel</a>
         {% if is_owner %}
             <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Group</button>
             <div class="modal fade" id="myModal" role="dialog">

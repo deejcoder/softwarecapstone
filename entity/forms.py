@@ -6,6 +6,7 @@ from django.forms import ModelForm
 from entity.models import Member
 from entity.models.company import Company
 from entity.models.group import Group
+from entity.models import Entity
 
 
 class AddressWidget(forms.widgets.MultiWidget):
@@ -77,7 +78,20 @@ class EditCompanyForm(ModelForm):
             'summer_students'
         )
 
-        
+
+class EditAvatarForm(ModelForm):
+    """
+    Form to allow groups and companies to update their
+    profile avatar
+    """
+
+    class Meta:
+        model = Entity
+        fields = (
+            'avatar',
+        )
+
+
 class GroupApplicationForm(ModelForm):
     class Meta:
         model = Group

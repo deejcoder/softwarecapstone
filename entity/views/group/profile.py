@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from entity.forms import EditGroupForm
+from entity.forms import EditGroupForm, EditAvatarForm
 from entity.models import Member, Entity
 from entity.models.group import Group
 from event.models import Event
@@ -71,6 +71,7 @@ class EditProfile(View):
         # get the group object
         try:
             group = Group.objects.get(name=group)
+            entity = Entity.objects.get(pk=group.pk)
         except ObjectDoesNotExist:
             return HttpResponseNotFound
 
@@ -79,12 +80,17 @@ class EditProfile(View):
             return HttpResponseRedirect(request.path)
 
         form = EditGroupForm(instance=group, data=request.POST)
+        avatar_form = EditAvatarForm(request.POST, request.FILES, instance=entity)
 
-        # save company if valid
+        # save group if valid
         if form.is_valid():
             form.save()
             messages.success(request, 'The group profile has successfully been updated.')
             form = EditGroupForm()
+
+        if avatar_form.is_valid():
+            avatar_form.save()
+            messages.success(request, "The group's avatar has been updated.")
 
         return HttpResponseRedirect(reverse('entity:group_profile_edit', args=[group.name]))
 
