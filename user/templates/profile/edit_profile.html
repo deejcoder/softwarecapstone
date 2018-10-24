@@ -103,17 +103,9 @@
         {% if user.is_consultant %}
         <h5>Consultant information</h5>
         <hr>
+        {{ consult_form.media }}
         {% with consult_form.services_offered as field %}
-        <div class="form-group">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            <textarea
-                    class="form-control {% if field.errors %}is-invalid{% endif %}"
-                    id="{{ field.id_for_form }}"
-                    name="{{ field.html_name }}"
-                    
-            >{{ user.consultant.services_offered }}</textarea>
-            <div class='invalid-feedback'>{{ field.errors }}</div>
-        </div>
+        {{ field }}
         {% endwith %}
 
         {% with consult_form.current_occupation as field %}

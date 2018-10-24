@@ -11,6 +11,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 from PIL import Image
+from ckeditor.fields import RichTextField
 
 
 def _upload_profile_image(instance, filename):
@@ -113,7 +114,7 @@ class Consultant(models.Model):
         User,
         on_delete=models.CASCADE
     )
-    services_offered = models.TextField(max_length=500*5.1)
+    services_offered = RichTextField(max_length=3000)
     current_occupation = models.CharField(max_length=120, null=True, default=None)
     contact_phone = models.CharField(max_length=15, null=True, default=None, validators=[
         RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")

@@ -4,27 +4,21 @@
     Interest Groups
 {% endblock %}
 
-{% block background %}
-<div class="col-md-2 bg-dark mb-auto m-5 mr-1 p-4 position-absolute rounded" style="overflow:hidden; left:0px;">
-    <div class="sidebar-sticky">
-        <div id="side-bottom-pane">
-            <div class="row">
-                <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Interest Groups</h5>
-                <p class="col-12 small mb-2 text-center text-muted">Group 1 Link</p>
-                <p class="col-12 small mb-2 text-center text-muted">Group 2 Link</p>
-                <p class="col-12 small mb-2 text-center text-muted">Group 3 Link</p>
-                <p class="col-12 small mb-2 text-center text-muted">Group 4 Link</p>
-                <p class="col-12 small mb-2 text-center text-muted">Group 5 Link</p>
-                <p class="col-12 small mb-4 text-center text-muted">Group 6 Link</p>
-                {% include 'members.html' %}
-            </div>
-            <div class="row">
-                <p class="col-12 mb-2 text-center text-muted">Want to create a group profile?</p>
-                <a href="/groups/apply" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
-            </div>
-        </div>
+{% block sidepane %}
+    <div class="row">
+        <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Interest Groups</h5>
+        <p class="col-12 small mb-2 text-center text-muted">Group 1 Link</p>
+        <p class="col-12 small mb-2 text-center text-muted">Group 2 Link</p>
+        <p class="col-12 small mb-2 text-center text-muted">Group 3 Link</p>
+        <p class="col-12 small mb-2 text-center text-muted">Group 4 Link</p>
+        <p class="col-12 small mb-2 text-center text-muted">Group 5 Link</p>
+        <p class="col-12 small mb-4 text-center text-muted">Group 6 Link</p>
+        {% include 'members.html' %}
     </div>
-</div>
+    <div class="row">
+        <p class="col-12 mb-2 text-center text-muted">Want to create a group profile?</p>
+        <a href="/groups/apply" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
+    </div>
 {% endblock %}
 
 {% block results %}

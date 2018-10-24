@@ -32,6 +32,7 @@ class Listing(View):
         show_businesses = paginator.get_page(page)
 
         return render(request, 'companies.html', {
+            'show_sidepane': True,
             'companies': show_businesses,
             'page': page
         })

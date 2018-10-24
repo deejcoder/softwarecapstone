@@ -48,7 +48,7 @@ class Listing(View):
         create_job_form = JobCreationForm()
 
         return render(request, 'jobs.html', {
-            'is_company_editor': Member.is_editor_any(request.user),
+            'show_sidepane': Member.is_editor_any(request.user),
             'jobs': show_jobs,
             'page': page,
             'creation_form': create_job_form

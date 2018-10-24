@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views import View
 
 from entity.models.group import Group
+from entity.models import Member
 
 
 class Listing(View):
@@ -28,6 +29,7 @@ class Listing(View):
         show_groups = paginator.get_page(page)
 
         return render(request, 'groups.html', {
+            'show_sidepane': True,
             'groups': show_groups,
             'page': page
         })

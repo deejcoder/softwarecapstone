@@ -40,6 +40,7 @@
 {% endblock %}
 
 {% block background %}
+{% if show_sidepane %}
 <div class="col-md-2 bg-dark mb-auto m-5 mr-1 p-4 position-absolute rounded" id="sidepane" style="overflow:hidden; left:0px;">
     <div class="sidebar-sticky">
         <div id="side-bottom-pane">
@@ -48,6 +49,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 

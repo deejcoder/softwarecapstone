@@ -11,7 +11,7 @@ from entity.models import Entity
 class Group(Entity):
 
     # FIELDS
-    description = RichTextField()  # 5.1 chars = average word length
+    description = RichTextField(max_length=3000)  # 5.1 chars = average word length
     website = models.CharField(max_length=2056)
 
     def __str__(self):

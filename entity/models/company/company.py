@@ -1,6 +1,7 @@
 """
 Models which defines a company
 """
+from ckeditor.fields import RichTextField
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.core.validators import RegexValidator
 from django.db import models
@@ -24,7 +25,7 @@ class Company(Entity):
 
     size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
-    specialist_area = models.CharField(max_length=(1530))
+    specialist_area = RichTextField(max_length=3000)
     contact_phone = models.CharField(max_length=15, validators=[
         RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")
     ])
