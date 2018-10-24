@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'debug_toolbar',
     'django_filters',
-    'tinymce',
+    'ckeditor',
     'captcha',
     'user',
     'event',
@@ -157,6 +157,7 @@ DEBUG_TOOLBAR_CONFIG = {
     # '...
 }
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
@@ -177,3 +178,46 @@ STATICFILES_DIRS = (
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': 500,
+        'skin': 'minimalist',
+        'toolbar_Basic': [
+            ['Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight']},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            {'name': 'insert',
+             'items': ['Image', 'Table', 'HorizontalRule']},
+            {'name': 'tools', 'items': ['Maximize']},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        # 'height': 291,
+        # 'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            # your extra plugins here
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+        ]),
+    }
+}

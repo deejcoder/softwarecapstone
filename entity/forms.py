@@ -128,3 +128,4 @@ class AddMembeerForm(forms.Form):
     username = forms.CharField(label='Username', max_length=50)
     role = forms.ChoiceField(label='User\'s role', choices=Member.Roles.choices)
     
+
