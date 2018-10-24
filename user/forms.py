@@ -75,6 +75,18 @@ class EditConsultantForm(ModelForm):
         }
 
 
+class EditProfileAvatar(ModelForm):
+    """
+    Form for updating profile avatar for users
+    """
+
+    class Meta:
+        model = User
+        fields = (
+            'avatar',
+        )
+
+
 class EditProfileForm(ModelForm):
     """
     Form for updating profile information

@@ -18,10 +18,12 @@
                 <form id="avatar_form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% block avatar %}
-                        <input type="file" id="upload_avatar" name="avatar" style='display:none;'>
-                        <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
-                            <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
-                        </div>
+                        {% with avatar_form.avatar as field %}
+                            <input type="file" id="upload_avatar" name="{{ field.html_name }}" style='display:none;'>
+                            <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
+                                <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
+                            </div>
+                        {% endwith %}
                     {% endblock %}
                 </form>
             </div>

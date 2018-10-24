@@ -32,7 +32,7 @@ class User(AbstractUser):
     avatar = models.ImageField(
         upload_to=_upload_profile_image,
         default=None,
-        null=True
+        null=True,
     )
 
     @property

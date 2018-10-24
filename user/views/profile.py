@@ -69,11 +69,13 @@ class EditProfile(View):
             return HttpResponseNotFound()
 
         user_form = forms.EditProfileForm()
+        avatar_form = forms.EditProfileAvatar()
         consult_form = forms.EditConsultantForm()
         return render(request, 'profile/edit_profile.html', {
             'user': user,
             'is_owner': user == request.user,
             'user_form': user_form,
+            'avatar_form': avatar_form,
             'consult_form': consult_form,
         })
 
@@ -90,14 +92,11 @@ class EditProfile(View):
         if username != request.user.username:
             return HttpResponseRedirect(request.path)
 
-        # updated avatar
         try:
             request.FILES['avatar']
             self._update_user_avatar(user, request)
-
-        # updated other info
         except MultiValueDictKeyError:
-            return self._update_info(user, request)
+            self._update_info(user, request)
 
         return HttpResponseRedirect(request.path)
 
@@ -105,14 +104,21 @@ class EditProfile(View):
         """
         Helper function to allow a user to update their profile picture
         """
-        user.avatar = request.FILES['avatar']
-        user.save()
+        form = forms.EditProfileAvatar(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
 
-        # add a message to the user's session
-        messages.success(
-            request,
-            "Your profile picture has successfully been updated."
-        )
+            # add a message to the user's session
+            messages.success(
+                request,
+                "Your profile picture has successfully been updated."
+            )
+        
+        else:
+            messages.error(
+                request,
+                "Your profile picture was of invalid format."
+            )
 
     def _update_info(self, user: User, request):
         """
@@ -151,19 +157,6 @@ class EditProfile(View):
                     request,
                     "Your profile information has successfully been updated."
                 )
-                return HttpResponseRedirect(
-                    reverse(
-                        'user:user_profile',
-                        kwargs={'username': user.username}
-                    )
-                )
+                return
  
-        return render(
-            request,
-            'profile/edit_profile.html',
-            {
-                'user': request.user,
-                'user_form': user_form,
-                'consult_form': consult_form,
-            }
-        )
+        return
