@@ -29,13 +29,16 @@
 {% block results %}
     {% if events %}
     <div class="container bg-dark rounded text-light">
+        <h4>Internal events:</h4>
         {% for event in events %}
-            <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-                <div class="media-body ml-2">
-                    <h5 class="mt-0"><a style="cursor: pointer;" href="{{event.title}}-{{event.id}}">{{ event.title }}</a></h5>
-                    <p class="text-muted">{{ event.description }}</p>
+            <a class="no-decoration" style="cursor: pointer;" href="{{event.title}}-{{event.id}}">
+                <div class="media border-top text-light border-gray pb-4 p-2 mb-3">
+                    <div class="media-body mt-2">
+                        <h5 class="mt-0">{{ event.title }}</h5>
+                        <p class="text-muted">{{ event.description }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         {% endfor %}
     </div>
     {% else %}
@@ -43,13 +46,16 @@
     {% endif %}
     {% if tree %}
     <div class="container bg-dark rounded text-light">
+        <h4 class="pt-1">External events:</h4>
         {% for branch in tree %}
-        <div class="media border-bottom border-gray pb-2 p-2 pb-4">
-            <div class="media-body ml-2">
-                <h5 class="mt-0"><a style="cursor: pointer;" href="{{branch.urk}}">{{ branch.heading }}</a></h5>
-                <p class="text-muted">{{ branch.desc }}</p>
+        <a class="no-decoration" style="cursor: pointer;" href="{{branch.url}}">
+            <div class="media border-top text-light border-gray pb-4 p-2 mb-3">
+                <div class="media-body mt-2">
+                    <h5 class="mt-0">{{ branch.heading }}</h5>
+                    <p class="text-muted">{{ branch.desc }}</p>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
     {% else %}
