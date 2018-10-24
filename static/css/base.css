@@ -192,3 +192,8 @@ html, body {
         margin-left: 1rem !important;
     }
 }
+@media (max-width: 992px){
+    #sidepane{
+        display:none;
+    }
+}

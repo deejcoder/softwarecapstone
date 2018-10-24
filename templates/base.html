@@ -44,11 +44,11 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item {% if request.path|startswith:'/consultants/' %}active{% endif %}">
-                                <a class="nav-link" href="/consultants">Consultants</a>
-                            </li>
                             <li class="nav-item {% if request.path|startswith:'/companies/' %}active{% endif %}">
                                 <a class="nav-link" href="/companies">Companies</a>
+                            </li>
+                            <li class="nav-item {% if request.path|startswith:'/consultants/' %}active{% endif %}">
+                                <a class="nav-link" href="/consultants">Consultants</a>
                             </li>
                             <li class="nav-item {% if request.path|startswith:'/jobs/' %}active{% endif %}">
                                 <a class="nav-link" href="/jobs">Jobs</a>
