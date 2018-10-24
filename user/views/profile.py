@@ -39,13 +39,15 @@ class Profile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        companies = Company.objects.filter(members__user=user)
+        if not user.is_consultant() and user == request.user:
+            return HttpResponseRedirect(reverse('user:user_profile_edit', args=[user.username]))
+        elif not user.is_consultant():
+            return HttpResponseNotFound()
 
         return render(request, 'profile/profile.html', {
             'viewing': user,
             'user': request.user,
             'is_owner': user == request.user,
-            'companies': companies
         })
 
 

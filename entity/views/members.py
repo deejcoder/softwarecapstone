@@ -31,7 +31,8 @@ def get_members(request, entity, entity_name):
             'role': member.role,
             'username': member.user.username,
             'full_name': member.user.full_name,
-            'avatar': member.user.avatar_url
+            'avatar': member.user.avatar_url,
+            'is_consultant': member.user.is_consultant(),
         })
     data = {
         'members': members_data

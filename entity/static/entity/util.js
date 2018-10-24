@@ -40,7 +40,11 @@ var entity = (function() {
                     var $template = $($(template).html());
                     $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
                     $template.find('.member_username').html(data.members[i]['username']);
-                    $template.find('.member_username').attr('href', "/user/" + data.members[i]['username'])
+
+                    if(data.members[i]['is_consultant'] == true) {
+                        $template.find('.member_username').attr('href', "/user/" + data.members[i]['username'])
+                    }
+
                     $template.find('.member_role').html(upper(data.members[i]['role']));
 
                     if(data.members[i]['role'] != "owner") {
