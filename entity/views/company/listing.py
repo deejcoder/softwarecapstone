@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views import View
 
 from entity.models.company import Company
+from user.models import Consultant
 
 
 class Listing(View):
@@ -18,16 +19,23 @@ class Listing(View):
 
         try:
             search_term = request.GET.get('search')
+
+            # if search term is blank, treat it as so it never existed
+            if search_term == "":
+                raise KeyError()
+
+            # get all results from companies & consultants
             companies = Company.search_companies(search_term)
 
         except KeyError:
+            # get all companies and consultants
             companies = Company.search_companies(None)
 
-        paginator = Paginator(companies, 6)
+        paginator = Paginator(companies, 8)
         page = request.GET.get('page')
-        show_companies = paginator.get_page(page)
+        show_businesses = paginator.get_page(page)
 
         return render(request, 'companies.html', {
-            'companies': show_companies,
+            'companies': show_businesses,
             'page': page
         })
