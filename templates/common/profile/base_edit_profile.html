@@ -20,8 +20,8 @@
                     {% block avatar %}
                         {% with avatar_form.avatar as field %}
                             <input type="file" id="upload_avatar" name="{{ field.html_name }}" style='display:none;'>
-                            <div id="imageContainer" style="height:16vh; width:16vh" class="bg-dark rounded">
-                                <img src="{{ avatar_url }}" style="height:16vh; width:16vh; border-radius:7px" id="avatar" class="">
+                            <div id="imageContainer" style="height:160px; width:160px" class="bg-dark rounded">
+                                <img src="{{ avatar_url }}" style="height:160px; width:160px; border-radius:7px" id="avatar" class="">
                             </div>
                         {% endwith %}
                     {% endblock %}

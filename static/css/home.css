@@ -237,3 +237,9 @@ body {
         background: #49525a;
     }
 
+.alert {
+    position: absolute;
+    left: 40%;
+    z-index: 99;
+}
+
