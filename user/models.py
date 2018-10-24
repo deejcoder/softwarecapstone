@@ -7,6 +7,7 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.search import SearchQuery, SearchVector
+from django.core.validators import RegexValidator
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 from PIL import Image
@@ -112,10 +113,12 @@ class Consultant(models.Model):
         User,
         on_delete=models.CASCADE
     )
-    services_offered = models.TextField(max_length=300)
-    current_occupation = models.CharField(max_length=120, default=None)
-    work_phone = models.CharField(max_length=14, null=True, default=None)
-    website = models.CharField(max_length=30, null=True, default=None)
+    services_offered = models.TextField(max_length=500*5.1)
+    current_occupation = models.CharField(max_length=120, null=True, default=None)
+    contact_phone = models.CharField(max_length=15, null=True, default=None, validators=[
+        RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")
+    ])
+    website = models.CharField(max_length=300, null=True, default=None)
     status = models.CharField(
         max_length=20,
         choices=ApprovalStatus.choices,

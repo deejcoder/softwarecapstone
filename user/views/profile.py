@@ -5,16 +5,11 @@ Functionality includes editing of profiles.
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.decorators import method_decorator
 from django.views import View
-
-from entity.models.company import Company
 
 from .. import forms
 from ..models import User
