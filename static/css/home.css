@@ -8,6 +8,48 @@
     src: url("fonts/Hyperspace-Bold.otf");
 }
 
+.footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+.fa-facebook, .fa-twitter, .fa-google, .fa-linkedin {
+    padding: 10px 0;
+    font-size: 20px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px;
+    border-radius: 20px;
+}
+
+    .fa-facebook:hover, .fa-twitter:hover, .fa-google:hover, .fa-linkedin:hover {
+        opacity: 0.7;
+        text-decoration: none;
+        color: white;
+    }
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-google {
+    background: #dd4b39;
+    color: white;
+}
+
+.fa-linkedin {
+    background: #007bb5;
+    color: white;
+}
+
 
 
 html, body {
@@ -103,12 +145,13 @@ body {
 
 #content {
     background-color: #2a2d2f;
+    height: 87.3% !important;
 }
 
 
 .card {
     border-radius: 15px;
-    border-width: 4px;
+    border-width: 2px;
     border-color: #39b54a;
 }
 
