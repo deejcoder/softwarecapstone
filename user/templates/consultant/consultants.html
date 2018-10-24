@@ -5,18 +5,20 @@
     {% if consultants %}
         {% for c in consultants %}
 
-        <div class="media text-dark" id="consultantCard">
-            <a href="/user/{{ c.user.username }}">
-                <img src="{{c.user.avatar_url}}" id="consultantAvatar" class="align-self-center mr-3" style="border-radius:15px;max-height:160px; max-width:160px;">
-            </a>
-            <div class="media-body">
-                <h5 class="mt-0">{{c.user.first_name}} {{c.user.last_name}}</h5>
-                <h6>{{ c.area_of_expertise }}</h6>
-                <p class="mb-0">{{ c.introduction }}</p>
+        <a href="/user/{{ c.user.username }}/" class="nodecoration">
+            <div class="container bg-dark rounded text-white">
+                <div class="media pb-2 p-2">
+                    <div class="my-2 mr-3 ml-0" style="width:80px; height: 80px;">
+                        <img class="mr-2 rounded" src="{{ c.user.avatar_url }}" style="max-height:80px; max-width:80px" title="View profile" />
+                    </div>
+                    <div class="media-body mt-2">
+                        <h5 class='mt-0'><a class="text-white" style="cursor: pointer;" href="/user/{{ c.user.username }}/">{{ c.user.username }}</a></h5>
+                        <p class="text-muted" style="word-break: break-all;">{{ c.introduction|truncatechars:200 }}</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <br />
+        </a>
+        
         {% endfor %}
     {% else %}
     <p>No results matching the criteria found.</p>
