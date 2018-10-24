@@ -40,7 +40,7 @@ class Company(Entity):
         :param term: the search string
         :return: list of companies
         """
-        if term is None:
+        if term is None or term == "":
             result = cls.objects.filter(application__status="approved")
 
         else:

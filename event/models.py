@@ -1,4 +1,6 @@
+from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
+
 from entity.models import Entity
 
 
@@ -13,14 +15,14 @@ class Event(models.Model):
 
     def __str__(self):
         return "{0} ({1})".format(self.title, self.pk)
-    
-    def get_events(entity: Entity) -> []:
+
+    @classmethod
+    def get_events(cls, entity: Entity) -> []:
         """
         Returns a list of events associated with a particular entity (group or company)
         """
-        events = Event.objects.filter(entity=entity).select_related('entity')
-        return events
-    
+        return Event.objects.filter(entity=entity).select_related('entity')
+
     @classmethod
     def search_events(cls, term: str):
         """
@@ -28,7 +30,7 @@ class Event(models.Model):
         :param term: the search string
         :return: list of companies
         """
-        if term is None:
+        if term is None or term == "":
             result = cls.objects.all()
 
         else:
@@ -39,4 +41,3 @@ class Event(models.Model):
             result = cls.objects.annotate(search=search_vector).filter(search=search_query)
 
         return result
-    

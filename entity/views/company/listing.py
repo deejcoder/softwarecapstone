@@ -20,10 +20,6 @@ class Listing(View):
         try:
             search_term = request.GET.get('search')
 
-            # if search term is blank, treat it as so it never existed
-            if search_term == "":
-                raise KeyError()
-
             # get all results from companies & consultants
             companies = Company.search_companies(search_term)
 

@@ -33,7 +33,7 @@ class Profile(View):
             return HttpResponseNotFound()
 
         entity_obj = Entity.objects.get(group=group_obj)
-        events = Event.get_events(entity_obj)
+        events = Event.get_events(entity=entity_obj)
 
         return render(request, 'group/profile.html', {
             'group': group_obj,

@@ -28,7 +28,7 @@ class Job(models.Model):
         """
         Searches jobs against a given search term. If term is None, show all.
         """
-        if term is None:
+        if term is None or term == "":
             result = cls.objects.all()
         
         else:

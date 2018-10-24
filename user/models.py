@@ -130,7 +130,7 @@ class Consultant(models.Model):
         :param status: filter results by application status, None to show all.
         :return: list of consultants
         """
-        if term is None:
+        if term is None or term == "":
             result = cls.objects.all()
 
         else:
