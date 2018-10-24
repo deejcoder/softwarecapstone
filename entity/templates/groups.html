@@ -39,7 +39,9 @@
 </a>
             {% endfor %}
     {% else %}
-<p>No results matching the criteria found.</p>
+<div class="container bg-dark rounded p-4 text-center">
+    <h4 class="text-muted">Sorry, we couldn't find any groups.</h4>
+</div>
     {% endif %}
 {% endblock %}
 

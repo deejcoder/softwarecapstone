@@ -1,39 +1,64 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Consultant Application
+{% endblock %}
 
 {% block content %}
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Consultants</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Application Form</li>
-    </ol>
-</nav>
 <div id="application">
-    <h3>Apply to become a consultant</h3>
-    <script>
-        $(document).ready(function(){
-            $("textarea").attr({"rows": "4",
-                                "cols": "24"
-            });
-        });
-    </script>
-    <form class="post-form" method="post">
-        {% csrf_token %}
-        <fieldset>
-            {{ form.introduction.label_tag }}
-            {{ form.introduction }}
-            {{ form.area_of_expertise.label_tag }}
-            {{ form.area_of_expertise }}
-            {{ form.website.label_tag }}
-            {{ form.website }}
-            {{ form.work_phone.label_tag }}
-            {{ form.work_phone }}
-            {{ form.certification.label_tag }}
-            {{ form.certification }}
-            {{ form.services_offered.label_tag }}
-            {{ form.services_offered }}
-            <button type="submit" class="btn btn-outline-dark">Update</button>
-        </fieldset>
-    </form>
+    <div class="container mt-5 p-3 bg-dark text-muted rounded col-md-9">
+        <h3 class="text-white text-center p-2 mb-3 ">Consultant Application</h3>
+        <form class="post-form" method="post">
+            {% csrf_token %}
+            <fieldset>
+                {% with form.introduction as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="introduction">Introduction:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+
+                {% with form.website as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="website">Website:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+
+                {% with form.certification as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="certification">Certifications:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+
+                {% with form.services_offered as field %}
+                <div class="form-group d-flex justify-content-between">
+                    <label for="services_offered">Services Offered:</label>
+                    <div class="col-md-8 text-right">
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                    </div>
+                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                </div>
+                {% endwith %}
+
+                <div class="p-3">
+                    <a class="btn btn-danger b-red" href="/events">Back</a>
+                    <input class="btn btn-secondary b-green pull-right" type="submit" value="Submit">
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
 {% endblock %}

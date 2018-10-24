@@ -180,6 +180,12 @@ html, body {
     border-top: 1px solid #23272a !important;
 }
 
+.alert{
+    position:absolute;
+    left: 40%;
+    z-index:99;
+}
+
 
 @media (max-width: 1399.98px) {
     #sidepane{

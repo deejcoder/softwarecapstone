@@ -28,46 +28,50 @@
 {% block results %}
     {% if jobs %}
     {% for job in jobs %}
-<div class="container bg-dark rounded shadow-sm my-3 text-white">
-    <div class="media pb-4 p-2 pt-4">
-        <div class="media-body ml-2 row">
-            <div class="col-9">
-                <a class="nodecoration text-white d-block" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">
-                    <h5 class="mb-4">{{ job.title }}</h5>
-                    <p class="text-muted ">{{ job.short_description }}</p>
-                    <p class="text-white mt-4 mb-2">Located in <strong>{{ job.location }}</strong></p>
-                </a>
-            </div>
-            <div class="col text-center my-auto">
-                <a class="text-muted nodecoration" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
-                    <p class="mb-2">{{ job.company.name|title }}</p>
-
-                    <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
-                    <p><small><strong>{{ job.date_posted|naturaltime }}</strong></small></p>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-    {% endfor %}
-<div class="container bg-dark rounded shadow-sm my-3 text-white">
-    <a class="nodecoration" style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
+    <div class="container bg-dark rounded shadow-sm my-3 text-white">
         <div class="media pb-4 p-2 pt-4">
             <div class="media-body ml-2 row">
                 <div class="col-9">
-                    <h5 class="mb-4 text-white">TradeMe Jobs</h5>
-                    <p class="text-white ">Cant find what you are looking for?</p>
-                    <p class="text-white ">Find more jobs at trademe.co.nz/jobs!</p>
+                    <a class="nodecoration text-white d-block" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">
+                        <h5 class="mb-4">{{ job.title }}</h5>
+                        <p class="text-muted ">{{ job.short_description }}</p>
+                        <p class="text-white mt-4 mb-2">Located in <strong>{{ job.location }}</strong></p>
+                    </a>
                 </div>
                 <div class="col text-center my-auto">
-                    <img class="rounded m-auto d-block mb-2 mt-4" style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
+                    <a class="text-muted nodecoration" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                        <p class="mb-2">{{ job.company.name|title }}</p>
+
+                        <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
+                        <p><small><strong>{{ job.date_posted|naturaltime }}</strong></small></p>
+                    </a>
                 </div>
             </div>
         </div>
-    </a>
-</div>
+    </div>
+    {% endfor %}
+
 {% else %}
+    <div class="container bg-dark rounded p-4 text-center">
+        <h4 class="text-muted">Sorry, we couldn't find any jobs.</h4>
+    </div>
 {% endif %}
+    <div class="container bg-dark rounded shadow-sm my-3 text-white">
+        <a class="nodecoration" style="cursor:pointer" href="http://www.trademe.co.nz/jobs" target="_blank">
+            <div class="media pb-4 p-2 pt-4">
+                <div class="media-body ml-2 row">
+                    <div class="col-9">
+                        <h5 class="mb-4 text-white">TradeMe Jobs</h5>
+                        <p class="text-white ">Cant find what you are looking for?</p>
+                        <p class="text-white ">Find more jobs at trademe.co.nz/jobs!</p>
+                    </div>
+                    <div class="col text-center my-auto">
+                        <img class="rounded m-auto d-block mb-2 mt-4" style="max-height:100px; max-width:100px" src="/static/trademeLogo.png">
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 {% endblock %}
 
 {% block pagination %}

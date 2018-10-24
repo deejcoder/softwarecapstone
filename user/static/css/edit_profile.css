@@ -1,13 +1,3 @@
-#avatar {
-    width: 200px;
-    height: 200px;
-    float:none;
-    -webkit-filter: brightness(100%);
-    -moz-filter: brightness(100%);
-    -o-filter: brightness(100%);
-    -ms-filter: brightness(100%);
-    filter: brightness(100%);
-}
 
 #imageContainer:hover {
     -webkit-filter: brightness(80%);

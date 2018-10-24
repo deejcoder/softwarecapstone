@@ -12,11 +12,11 @@
     <h4>{{ user.full_name }}</h4>
 
     {% if user.is_staff %}
-        <span class="badge badge-primary">Administrator</span>
+        <span class="badge badge-success">Administrator</span>
     {% endif %}
 
     {% if user.is_consultant %}
-        <span class="badge badge-secondary">Consultant</span>
+        <span class="badge badge-success">Consultant</span>
     {% endif %}
 {% endblock %}
 
@@ -25,13 +25,13 @@
     <form method="post">
         {% csrf_token %}
 
-        <h5>User information</h5>
+        <h4 class="text-center text-white">User Information</h4>
         <hr>
         {% with user_form.username as field %}
         <div class="form-group">
             <label for="username_field">Username</label>
             <input type="text"
-                    class="form-control"
+                    class="form-control bg-dark bd-green text-muted f-green"
                     value="{{ user.username }}"
                     readonly
             >
@@ -44,7 +44,7 @@
             <div class="form-group col-md-6">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 <input type="{{ field.field.widget.input_type }}"
-                        class="form-control {% if field.errors %}is-invalid{% endif %}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
                         id="{{ field.id_for_form }}"
                         name="{{ field.html_name }}"
                         value="{{ user.first_name }}"
@@ -56,7 +56,7 @@
             <div class="form-group col-md-6">
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 <input type="{{ field.field.widget.input_type }}"
-                        class="form-control {% if field.errors %}is-invalid{% endif %}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
                         id="{{ field.id_for_form }}"
                         name="{{ field.html_name }}"
                         value="{{ user.last_name }}"
@@ -69,7 +69,7 @@
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             <input type="{{ field.field.widget.input_type }}"
-                    class="form-control {% if field.errors %}is-invalid{% endif %}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
                     id="{{ field.id_for_form }}"
                     name="{{ field.html_name }}"
                     value="{{ user.email }}"
@@ -81,7 +81,7 @@
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             <input type="{{ field.field.widget.input_type }}"
-                    class="form-control {% if field.errors %}is-invalid{% endif %}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
                     id="{{ field.id_for_form }}"
                     name="{{ field.html_name }}"
             >
@@ -92,7 +92,7 @@
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             <input type="{{ field.field.widget.input_type }}"
-                    class="form-control {% if field.errors %}is-invalid{% endif %}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
                     id="{{ field.id_for_form }}"
                     name="{{ field.html_name }}"
             >
@@ -143,7 +143,8 @@
         {% endwith %}
         {% endif %}
 
-        <button type="submit" class="btn btn-outline-dark">Update</button>
-        <a href="../{{ user.username }}" class="btn btn-outline-danger">Cancel</a>
+        <div align="center">
+            <button type="submit" class="btn btn-secondary b-green">Update</button>
+        </div>
     </form>
 {% endblock %}

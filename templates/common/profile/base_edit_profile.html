@@ -11,17 +11,17 @@
 <div class="container" id="content-container">
     <div class="row">
         <!-- Content header -->
-        <div class="col-md-x" id="profile-banner">
+        <div class="col-md-3" id="profile-banner">
 
             <!-- Profile picture -->
-            <div class="media">
+            <div class="media" >
                 <form id="avatar_form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% block avatar %}
                         {% with avatar_form.avatar as field %}
                             <input type="file" id="upload_avatar" name="{{ field.html_name }}" style='display:none;'>
-                            <div id="imageContainer" style="background-image:url('{{ avatar_url }}')">
-                                <img src="{% static 'avatarLens.png' %}" id="avatar" class="center-block">
+                            <div id="imageContainer" style="height:16vh; width:16vh" class="bg-dark rounded">
+                                <img src="{{ avatar_url }}" style="height:16vh; width:16vh; border-radius:7px" id="avatar" class="">
                             </div>
                         {% endwith %}
                     {% endblock %}
@@ -35,7 +35,7 @@
         </div>
         <!-- Edit profile information -->
 
-        <div class="container col-md-8" id="profile-info">
+        <div class="container col-md-9 bg-dark text-muted" id="profile-info">
             {% block profile-content %}
             {% endblock %}
         </div>

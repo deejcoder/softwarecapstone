@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block content %}
-{% if next %}
-<p>Please login to see this page.</p>
-{% endif %}
+
 
 <div class="container" id="content-container">
     <div class="container col-md-5 bg-dark rounded mt-5 p-3 text-muted" id="login-form">
         <div class="">
-            <h3 class="text-white text-center p-2 mb-3">Login</h3>
+            {% if next %}
+            <h4 class="text-white text-center p-2 mb-3">Please Login</h4>
+            {% else %}
+            <h4 class="text-white text-center p-2 mb-3">Login to TechPalmy</h4>
+            {% endif %}
             <form method="post" action="{% url 'login' %}">
                 {# Use built-in XSS protection. Important: use this for ONLY internal sites. #}
                 {% csrf_token %}
@@ -20,7 +22,7 @@
                 <div class="form-group">
 
                     <input type="{{form.username.field.widget.input_type}}"
-                           class="form-control {% if form.username.errors %}} is-invalid {% endif %}"
+                           class="form-control bg-dark bd-green text-muted f-green {% if form.username.errors %}} is-invalid {% endif %}"
                            id="{{form.username.id_for_form}}"
                            name="{{form.username.html_name}}"
                            placeholder="Username" />
@@ -30,7 +32,7 @@
                 <div class="form-group">
 
                     <input type="{{form.password.field.widget.input_type}}"
-                           class="form-control {% if form.password.errors %}} is-invalid {% endif %}"
+                           class="form-control bg-dark bd-green text-muted f-green {% if form.password.errors %}} is-invalid {% endif %}"
                            id="{{form.password.id_for_form}}"
                            name="{{form.password.html_name}}"
                            placeholder="Password" />
@@ -41,7 +43,7 @@
                 <div class="text-center mt-2">
                     <a style="visibility:hidden" class="pull-left">Forgot Password</a>
                     <button type="submit" class="btn btn-secondary b-green" value="login">Login</button>
-                    <a href="/contact" class="pull-right my-auto">Forgot Password</a>
+                    <a href="/contact" class="pull-right my-auto pt-2" style="color:#39b54a">Forgot Password</a>
                 </div>
             </form>
         </div>

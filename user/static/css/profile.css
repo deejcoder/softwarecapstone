@@ -1,31 +1,27 @@
 #imageContainer {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: 15px;
-    background-size: 200px;
     overflow: hidden;
 }
 
 div #profile-info {
     padding: 20px;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 7px;
 }
 div #additional-info {
     padding: 20px;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 7px;
     display: none;
 }
 
 div #profile-banner {
-    border-radius:15px;
+    border-radius:7px;
 }
 
 #content-container {
     margin-top:30px; 
     width:50%;
-    border-radius:15px;
+    border-radius:7px;
     min-width:800px;
 }
 
