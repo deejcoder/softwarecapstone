@@ -28,12 +28,12 @@
 
 {% block results %}
     {% if events %}
-    <div class="container bg-white rounded shadow-sm">
+    <div class="container bg-dark rounded text-light">
         {% for event in events %}
             <div class="media border-bottom border-gray pb-2 p-2 pb-4">
                 <div class="media-body ml-2">
                     <h5 class="mt-0"><a style="cursor: pointer;" href="{{event.title}}-{{event.id}}">{{ event.title }}</a></h5>
-                    <p class="text-dark">{{ event.description }}</p>
+                    <p class="text-muted">{{ event.description }}</p>
                 </div>
             </div>
         {% endfor %}
@@ -42,12 +42,12 @@
         <p>No results matching the criteria found.</p>
     {% endif %}
     {% if tree %}
-    <div class="container bg-white rounded shadow-sm">
+    <div class="container bg-dark rounded text-light">
         {% for branch in tree %}
         <div class="media border-bottom border-gray pb-2 p-2 pb-4">
             <div class="media-body ml-2">
                 <h5 class="mt-0"><a style="cursor: pointer;" href="{{branch.urk}}">{{ branch.heading }}</a></h5>
-                <p class="text-dark">{{ branch.desc }}</p>
+                <p class="text-muted">{{ branch.desc }}</p>
             </div>
         </div>
         {% endfor %}
