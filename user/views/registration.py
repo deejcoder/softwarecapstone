@@ -30,7 +30,6 @@ class Register(View):
         form = forms.UserRegistrationForm(request.POST)
 
         # if form does not contain errors,
-        print(form.errors)
         if form.is_valid():
 
             username = form.cleaned_data.get('username')

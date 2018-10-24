@@ -9,6 +9,7 @@ TODO:
 from user.models import Consultant, User
 
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
@@ -20,11 +21,15 @@ from entity.models.company import Company
 
 class Index(View):
 
+    staff_member_required = True
+
     def get(self, request):
         return render(request, 'dashboard/index.html')
 
 
 class Users(View):
+
+    staff_member_required = True
 
     def get(self, request):
         users = User.objects.all()
@@ -36,6 +41,8 @@ class Users(View):
 
 class Consultants(View):
 
+    staff_member_required = True
+
     def get(self, request):
         consultants = Consultant.objects.all()
 
@@ -45,6 +52,8 @@ class Consultants(View):
 
 
 class Companies(View):
+
+    staff_member_required = True
 
     def get(self, request):
         companies = Company.objects.all()
@@ -56,6 +65,8 @@ class Companies(View):
 
 class CompanyApplications(View):
 
+    staff_member_required = True
+    
     def get(self, request):
         companies = Company.objects.filter(application__status="pending")
 

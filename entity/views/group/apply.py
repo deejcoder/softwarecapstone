@@ -8,9 +8,12 @@ from entity.forms import GroupApplicationForm
 # Rough view for comp_appform.html
 class Apply(View):
 
+    login_required = True
+
     def get(self, request):
         form = GroupApplicationForm()
         return render(request, 'group/apply.html', {'form': form})
+
 
     def post(self, request):
         form = GroupApplicationForm(request.POST)

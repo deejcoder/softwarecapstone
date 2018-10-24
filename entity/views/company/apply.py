@@ -1,6 +1,8 @@
 """
 Defines the views for handling company applications
 """
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -18,6 +20,7 @@ def edit_comp(request):
 class ApplyCompany(View):
     """Application form"""
     
+    @method_decorator(login_required)
     def get(self, request):
         """
         User wants to apply
@@ -25,6 +28,7 @@ class ApplyCompany(View):
         form = CompanyApplicationForm()
         return render(request, 'company/apply.html', {'form': form})
 
+    @method_decorator(login_required)
     def post(self, request):
         """
         User submits the application form

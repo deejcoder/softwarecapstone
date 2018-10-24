@@ -2,17 +2,17 @@
 Lists all jobs, allows companies to add new jobs
 """
 
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from entity.models import Member
 from jobs.forms import JobCreationForm
 from jobs.models import Job
-
-from django.contrib import messages
 
 
 class Listing(View):
@@ -47,22 +47,14 @@ class Listing(View):
 
         create_job_form = JobCreationForm()
 
-        # determine if the user is an editor of any company
-        try:
-            Member.objects \
-                .filter(user=request.user) \
-                .filter(role=Member.Roles.EDITOR)[0]
-            is_editor = True
-        except IndexError:
-            is_editor = False
-
         return render(request, 'jobs.html', {
-            'is_company_editor': is_editor,
+            'is_company_editor': Member.is_editor_any(request.user),
             'jobs': show_jobs,
             'page': page,
             'creation_form': create_job_form
         })
 
+    @method_decorator
     def post(self, request):
         form = JobCreationForm(request.POST)
         if form.is_valid():

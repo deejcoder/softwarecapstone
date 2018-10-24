@@ -36,6 +36,10 @@ class Member(models.Model):
         :param company: the company the user belongs to
         :return: True if the user is administrator+ else False
         """
+        # user not logged in
+        if not user.is_authenticated:
+            return False
+
         try:
             member = Member.objects.filter(user=user, entity=entity)[0]
         except IndexError:
@@ -47,6 +51,10 @@ class Member(models.Model):
 
     @staticmethod
     def is_owner(user: User, entity: Entity) -> bool:
+        # not a valid user
+        if not user.is_authenticated:
+            return False
+
         try:
             member = Member.objects.filter(user=user, entity=entity)[0]
         except IndexError:
@@ -65,4 +73,35 @@ class Member(models.Model):
 
         members = Member.objects.filter(entity=entity).select_related('user')
         return members
+
+    @staticmethod
+    def is_editor_any(user: User) -> bool:
+
+        # user is not logged in
+        if not user.is_authenticated:
+            return False
+
+        try:
+            Member.objects \
+                .filter(user=user) \
+                .filter(role=Member.Roles.EDITOR)[0]
+        except IndexError:
+            return False
+        return True
+
+    @staticmethod
+    def is_owner_any(user: User) -> bool:
+
+        # user is not logged in
+        if not user.is_authenticated:
+            return False
+
+        try:
+            Member.objects \
+                .filter(user=user) \
+                .filter(role=Member.Roles.OWNER)[0]
+        except IndexError:
+            return False
+        return True
+    
 

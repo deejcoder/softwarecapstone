@@ -1,17 +1,18 @@
 """
 Lists all jobs, allows companies to add new jobs
 """
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views import View
 
-from ..models import Job
 from entity.models.members import Member
+
 from ..forms import EditJobForm
+from ..models import Job
 
 
 class Detail(View):
@@ -29,7 +30,8 @@ class Detail(View):
 
     
 class EditDetails(View):
-    @login_required
+    login_required = True
+
     def get(self, request, job_title, job_id):
         try:
             job = Job.objects.get(pk=job_id)
@@ -46,7 +48,7 @@ class EditDetails(View):
             'form': form,
         })
 
-    @login_required
+
     def post(self, request, job_title, job_id):
         try:
             job_obj = Job.objects.get(pk=job_id)
@@ -80,4 +82,3 @@ def remove_job(request, job_title, job_id):
     instance.delete()
     remove.delete()
     return redirect("/")
-    
