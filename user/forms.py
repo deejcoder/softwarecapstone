@@ -52,7 +52,7 @@ class ConsultantApplicationForm(ModelForm):
         fields = (
             'services_offered',
             'current_occupation',
-            'work_phone',
+            'contact_phone',
             'website'
         )
 

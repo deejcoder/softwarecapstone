@@ -33,6 +33,7 @@ urlpatterns = [
     path('contact/', views.contact_form, name='contact'),
     path('admin/', include('dashboard.urls')),
     path('', include('jobs.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

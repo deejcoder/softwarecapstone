@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'debug_toolbar',
     'django_filters',
+    'tinymce',
     'captcha',
     'user',
     'event',

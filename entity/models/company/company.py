@@ -24,7 +24,7 @@ class Company(Entity):
 
     size = models.DecimalField(max_digits=5, decimal_places=0)
     industry = models.CharField(max_length=30, choices=IndustryType.choices, default=IndustryType.Primary)
-    specialist_area = models.CharField(max_length=300*5.1)
+    specialist_area = models.CharField(max_length=(1530))
     contact_phone = models.CharField(max_length=15, validators=[
         RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")
     ])
