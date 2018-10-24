@@ -118,6 +118,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'techpalmy.wsgi.application'
 LOGIN_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'user.User'
+LOGIN_URL = '/login/'
 
 
 # Database
@@ -183,7 +184,8 @@ MEDIA_URL = '/media/'
 CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
 CKEDITOR_CONFIGS = {
     'default': {
-        'width': 500,
+        'width': '77vh',
+		'height': '20.6vh',
         'skin': 'minimalist',
         'toolbar_Basic': [
             ['Bold', 'Italic']
@@ -197,7 +199,7 @@ CKEDITOR_CONFIGS = {
             {'name': 'links', 'items': ['Link', 'Unlink']},
             {'name': 'insert',
              'items': ['Image', 'Table', 'HorizontalRule']},
-            {'name': 'tools', 'items': ['Maximize']},
+            
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
@@ -207,6 +209,7 @@ CKEDITOR_CONFIGS = {
         # 'filebrowserWindowWidth': 940,
         # 'toolbarCanCollapse': True,
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+		# {'name': 'tools', 'items': ['Maximize']},
         'tabSpaces': 4,
         'extraPlugins': ','.join([
             # your extra plugins here

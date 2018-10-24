@@ -29,7 +29,7 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('entity.urls')),
     path('events/', include('event.urls')),
-    path('about/', views.About.as_view(), name='about'),
+    path('about/', views.About.as_view()),
     path('contact/', views.contact_form, name='contact'),
     path('admin/', include('dashboard.urls')),
     path('', include('jobs.urls')),

@@ -6,7 +6,9 @@
 @import "imports/events.css";
 
 
-
+.cke_screen_reader_only{
+    display: none;
+}
 
 
 html, body {

@@ -5,6 +5,7 @@ from .views import group
 from .views import get_members
 from .views.group.profile import group_remove
 from .views.company.profile import company_remove
+from django.contrib.auth.decorators import login_required
 
 app_name = "entity"
 
@@ -15,7 +16,9 @@ urlpatterns = [
     path('company/<company>/', company.Profile.as_view(), name='company_profile'),
     path('company/<company>/remove/', company_remove, name='remove_group'),
     path('groups/', group.Listing.as_view(), name='group_listing'),
+
     path('groups/apply/', group.Apply.as_view(), name='group_apply'),
+
     path('groups/<group>/', group.profile.Profile.as_view(), name='group_profile'),
     path('groups/<group>/edit', group.profile.EditProfile.as_view(), name='group_profile_edit'),
     path('groups/<group>/remove/', group_remove, name='remove_group'),

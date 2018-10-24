@@ -1,43 +1,60 @@
 {% extends 'common/listing/base_listing.html' %}
 
+{% block title %}
+    Consultant Listings
+{% endblock %}
+
+{% block sidepane %}
+<div class="row">
+    <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Profile</h5>
+</div>
+<div class="row">
+    <p class="col-12 mb-2 text-center text-muted">Want to become a consultant?</p>
+    <a href="/company/apply" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Apply</a>
+</div>
+
+{% endblock %}
+
 <!-- Search results -->
 {% block results %}
     {% if consultants %}
         {% for c in consultants %}
-
-        <a href="/user/{{ c.user.username }}/" class="nodecoration">
-            <div class="container bg-dark rounded text-white">
-                <div class="media pb-2 p-2">
-                    <div class="my-2 mr-3 ml-0" style="width:80px; height: 80px;">
-                        <img class="mr-2 rounded" src="{{ c.user.avatar_url }}" style="max-height:80px; max-width:80px" title="View profile" />
-                    </div>
-                    <div class="media-body mt-2">
-                        <h5 class='mt-0'><a class="text-white" style="cursor: pointer;" href="/user/{{ c.user.username }}/">{{ c.user.username }}</a></h5>
-                        <p class="text-muted" style="word-break: break-all;">{{ c.introduction|truncatechars:200 }}</p>
-                    </div>
-                </div>
+<a href="/user/{{ c.user.username }}/" class="nodecoration">
+    <div class="container bg-dark rounded my-3">
+        <div class="media p-2 pb-4 pt-4">
+            <img class="align-self-start mr-2 rounded" src="{{ c.user.avatar_url }}" height="128" width="128" alt="View profile" />
+            <div class="media-body ml-2">
+                <h5>{{ c.user.username }}</h5>
+                <p class="text-muted">{{ c.introduction }}</p>
             </div>
-        </a>
-        
-        {% endfor %}
-    {% else %}
-    <p>No results matching the criteria found.</p>
-    {% endif %}
+        </div>
+    </div>
+</a>
+
+{% endfor %}
+{% else %}
+<div class="container bg-dark rounded p-4 text-center">
+    <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
+</div>
+{% endif %}
 {% endblock %}
 
-<!-- Page numbering & links, positioned at the bottom-->
 {% block pagination %}
-    {% if consultants.has_previous %}
+<div class="container bg-dark rounded">
+    <div class="media p-2 mt-3">
+        {% if companies.has_previous %}
         <a href="?page=1">&laquo; first</a>
         <a href="?page={{ consultants.previous_page_number }}">previous</a>
-    {% endif %}
+        {% endif %}
 
-    <span class="current">
-    Page {{ consultants.number }} of {{ consultants.paginator.num_pages }}
-    </span>
+        <span class="current text-muted">
+            Page {{ consultants.number }} of {{ consultants.paginator.num_pages }}
+        </span>
 
-    {% if consultants.has_next %}
+        {% if companies.has_next %}
         <a href="?page={{ consultants.next_page_number }}">next</a>
         <a href="?page={{ consultants.paginator.num_pages }}">last &raquo;</a>
-    {% endif %}
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

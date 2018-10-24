@@ -5,11 +5,15 @@ from entity.models import Member
 from entity.forms import GroupApplicationForm
 
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+
 # Rough view for comp_appform.html
+@method_decorator(login_required, name='dispatch')
 class Apply(View):
 
     login_required = True
-
     def get(self, request):
         form = GroupApplicationForm()
         return render(request, 'group/apply.html', {'form': form})

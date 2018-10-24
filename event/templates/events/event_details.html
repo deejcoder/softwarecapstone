@@ -7,30 +7,29 @@
 
 
 {% block content %}
-<div class="container mt-5 p-3 bg-light rounded col-md-7">
-    <h3>{{ event.title }}</h3>
-    <strong>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</strong>
+<div class="container mt-5 p-3 bg-dark text-muted rounded col-md-7">
+    <h3 class="text-white text-center">{{ event.title }}</h3>
+    <div class="text-white text-center pt-1">
+        <p>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</p>
+    </div>
     <hr>
     <p>{{ event.description }}</p>
     <hr>
-    <h5>Location:</h5>
-    <div class="d-flex justify-content-center"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=200x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{event.location}}"/></div>
-    <div class="d-flex justify-content-center">{{event.location}}</div>
+    <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{event.location}}">
+        <div class="d-flex justify-content-center pt-2"><img style="border-radius:7px" src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=500x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{event.location}}" /></div>
+    </a>
+    <div class="d-flex justify-content-center mt-2">{{event.location}}</div>
     {% if is_owner %}
     <hr>
     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete</button>
         <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Confirmation of deletion</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this event?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-danger" href="/events/{{event.title}}-{{event.id}}/remove">Yes</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <div class="modal-dialog mt-5">
+                <div class="modal-content bg-dark p-4 m-4 mt-5">
+                    <h4 class="text-center text-white">Confirmation of Deletion</h4>
+                    <p class="text-center text-muted">Are you sure you want to delete this event?</p>
+                    <div class="justify-content-center mx-auto">
+                        <a class="btn btn-danger px-3" href="/events/{{event.title}}-{{event.id}}/remove">Yes</a>
+                        <button type="button" class="btn btn-default px-3" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>

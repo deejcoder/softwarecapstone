@@ -1,60 +1,77 @@
 {% extends 'common/listing/base_listing.html' %}
 
+{% load humanize %}
 {% block title %}
     Event Listings
 {% endblock %}
 
 {% block sidepane %}
-
-    <div class="row">
-        <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Events</h5>
-        <p class="col-12 small mb-2 text-center text-muted">Event 1 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Event 2 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Event 3 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Event 4 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Event 5 Link</p>
-        <p class="col-12 small mb-4 text-center text-muted">Event 6 Link</p>
-    </div>
-    <div class="row">
-        <p class="col-12 mb-2 text-center text-muted">Want to create an event?</p>
-        <a href="{% url 'event:create_event' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
-    </div>
+<div class="row">
+    <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Events</h5>
+    <p class="col-12 small mb-2 text-center text-muted">Event 1 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Event 2 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Event 3 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Event 4 Link</p>
+    <p class="col-12 small mb-2 text-center text-muted">Event 5 Link</p>
+    <p class="col-12 small mb-4 text-center text-muted">Event 6 Link</p>
+</div>
+<div class="row">
+    <p class="col-12 mb-2 text-center text-muted">Want to create an event?</p>
+    <a href="{% url 'event:create_event' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
+</div>
 {% endblock %}
 
 {% block results %}
     {% if events %}
-    <div class="container bg-dark rounded text-light">
-        <h4>Internal events:</h4>
-        {% for event in events %}
-            <a class="no-decoration" style="cursor: pointer;" href="{{event.title}}-{{event.id}}">
-                <div class="media border-top text-light border-gray pb-4 p-2 mb-3">
-                    <div class="media-body mt-2">
-                        <h5 class="mt-0">{{ event.title }}</h5>
-                        <p class="text-muted">{{ event.description }}</p>
-                    </div>
-                </div>
-            </a>
-        {% endfor %}
-    </div>
-    {% else %}
-        <p>No results matching the criteria found.</p>
-    {% endif %}
-    {% if tree %}
-    <div class="container bg-dark rounded text-light">
-        <h4 class="pt-1">External events:</h4>
-        {% for branch in tree %}
-        <a class="no-decoration" style="cursor: pointer;" href="{{branch.url}}">
-            <div class="media border-top text-light border-gray pb-4 p-2 mb-3">
-                <div class="media-body mt-2">
-                    <h5 class="mt-0">{{ branch.heading }}</h5>
-                    <p class="text-muted">{{ branch.desc }}</p>
-                </div>
+<div class="container bg-dark rounded text-white mb-3 pl-4 p-2 pt-3">
+    <h5 class="text-center text-muted">TechPalmy Events</h5>
+</div>
+{% for event in events %}
+<a href="{{event.title}}-{{event.id}}" class="nodecoration">
+    <div class='bg-dark mb-4 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+        <div class="row">
+            <div class="col">
+                <h5>{{ event.title }}</h5>
             </div>
-        </a>
-        {% endfor %}
+            <div class="col ml-auto text-right mr-2">
+                <p>{{ event.date|naturalday:"F j" }}, {{ event.time|time:'g:i a'}}</p>
+            </div>
+        </div>
+        <div class="text-muted" style="overflow: hidden">
+            <p>{{ event.description|truncatechars:400 }}</p>
+        </div>
     </div>
-    {% else %}
-        <p>No results matching the criteria found.</p>
-    {% endif %}
+</a>
+{% endfor %}
+
+{% else %}
+<div class="container bg-dark rounded p-4 text-center">
+    <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
+</div>
+{% endif %}
+{% if tree %}
+<div class="container bg-dark rounded text-white pl-4 p-2 pt-3 mb-3 mt-4">
+    <h5 class="text-center text-muted">Other Events</h5>
+</div>
+    {% for branch in tree %}
+<a href="{{branch.url}}" class="nodecoration">
+    <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+        <div class="row">
+            <div class="col">
+                <h5>{{ branch.heading }}</h5>
+            </div>
+            <div class="col ml-auto text-right mr-2">
+                <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
+            </div>
+        </div>
+        <div class="text-muted" style="overflow: hidden">
+            <p>{{ branch.desc|truncatechars:202 }}</p>
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% else %}
+<p>No results matching the criteria found.</p>
+{% endif %}
 {% endblock %}
 
