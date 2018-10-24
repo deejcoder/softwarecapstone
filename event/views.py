@@ -43,7 +43,7 @@ def events(request):
     techpalmy_events = Event.objects.all()
 
     return render(request, 'events/rss_feed.html', {
-        'show_sidepane': Member.is_editor_any(request.user),
+        'show_sidepane': Member.is_editor_any(request.user) ^ Member.is_owner_any(request.user),
         'tree': all_events,
         'events': techpalmy_events,
     })

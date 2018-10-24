@@ -10,6 +10,7 @@
         <div id="comp_app" class="container col-md-x">
             <form method="post">
                 {% csrf_token %}
+                {{ form.media }}
                 <fieldset>
                     <h5>General Details</h5>
                     {% with form.name as field %}
@@ -91,7 +92,7 @@
                     {% with form.specialist_area as field %}
                         <div class="form-group">
                             <label for="specialist_area">Specialist area:</label>
-                            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+                            {{ form.specialist_area }}
                             <div class='invalid-feedback'>{{ field.errors }}</div>
                         </div>
                     {% endwith %}

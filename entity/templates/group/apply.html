@@ -6,6 +6,7 @@
 <div class="container mt-5 p-3 bg-light rounded col-md-7">
     <form id="group_form" method="post">
         {% csrf_token %}
+        {{ form.media }}
         <h4>Create Interest Group</h4>
         <br/>
         <div class="form-group d-flex justify-content-between">
@@ -23,7 +24,7 @@
         <div class="form-group">
             <label class="mt-1">Group description:</label>
             <div class="input-group">
-                {% render_field form.description class="form-control" %}
+                {{ form.description }}
             </div>
         </div>
         <hr>
