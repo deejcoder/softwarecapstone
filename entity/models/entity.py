@@ -27,6 +27,7 @@ class Entity(models.Model):
     name = models.CharField(max_length=80, validators=[
         RegexValidator(regex='^[\w|\W]*$', message="Your name can only include characters 0-9, A-Z or a-z.")
     ])
+    introduction = models.TextField(max_length=300)
     avatar = models.ImageField(
         upload_to=_upload_company_avatar,
         default=None,

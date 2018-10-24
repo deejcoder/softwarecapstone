@@ -114,6 +114,7 @@ class Consultant(models.Model):
         User,
         on_delete=models.CASCADE
     )
+    introduction = models.TextField(max_length=300)
     services_offered = RichTextField(max_length=3000)
     current_occupation = models.CharField(max_length=120, null=True, default=None)
     contact_phone = models.CharField(max_length=15, null=True, default=None, validators=[

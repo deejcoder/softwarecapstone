@@ -20,6 +20,8 @@
     <form class="post-form" method="post">
         {% csrf_token %}
         <fieldset>
+            {{ form.introduction.label_tag }}
+            {{ form.introduction }}
             {{ form.area_of_expertise.label_tag }}
             {{ form.area_of_expertise }}
             {{ form.website.label_tag }}

@@ -3,6 +3,7 @@ Lists all jobs, allows companies to add new jobs
 """
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -54,7 +55,7 @@ class Listing(View):
             'creation_form': create_job_form
         })
 
-    @method_decorator
+    @method_decorator(login_required)
     def post(self, request):
         form = JobCreationForm(request.POST)
         if form.is_valid():

@@ -54,6 +54,7 @@ class CompanyApplicationForm(ModelForm):
             'industry',
             'type_of_business',
             'size',
+            'introduction',
             'specialist_area'
         ]
 
@@ -69,6 +70,7 @@ class EditCompanyForm(ModelForm):
             'name',
             'size',
             'industry',
+            'introduction',
             'specialist_area',
             'contact_phone',
             'contact_email',
@@ -98,6 +100,7 @@ class GroupApplicationForm(ModelForm):
         fields = {
             'name',
             'website',
+            'introduction',
             'description',
         }
 
@@ -116,6 +119,7 @@ class EditGroupForm(ModelForm):
         fields = (
             'name',
             'website',
+            'introduction',
             'description'
         )
 

@@ -16,6 +16,7 @@
 
 {% block profile-content %}
 <form method="post">
+    {% csrf_token %}
     {% with form.name as field %}
     <div class="form-group d-flex justify-content-between">
         <label>Company Name:</label>
@@ -55,6 +56,15 @@
     {% with form.website as field %}
     <div class="form-group d-flex justify-content-between">
         <label>Website:</label>
+        <div class="col-md-8 text-right">
+            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+        </div>
+        <div class='invalid-feedback'>{{ field.errors }}</div>
+    </div>
+    {% endwith %}
+    {% with form.introduction as field %}
+    <div class="form-group d-flex justify-content-between">
+        <label>Introduction:</label>
         <div class="col-md-8 text-right">
             {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
         </div>

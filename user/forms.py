@@ -50,6 +50,7 @@ class ConsultantApplicationForm(ModelForm):
     class Meta:
         model = Consultant
         fields = (
+            'introduction',
             'services_offered',
             'current_occupation',
             'contact_phone',
@@ -65,6 +66,7 @@ class EditConsultantForm(ModelForm):
     class Meta:
         model = Consultant
         fields = (
+            'introduction',
             'services_offered',
             'current_occupation',
             'website'
