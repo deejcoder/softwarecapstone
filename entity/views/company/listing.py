@@ -8,6 +8,7 @@ from django.views import View
 
 from entity.models.company import Company
 from user.models import Consultant
+from entity.models import Member
 
 
 class Listing(View):
@@ -32,6 +33,7 @@ class Listing(View):
         show_businesses = paginator.get_page(page)
 
         return render(request, 'companies.html', {
+            'company': Member.get_user_company(request.user),
             'show_sidepane': True,
             'companies': show_businesses,
             'page': page

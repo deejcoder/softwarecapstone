@@ -3,10 +3,13 @@ This model maps many users to a single company, and defines their role.
 """
 from user.models import User
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 
 from ..models import Entity
+from ..models.company import Company
+from ..models.group import Group
 
 
 class Member(models.Model):
@@ -103,5 +106,44 @@ class Member(models.Model):
         except IndexError:
             return False
         return True
-    
 
+    @staticmethod
+    def get_user_company(user: User):
+        if not user.is_authenticated:
+            return None
+
+        entities = Member.objects \
+            .filter(user=user) \
+            .filter(role=Member.Roles.EDITOR) \
+            | Member.objects \
+            .filter(user=user) \
+            .filter(role=Member.Roles.OWNER)
+        
+        for entity in entities:
+            try:
+                if entity.entity.company:
+                    return entity.entity.company
+            except ObjectDoesNotExist:
+                pass
+        return None
+
+
+    @staticmethod
+    def get_user_group(user: User):
+        if not user.is_authenticated:
+            return None
+
+        entities = Member.objects \
+            .filter(user=user) \
+            .filter(role=Member.Roles.EDITOR) \
+            | Member.objects \
+            .filter(user=user) \
+            .filter(role=Member.Roles.OWNER)
+                   
+        for entity in entities:
+            try:
+                if entity.entity.group:
+                    return entity.entity.group
+            except ObjectDoesNotExist:
+                pass
+        return None

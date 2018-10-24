@@ -29,6 +29,7 @@ class Listing(View):
         show_groups = paginator.get_page(page)
 
         return render(request, 'groups.html', {
+            'group': Member.get_user_group(request.user),
             'show_sidepane': True,
             'groups': show_groups,
             'page': page
