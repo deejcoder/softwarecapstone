@@ -13,10 +13,10 @@
         <br />
         <form method="post">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group text-white">
                 <!--<label for="{{form.username.id_for_label}}">{{form.username.label}}</label>-->
                 <input type="{{form.username.field.widget.input_type}}"
-                       class="form-control bg-dark bd-green f-green {% if form.username.errors %}} is-invalid {% endif %}"
+                       class="form-control bg-dark bd-green f-green text-muted {% if form.username.errors %}} is-invalid {% endif %}"
                        id="{{form.username.id_for_form}}"
                        name="{{form.username.html_name}}"
                        placeholder="Username">
@@ -30,7 +30,7 @@
                 <div class="form-group col-md-6">
                     <!--<label for="{{form.first_name.id_for_label}}">{{form.first_name.label}}</label>-->
                     <input type="{{form.first_name.field.widget.input_type}}"
-                           class="form-control bg-dark bd-green f-green {% if form.first_name.errors %}} is-invalid {% endif %}"
+                           class="form-control bg-dark bd-green f-green text-muted {% if form.first_name.errors %}} is-invalid {% endif %}"
                            id="{{form.first_name.id_for_form}}"
                            name="{{form.first_name.html_name}}"
                            placeholder="First Name">
@@ -39,7 +39,7 @@
                 <div class="form-group col-md-6">
                     <!--<label for="{{form.last_name.id_for_label}}">{{form.last_name.label}}</label>-->
                     <input type="{{form.last_name.field.widget.input_type}}"
-                           class="form-control bg-dark bd-green f-green {% if form.last_name.errors %}} is-invalid {% endif %}"
+                           class="form-control bg-dark bd-green f-green text-muted {% if form.last_name.errors %}} is-invalid {% endif %}"
                            id="{{form.last_name.id_for_form}}"
                            name="{{form.last_name.html_name}}"
                            placeholder="Last Name">
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <!--<label for="{{form.email.id_for_label}}">{{form.email.label}}</label>-->
                 <input type="{{form.email.field.widget.input_type}}"
-                       class="form-control bg-dark bd-green f-green {% if form.email.errors %}} is-invalid {% endif %}"
+                       class="form-control bg-dark bd-green f-green text-muted {% if form.email.errors %}} is-invalid {% endif %}"
                        id="{{form.email.id_for_form}}"
                        name="{{form.email.html_name}}"
                        placeholder="Email">
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <!--<label for="{{form.password.id_for_label}}">{{form.password.label}}</label>-->
                 <input type="{{form.password.field.widget.input_type}}"
-                       class="form-control bg-dark bd-green f-green {% if form.password.errors %}} is-invalid {% endif %}"
+                       class="form-control bg-dark bd-green f-green text-muted {% if form.password.errors %}} is-invalid {% endif %}"
                        id="{{form.password.id_for_form}}"
                        name="{{form.password.html_name}}"
                        placeholder="Password">
@@ -67,7 +67,7 @@
             <div class="form-group">
                 <!--<label for="{{form.confirm_password.id_for_label}}">{{form.confirm_password.label}}</label>-->
                 <input type="{{form.confirm_password.field.widget.input_type}}"
-                       class="form-control bg-dark bd-green f-green {% if form.confirm_password.errors %}} is-invalid {% endif %}"
+                       class="form-control bg-dark bd-green f-green text-muted {% if form.confirm_password.errors %}} is-invalid {% endif %}"
                        id="{{form.confirm_password.id_for_form}}"
                        name="{{form.confirm_password.html_name}}"
                        placeholder="Confirm Password">
