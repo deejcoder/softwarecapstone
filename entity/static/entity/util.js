@@ -44,6 +44,9 @@ var entity = (function() {
                     if(data.members[i]['is_consultant'] == true) {
                         $template.find('.member_username').attr('href', "/user/" + data.members[i]['username'])
                     }
+                    else {
+                        $template.find('.member_username').attr('href', "#")
+                    }
 
                     $template.find('.member_role').html(upper(data.members[i]['role']));
 
