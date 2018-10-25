@@ -37,6 +37,7 @@ def get_members(request, entity, entity_name):
     data = {
         'members': members_data
     }
+    print(data)
     return JsonResponse(data)
 
 

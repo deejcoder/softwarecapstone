@@ -5,17 +5,6 @@
 {% endblock %}
 
 {% block sidepane %}
-    <h5>{{ group.name }}</h5>
-    <div class="row">
-        <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Interest Groups</h5>
-        <p class="col-12 small mb-2 text-center text-muted">Group 1 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Group 2 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Group 3 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Group 4 Link</p>
-        <p class="col-12 small mb-2 text-center text-muted">Group 5 Link</p>
-        <p class="col-12 small mb-4 text-center text-muted">Group 6 Link</p>
-        {% include 'members.html' %}
-    </div>
     <div class="row">
         <p class="col-12 mb-2 text-center text-muted">Want to create a group profile?</p>
         <a href="/groups/apply" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
