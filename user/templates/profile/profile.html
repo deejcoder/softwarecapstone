@@ -13,20 +13,20 @@
     <h5 class="text-muted">{{ viewing.full_name }}</h5>
 
     {% if viewing.is_staff %}
-        <span class="badge badge-primary">Administrator</span>
+        <span class="badge badge-success">Administrator</span>
     {% endif %}
     {% if viewing.is_consultant %}
-        <span class="badge badge-secondary">Consultant</span>
-        <div>{{ viewing.consultant.current_occupation }}</div>
-        <div><a href="{{ viewing.consultant.website }}">Our Website</a></div>
+        <span class="badge badge-success">Consultant</span>
+        <div class="text-muted">{{ viewing.consultant.current_occupation }}</div>
+        <div><a href="{{ viewing.consultant.website }}">My Website</a></div>
     {% endif %}
     <br>
 
     {% if is_owner %}
-        <a href="edit">Edit profile</a>
+        <a href="edit text-muted">Edit profile</a>
     {% endif %}
 
-    <p class="small">
+    <p class="small text-muted">
         Companies
     </p>
 
@@ -41,12 +41,12 @@
 <!-- Profile information (body content of profile) -->
 {% block profile-content %}
     {% if viewing.is_consultant %}
-        <h5>Introduction</h5>
+        <h5 class="text-white">Introduction</h5>
         <hr>
-        <div>{{ viewing.consultant.introduction }}</div>
-        <h5>Services offered</h5>
+        <div class="text-muted">{{ viewing.consultant.introduction }}</div>
+        <h5 class="text-white">Services offered</h5>
         <hr>
-        <div>{{ viewing.consultant.services_offered | safe}}</div>
+        <div class="text-muted">{{ viewing.consultant.services_offered | safe}}</div>
     {% else %}
     {% endif %}
 {% endblock %}
