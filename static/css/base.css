@@ -6,6 +6,8 @@
 @import "imports/events.css";
 
 
+/* -------------------------------
+    CKEditor: override defaults */
 .cke_screen_reader_only{
     display: none;
 }
@@ -23,6 +25,14 @@
 .cke_path_item {
     display: none !important;
 }
+.cke_inner {
+    width: 100% !important;
+}
+
+.django-ckeditor-widget {
+    display: block !important;
+}
+/* -------------------------------*/
 
 html, body {
     background-color: #2a2d2f;

@@ -185,7 +185,7 @@ CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
 CKEDITOR_CONFIGS = {
     'default': {
         'uiColour': '#343A40',
-        'width': '77vh',
+        'width': '100%',
 		'height': '20.6vh',
         'skin': 'moono-dark',
         'toolbar_Basic': [
