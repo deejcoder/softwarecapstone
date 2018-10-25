@@ -8,11 +8,12 @@
 
 {% block sidepane %}
 <br />
-    <h6>Contact</h6>
-    <div>{{ company.contact_phone }}</div>
-    <div>{{ company.contact_email }}</div>
-    <div><a href="{{ company.website }}">{{ company.website }}</a></div>
-
+<div class="col-md-2 bg-dark text-muted">
+    <h6 class="text-white">Contact</h6>
+    <div class="text-muted">{{ company.contact_phone }}</div>
+    <div class="text-muted">{{ company.contact_email }}</div>
+    <div class="text-muted"><a href="{{ company.website }}">{{ company.website }}</a></div>
+</div>
 
     {% if is_owner %}
 <a href="edit">Edit profile</a>
@@ -34,35 +35,32 @@
         }
     }
 </script>
-    <div class="d-flex justify-content-between">
-        <h3 class="mr-auto">{{ company.name|title }}</h3>
+    <div class="d-flex justify-content-between bg-dark">
+        <h3 class="mr-auto text-white">{{ company.name|title }}</h3>
         <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">More</button>
     </div>
     <br />
-    <div>*TODO* Company Description here, its expected to be long so I need to type random words to make sure I have enough space for the bio so that the CSS isnt munted when I work on the other things in the html.</div>
+    <div class="text-muted">{{ company.specialist_area|safe }}</div>
     <br />    
-    <h5>Address:</h5>
-    <div class="d-flex justify-content-center"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=200x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{company.address}}"/></div>
-    <div class="d-flex justify-content-center"><p>{{ company.address }}</p></div>
+    <h5 class="text-white">Address:</h5>
+    <div class="d-flex justify-content-center text-muted"><img class="rounded" src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=400x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{company.address}}"/></div>
+    <div class="d-flex justify-content-center text-muted"><p>{{ company.address }}</p></div>
 
 
 {% endblock %}
 
 {% block additional-info %}
-    <div class="container col-md-8" id="additional-info">
-        <div class="d-flex justify-content-between">
-            <h3 class="mr-auto">{{ company.name|title }}</h3>
+    <div class="container col-md-8 text-muted bg-dark" id="additional-info">
+        <div class="d-flex justify-content-between text-white">
+            <h3 class="mr-auto text-white">{{ company.name|title }}</h3>
             <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">Less</button>
         </div>
         <br />
-        <h6>Company Size</h6>
-        <div>{{ company.size }} members</div>
+        <h6 class="text-white">Company Size</h6>
+        <div class="text-muted">{{ company.size }} members</div>
         <br />
-        <h6>Industry</h6>
-        <div>{{ company.industry|title }} / {{ company.type_of_business|title }}</div>
-        <br />
-        <h6>Specialist Area</h6>
-        <div>{{ company.specialist_area|title }}</div>
+        <h6 class="text-white">Industry</h6>
+        <div class="text-muted">{{ company.industry|title }} / {{ company.type_of_business|title }}</div>
         <br />
         {% if company.summer_students %}
             <div>We are recruiting students over the summer!</div>

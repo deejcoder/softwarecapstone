@@ -47,6 +47,9 @@
                             <li class="nav-item {% if request.path|startswith:'/companies/' %}active{% endif %}">
                                 <a class="nav-link" href="/companies">Companies</a>
                             </li>
+                            <li class="nav-item {% if request.path|startswith:'/groups/' %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'entity:group_listing' %}">Groups</a>
+                            </li>
                             <li class="nav-item {% if request.path|startswith:'/consultants/' %}active{% endif %}">
                                 <a class="nav-link" href="/consultants">Consultants</a>
                             </li>
@@ -56,9 +59,7 @@
                             <li class="nav-item {% if request.path|startswith:'/events/' %}active{% endif %}">
                                 <a class="nav-link" href="/events">Events</a>
                             </li>
-                            <li class="nav-item {% if request.path|startswith:'/groups/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'entity:group_listing' %}">Groups</a>
-                            </li>
+
                         </ul>
                         
                         <ul class="navbar-nav ">

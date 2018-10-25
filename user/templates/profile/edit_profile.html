@@ -9,7 +9,7 @@
 
 <!-- Side pane for editing profile -->
 {% block sidepane %}
-    <h4>{{ user.full_name }}</h4>
+    <h5 class="text-white">{{ user.full_name }}</h5>
 
     {% if user.is_staff %}
         <span class="badge badge-success">Administrator</span>
