@@ -23,5 +23,5 @@ urlpatterns = [
     path('groups/<group>/edit', group.profile.EditProfile.as_view(), name='group_profile_edit'),
     path('groups/<group>/remove/', group_remove, name='remove_group'),
     # only restrict the below URL 'entity' to groups or companies
-    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,20})/members', get_members, name='group_members'),
+    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,100})/members', get_members, name='group_members'),
 ]

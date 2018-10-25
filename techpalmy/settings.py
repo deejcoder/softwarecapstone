@@ -184,9 +184,10 @@ MEDIA_URL = '/media/'
 CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
 CKEDITOR_CONFIGS = {
     'default': {
+        'uiColour': '#343A40',
         'width': '77vh',
 		'height': '20.6vh',
-        'skin': 'minimalist',
+        'skin': 'moono-dark',
         'toolbar_Basic': [
             ['Bold', 'Italic']
         ],

@@ -1,9 +1,10 @@
 """
 Defines the views for handling company applications
 """
-from django.utils.decorators import method_decorator
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from entity.forms import CompanyApplicationForm
@@ -44,5 +45,6 @@ class ApplyCompany(View):
                 role=Member.Roles.OWNER
             )
             member.save()
+            messages.success(request, 'You have submitted an application for your new company. We will be in contact with you!')
 
         return redirect('/')

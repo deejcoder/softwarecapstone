@@ -10,6 +10,19 @@
     display: none;
 }
 
+.cke_chrome {
+    border-color: #39B54A !important;
+}
+
+.cke_bottom {
+    border-top: 0px solid #343A40 !important;
+    background: #343A40 !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+.cke_path_item {
+    display: none !important;
+}
 
 html, body {
     background-color: #2a2d2f;
