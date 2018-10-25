@@ -1,11 +1,11 @@
 <div id="members">
     <!-- This template is used to format individual members -->
     <script id="member_template" type="text/template">
-        <li class="list-group-item container">
+        <li class="list-group-item bg-dark container">
             <div class="row">
                 <img class='member_avatar rounded' height=32 width=32/>
-                <span class='col-sm-5'><a class='member_username'></a></span>
-                <span class='member_role col-sm-3'></span>
+                <span class='col-sm-5'><a class='member_username a-green'></a></span>
+                <span class='member_role col-sm-3 text-muted'></span>
             
                 {% if is_editor %}
                     <span class="delete_button_editor col-sm-3"></span>
@@ -16,28 +16,28 @@
 
     <!-- Modal used to show members -->
     <div id="member_list" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="members_modal_title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog border-green" role="document">
+            <div class="modal-content bg-dark">
 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="members_modal_title">Members</h5>
+                <div class="modal-header border-bottom-0 pb-1">
+                    <h5 class="modal-title text-muted lead" id="members_modal_title">Members</h5>
                     <span class="close" aria-label="Close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </span>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body pt-1">
                     <!-- members will be attached here -->
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer border-0">
                     {% if is_editor %}
                     <div class="container">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Username</span>    
+                            <div class="input-group-prepend ">
+                                <label for="musername_field" class="input-group-text bg-dark bd-green text-muted f-green">Username</label>    
                             </div>
-                            <input type="text" class="form-control">
+                            <input id="musername_field" type="text" class="form-control bg-dark bd-green text-muted f-green">
                             <div class="input-group-prepend input-group-btn">
                                 <button type="submit" class="btn btn-success rounded-right">Add</button>
                             </div>
