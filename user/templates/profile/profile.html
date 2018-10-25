@@ -18,7 +18,7 @@
     {% if viewing.is_consultant %}
         <span class="badge badge-secondary">Consultant</span>
         <div>{{ viewing.consultant.current_occupation }}</div>
-        <div><a href="#">{{ viewing.consultant.website }}</a></div>
+        <div><a href="{{ viewing.consultant.website }}">Our Website</a></div>
     {% endif %}
     <br>
 
