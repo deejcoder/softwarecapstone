@@ -3,7 +3,7 @@
 
 <!-- Define the avatar URL to use -->
 {% block avatar %}
-    {% with avatar_url=user.avatar_url %}
+    {% with avatar_url=viewing.avatar_url %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
