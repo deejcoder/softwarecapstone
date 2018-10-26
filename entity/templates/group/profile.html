@@ -19,14 +19,14 @@
     <!-- Edit profile link -->
     {% if is_editor %}
         <div>
-            <span class="iconic-green pr-2 oi oi-pencil"></span>
+            <span class="icon-green fa fa-fw fa-pencil pr-1"></span>
             <a href="edit" class="a-green">Edit profile</a>
         </div>
     {% endif %}
 
     <!-- Show members link -->
     <div class="pt-1">
-        <span class="iconic-green pr-2 oi oi-people"></span>
+        <span class="icon-green fa fa-fw fa-users pr-1"></span>
         <a href="#member-list" class="a-green" onclick="entity.get_members('#member_list .modal-body', '#member_template');" 
             data-toggle="modal" data-target="#member_list"
         >Show members
@@ -36,7 +36,7 @@
 
     <!-- Contact info -->
     <div class="pt-1">
-        <span class="iconic-green pr-2 oi oi-link-intact"></span>
+        <span class="icon-green fa fa-fw fa-link pr-1"></span>
         <a href="{{ group.website }}" class="a-green">{{ group.website|truncatechars:20 }}</a>
     </div>
 {% endblock %}

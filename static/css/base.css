@@ -53,12 +53,19 @@
     color: #39b54a;
 }
 
-.iconic-green {
+.icon-green {
     color: #2b8837;
 }
 
 .border-green {
     border: 0.5px solid #2b8837;
+}
+
+.text-white-hover {
+    color: #fff !important;
+}
+.text-white-hover:hover {
+    color: #a2a9ae !important;
 }
 
 /* -------------------------------*/

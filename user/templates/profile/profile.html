@@ -22,7 +22,7 @@
     <!-- Edit profile link -->
     {% if is_owner %}
     <div class="pt-1">
-        <span class="iconic-green pr-2 oi oi-pencil"></span>
+        <i class="icon-green fa fa-fw fa-pencil pr-1"></i>
         <a href="edit" class="a-green">Edit profile</a>
     </div>
     {% endif %}
@@ -30,7 +30,7 @@
     <!-- Contact info -->
     {% if viewing.is_consultant %}
         <div>
-            <span class="iconic-green pr-2 oi oi-link-intact"></span>
+            <i class="icon-green fa fa-fw fa-link pr-1"></i>
             <a href="{{ viewing.consultant.website }}" class="a-green">{{ viewing.consultant.website|truncatechars:25}}</a>
         </div>
     {% endif %}
