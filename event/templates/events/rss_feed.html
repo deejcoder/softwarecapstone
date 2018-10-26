@@ -13,55 +13,65 @@
 {% endblock %}
 
 {% block results %}
-<div class="container bg-dark rounded text-white mb-3 pl-4 p-2 pt-3">
-    <h5 class="text-center text-muted">TechPalmy Events</h5>
-</div>
-{% if events %}
-{% for event in events %}
-<a href="{{event.title}}-{{event.id}}" class="nodecoration">
-    <div class='bg-dark mb-4 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
-        <div class="row">
-            <div class="col">
-                <h5>{{ event.title }}</h5>
-            </div>
-            <div class="col ml-auto text-right mr-2">
-                <p>{{ event.date|naturalday:"F j" }}, {{ event.time|time:'g:i a'}}</p>
-            </div>
-        </div>
-        <div class="text-muted" style="overflow: hidden">
-            <p>{{ event.description|truncatechars:400 }}</p>
-        </div>
-    </div>
-</a>
-{% endfor %}
 
-{% else %}
-<div class="container bg-dark rounded p-4 text-center">
-    <h4 class="text-muted">Sorry, we couldn't find any events.</h4>
-</div>
-{% endif %}
-{% if tree %}
-<div class="container bg-dark rounded text-white pl-4 p-2 pt-3 mb-3 mt-4">
-    <h5 class="text-center text-muted">Other Events</h5>
-</div>
-    {% for branch in tree %}
-<a href="{{branch.url}}" class="nodecoration">
-    <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
-        <div class="row">
-            <div class="col">
-                <h5>{{ branch.heading }}</h5>
-            </div>
-            <div class="col ml-auto text-right mr-2">
-                <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
-            </div>
-        </div>
-        <div class="text-muted" style="overflow: hidden">
-            <p>{{ branch.desc|truncatechars:202 }}</p>
-        </div>
+    <div class="bg-dark rounded mb-3 p-2">
+        <h5 class="lead text-center text-muted mb-0">TechPalmy Events</h5>
     </div>
-</a>
-{% endfor %}
-{% else %}
-{% endif %}
+
+    <!-- TechPalmy events -->
+    {% if events %}
+        <div class='mb-4'> <!-- Separate techpalmy & other events by a mb-4 -->
+        {% for event in events %}
+            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <a href="{{event.title}}-{{event.id}}" class="nodecoration text-white-hover">
+                            <h5>{{ event.title }}</h5>
+                        </a>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ event.date|naturalday:"F j"|capfirst }}, {{ event.time|time:'g:i a'}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ event.description|truncatechars:202 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+    <div class="bg-dark rounded p-4 text-center">
+        <h4 class="text-muted">Sorry, we couldn't find any events.</h4>
+    </div>
+    {% endif %}
+
+    <!-- Other events -->
+    {% if tree %}
+
+        <div class="bg-dark rounded p-2 mb-3">
+            <h5 class="text-center lead text-muted mb-0">Other Events</h5>
+        </div>
+        <div>
+        {% for branch in tree %}
+            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <a href="{{branch.url}}" class="nodecoration text-white-hover">
+                            <h5>{{ branch.heading }}</h5>
+                        </a>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ branch.desc|truncatechars:202 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    {% endif %}
 {% endblock %}
 

@@ -10,13 +10,14 @@
 
 {% endblock %}
 {% block content %}
-    <div class="container" id="content-container">
-        <div class="row">
-            <!-- Content header -->
-            <div class="col-md-x bg-dark" id="profile-banner">
+    <div class="container mx-auto mt-0" id="content-container">
+        <div class="row bg-dark rounded mr-0">
+            
+            <!-- Sidepane content (left column) -->
+            <div class="col-md-x" id="profile-banner">
 
                 <!-- Profile picture -->
-                <div class="media">
+                <div class="media p-2 pb-1">
                     {% block avatar %}
                     <div id="imageContainer">
                         <img src="{{ avatar_url }}" id="avatar" class="center-block rounded m-2">
@@ -25,14 +26,15 @@
 
                 </div>
 
-                <!-- sidepane content -->
-                <div id="banner">
+                <!-- extra content -->
+                <div class="pl-3 mb-3" id="banner">
                     {% block sidepane %}
                     {% endblock %}
                 </div>
             </div>
 
-            <div class="container col-md-8 bg-dark" id="profile-info">
+            <!-- profile content (right column)-->
+            <div class="col-8 bg-dark" id="profile-info">
                 {% block profile-content %}
                 {% endblock %}
             </div>

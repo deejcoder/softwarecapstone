@@ -3,50 +3,65 @@
 
 <!-- Define the avatar URL to use -->
 {% block avatar %}
-    {% with avatar_url=user.avatar_url %}
+    {% with avatar_url=viewing.avatar_url %}
         {{ block.super }}
     {% endwith %}
 {% endblock %}
 
-<!-- Side pane on the left -->
+<!-- Side content (left column) -->
 {% block sidepane %}
-    <h5 class="text-muted">{{ viewing.full_name }}</h5>
 
+    <!-- Badges -->
     {% if viewing.is_staff %}
         <span class="badge badge-success">Administrator</span>
     {% endif %}
     {% if viewing.is_consultant %}
-        <span class="badge badge-success">Consultant</span>
-        <div class="text-muted">{{ viewing.consultant.current_occupation }}</div>
-        <div><a href="{{ viewing.consultant.website }}">My Website</a></div>
+        <span class="badge badge-success mb-2">Consultant</span>
     {% endif %}
-    <br>
-
+    
+    <!-- Edit profile link -->
     {% if is_owner %}
-        <a href="edit" class="text-muted">Edit profile</a>
+    <div class="pt-1">
+        <i class="icon-green fa fa-fw fa-pencil pr-1"></i>
+        <a href="edit" class="a-green">Edit profile</a>
+    </div>
     {% endif %}
 
-    <p class="small text-muted">
-        Companies
-    </p>
-
-    {% for company in companies %}
-        <a href="/company/{{company.name}}">
-            <img class="card img-thumbnail" title="{{ company.name }}" style="height:82px;" src="{{ company.avatar_url }}" />
-        </a>
-    {% endfor %}
+    <!-- Contact info -->
+    {% if viewing.is_consultant %}
+        <div>
+            <i class="icon-green fa fa-fw fa-link pr-1"></i>
+            <a href="{{ viewing.consultant.website }}" class="a-green">{{ viewing.consultant.website|truncatechars:25}}</a>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
-<!-- Profile information (body content of profile) -->
+<!-- Body content (right column) -->
 {% block profile-content %}
+
+    <!-- Title & current occupation -->
+    <div class="mb-3">
+        <span class="title"><h4 class="text-green mb-0">{{ viewing.full_name }}</h4></span>
+        {% if viewing.is_consultant %}
+        <span class="text-muted small">{{ viewing.consultant.current_occupation }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Summary & description-->
     {% if viewing.is_consultant %}
-        <h5 class="text-white">Introduction</h5>
-        <hr>
-        <div class="text-muted">{{ viewing.consultant.introduction }}</div>
-        <h5 class="text-white">Services offered</h5>
-        <hr>
-        <div class="text-muted">{{ viewing.consultant.services_offered | safe}}</div>
-    {% else %}
+        <div class="text-muted mb-4">
+            <div class="lead">Summary</div>
+            <div class="p-2">
+                {{ viewing.consultant.introduction }}
+            </div>
+        </div>
+        <div class="text-muted">
+            <div class="lead">Description</div>
+            <div class="p-2">
+                {{ viewing.consultant.services_offered | safe}}
+            </div>
+        </div>
     {% endif %}
+    
 {% endblock %}

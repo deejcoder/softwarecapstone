@@ -34,6 +34,42 @@
 }
 /* -------------------------------*/
 
+/* -------------------------------
+    Bootstrap overrides/generic additional stuff */
+.close {
+    color: #39b54a !important;
+    text-shadow: none;
+}
+
+.text-green {
+    color: #39b54a;
+}
+
+.a-green {
+    color: #39b54a;
+}
+
+.a-green:hover {
+    color: #39b54a;
+}
+
+.icon-green {
+    color: #2b8837;
+}
+
+.border-green {
+    border: 0.5px solid #2b8837;
+}
+
+.text-white-hover {
+    color: #fff !important;
+}
+.text-white-hover:hover {
+    color: #a2a9ae !important;
+}
+
+/* -------------------------------*/
+
 html, body {
     background-color: #2a2d2f;
     margin: 0;
