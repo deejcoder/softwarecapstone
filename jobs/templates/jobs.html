@@ -31,9 +31,9 @@
                 </div>
                 <div class="col text-center my-auto">
                     <a class="text-muted nodecoration" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
-                        <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
                         <p class="mb-2">{{ job.company.name|title }}</p>
-                        
+
+                        <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">
                         <p><small><strong>{{ job.date_posted|naturaltime }}</strong></small></p>
                     </a>
                 </div>
