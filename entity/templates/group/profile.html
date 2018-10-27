@@ -71,7 +71,9 @@
             {% if events %}
                 <ul style="list-style:none;">
                     {% for event in events %}
-                        <li class="text-green">{{ event.date }} <a href="/events/{{event.title}}-{{event.id}}" class="a-green">{{ event.title|truncatechars:38 }}</li>
+                        <li class="text-green">{{ event.date }} 
+                            <a href="/events/{{event.title}}-{{event.id}}" class="a-green">{{ event.title|truncatechars:38 }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}
