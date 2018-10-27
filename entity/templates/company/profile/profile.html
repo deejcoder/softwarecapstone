@@ -23,7 +23,7 @@
     {% include 'members.html' %}
     <div class="pt-1">
         <span class="icon-green fa fa-fw fa-link pr-1"></span>
-        <a href="{{ company.website }}" class="a-green">{{ company.website }}</a>
+        <a href="{{ company.website }}" class="a-green">{{ company.website|truncatechars:38 }}</a>
     </div>
     <br/>
 {% endblock %}
@@ -44,11 +44,11 @@
     }
 </script>
     <div class="d-flex justify-content-between bg-dark">
-        <h3 class="mr-auto text-white">{{ company.name|title }}</h3>
+        <h3 class="mr-auto text-green">{{ company.name|title }}</h3>
         <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">More</button>
     </div>
     <br />
-    <div class="text-muted">{{ company.specialist_area|safe }}</div>
+    <div class="text-muted rich-text-content">{{ company.specialist_area|safe }}</div>
     <br />    
     <h5 class="text-white">Address:</h5>
     <div class="d-flex justify-content-center text-muted"><img class="rounded" src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=400x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{company.address}}"/></div>

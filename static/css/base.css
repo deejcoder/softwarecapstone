@@ -32,6 +32,13 @@
 .django-ckeditor-widget {
     display: block !important;
 }
+/* Change the colour of hyper links for ckeditor content */
+.rich-text-content a {
+    color: #39b54a !important;
+}
+.rich-text-content a:hover {
+    color: #39b54a !important;
+}
 /* -------------------------------*/
 
 /* -------------------------------
