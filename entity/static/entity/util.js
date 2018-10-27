@@ -59,7 +59,7 @@ var entity = (function() {
 
             }
             else {
-                $(appendto).html("There are no members to show");
+                $(appendto).html("<p class='text-green'>There are no members to show</p>");
             }
         }
         // Send an AJAX request
