@@ -10,11 +10,11 @@ from django.contrib.auth.decorators import login_required
 app_name = "entity"
 
 urlpatterns = [
-    path('company/apply', company.ApplyCompany.as_view(), name='company_application'),
-    path('company/<company>/edit', company.EditProfile.as_view(), name='company_application'),
+    path('companies/apply', company.ApplyCompany.as_view(), name='company_application'),
+    path('companies/<company>/edit', company.EditProfile.as_view(), name='company_application'),
     path('companies/', company.Listing.as_view(), name='company_listing'),
-    path('company/<company>/', company.Profile.as_view(), name='company_profile'),
-    path('company/<company>/remove/', company_remove, name='remove_group'),
+    path('companies/<company>/', company.Profile.as_view(), name='company_profile'),
+    path('companies/<company>/remove/', company_remove, name='remove_group'),
     path('groups/', group.Listing.as_view(), name='group_listing'),
 
     path('groups/apply/', group.Apply.as_view(), name='group_apply'),

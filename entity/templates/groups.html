@@ -7,7 +7,7 @@
 {% block sidepane %}
     <div class="row">
         <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Groups</h5>
-        <a class="col-12 mb-2 text-center a-green" href="/company/{{ group.name }}">{{ group.name }}</a>
+        <a class="col-12 mb-2 text-center a-green" href="{% url 'entity:group_profile' group=group.name %}">{{ group.name }}</a>
     </div>
     <div class="row">
         <p class="col-12 mb-2 text-center text-muted">Want to create a group profile?</p>
