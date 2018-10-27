@@ -7,17 +7,25 @@
 {% endblock %}
 
 {% block sidepane %}
-<br />
-<div class="col-md-2 bg-dark text-muted">
-    <h6 class="text-white">Contact</h6>
-    <div class="text-muted">{{ company.contact_phone }}</div>
-    <div class="text-muted">{{ company.contact_email }}</div>
-    <div class="text-muted"><a href="{{ company.website }}">{{ company.website }}</a></div>
-</div>
-
-    {% if is_owner %}
-<a href="edit">Edit profile</a>
+    {% if is_editor %}
+        <div>
+            <span class="icon-green fa fa-fw fa-pencil pr-1"></span>
+            <a href="edit" class="a-green">Edit profile</a>
+        </div>
     {% endif %}
+    <div class="pt-1">
+        <span class="icon-green fa fa-fw fa-users pr-1"></span>
+        <a href="#member-list" class="a-green" onclick="entity.get_members('#member_list .modal-body', '#member_template');"
+            data-toggle="modal" data-target="#member_list"
+        >Show members
+        </a>
+    </div>
+    {% include 'members.html' %}
+    <div class="pt-1">
+        <span class="icon-green fa fa-fw fa-link pr-1"></span>
+        <a href="{{ company.website }}" class="a-green">{{ company.website }}</a>
+    </div>
+    <br/>
 {% endblock %}
 
 <!-- Edit profile information -->

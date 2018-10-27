@@ -17,108 +17,106 @@
 {% block profile-content %}
 <form method="post">
     {% csrf_token %}
-    {% with form.name as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Company Name:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+    <h4 class="text-white">Edit Company Profile</h4>
+    <hr>
+    <div class="form-row justify-content-between">
+        {% with form.name as field %}
+        <div class="col-md-5 form-group">
+            <label>Company Name:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
         </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
-    </div>
-    {% endwith %}
-    {% with form.address as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Postal address:</label>
-        <div class="col-lg-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+        {% endwith %}
+        {% with form.address as field %}
+        <div class="col-md-6 form-group">
+            <label>Postal address:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
         </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
+        {% endwith %}
     </div>
-    {% endwith %}
-    {% with form.contact_phone as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Phone no.:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+    <div class="form-row justify-content-between">
+        {% with form.contact_email as field %}
+        <div class="form-group col-md-5">
+            <label>Business e-mail:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
         </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
-    </div>
-    {% endwith %}
-    {% with form.contact_email as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Business e-mail:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+        {% endwith %}
+        {% with form.website as field %}
+        <div class="form-group col-md-6">
+            <label>Website:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
         </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
+        {% endwith %}
     </div>
-    {% endwith %}
-    {% with form.website as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Website:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+    <div class="form-row justify-content-between">
+        {% with form.contact_phone as field %}
+        <div class="form-group col-md-5">
+            <label>Phone no.:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
         </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
+        {% endwith %}
     </div>
-    {% endwith %}
+    <div class="form-row justify-content-between">
+        {% with form.type_of_business as field %}
+        <div class="form-group col-md-6">
+            <label>Business model:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+        </div>
+        {% endwith %}
+        {% with form.industry as field %}
+        <div class="form-group col-md-6">
+            <label>Industry:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+        </div>
+        {% endwith %}
+    </div>
+    <div class="form-row justify-content-between">
+        {% with form.size as field %}
+        <div class="form-group col-md-5">
+            <label>No. of employees:</label>
+            {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+        </div>
+        {% endwith %}
+    </div>
     {% with form.introduction as field %}
-    <div class="form-group d-flex justify-content-between">
+    <div class="form-group">
         <label>Introduction:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
-        </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
-    </div>
-    {% endwith %}
-    {% with form.size as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>No. of employees:</label>
-        <div class="col-sm-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
-        </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
-    </div>
-    {% endwith %}
-    {% with form.type_of_business as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Business model:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
-        </div>
-        <div class='invalid-feedback'>{{ field.errors }}</div>
-    </div>
-    {% endwith %}
-    {% with form.industry as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Industry:</label>
-        <div class="col-md-8 text-right">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
-        </div>
+        {{field | attr:"rows:3" | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
         <div class='invalid-feedback'>{{ field.errors }}</div>
     </div>
     {% endwith %}
     {% with form.specialist_area as field %}
     <div class="form-group">
         <label>Specialist area:</label>
-        {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
+        {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
         <div class='invalid-feedback'>{{ field.errors }}</div>
     </div>
     {% endwith %}
     {% with form.summer_students as field %}
-    <div class="form-group d-flex justify-content-between">
-        <label>Does your business employ students during the summer?</label>
-        <div class="col-sm-8">
-            {{field | add_class:"form-control {% if field.errors %}is-invalid{% endif %}"}}
-        </div>
+    <div class="form-group col-md-8 col-auto">
+        {{field | add_class:"form-check-input {% if field.errors %}is-invalid{% endif %}"}}
+        <label for="summer_students">Do you employ summer students?</label>
         <div class='invalid-feedback'>{{ field.errors }}</div>
     </div>
     {% endwith %}
-    <hr>
-    <input class="btn btn-info btn-block" type="submit" value="Submit changes">
+    <div class="col-md-12 mt-4 d-flex justify-content-center">
+        <div class="col-md-6">
+            <input class="btn btn-block btn-success" type="submit" value="Submit changes">
+        </div>
+    </div>
+
     {% if is_owner %}
         <hr>
-        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
+            </div>
+        </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
