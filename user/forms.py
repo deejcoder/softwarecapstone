@@ -11,37 +11,8 @@ from django.conf import settings
 from captcha.fields import ReCaptchaField
 
 
-# Can be removed without affecting the form
-class QualificationWidget(forms.widgets.MultiWidget):
-    def __init__(self, attrs=None):
-        widgets = [forms.TextInput(),
-                   forms.TextInput(),
-                   forms.TextInput()]
-        super(QualificationWidget, self).__init__(widgets, attrs)
-
-    def decompress(self, value):
-        if value:
-            return pickle.loads(value)
-        else:
-            return ['', '', '']
-
-
-class QualificationField(forms.fields.MultiValueField):
-    widget = QualificationWidget
-
-    def __init__(self, *args, **kwargs):
-        list_fields = [forms.fields.CharField(max_length=40),
-                       forms.fields.CharField(max_length=40),
-                       forms.fields.CharField(max_length=40)]
-        super(QualificationField, self).__init__(list_fields, *args, **kwargs)
-
-    def compress(self, values):
-        return pickle.dumps(values)
-
-
 class ConsultantApplicationForm(ModelForm):
-    certification = QualificationField()
-    certification.label = "Certification(s)"
+    i_agree = forms.BooleanField()
     
     """
     A form to allow users to apply to become
@@ -52,8 +23,10 @@ class ConsultantApplicationForm(ModelForm):
         fields = (
             'introduction',
             'services_offered',
+            'area_of_expertise',
             'current_occupation',
             'contact_phone',
+            'contact_email',
             'website'
         )
 
@@ -68,13 +41,12 @@ class EditConsultantForm(ModelForm):
         fields = (
             'introduction',
             'services_offered',
+            'area_of_expertise',
             'current_occupation',
+            'contact_phone',
+            'contact_email',
             'website'
         )
-
-        widgets = {
-            'services_offered': forms.Textarea,
-        }
 
 
 class EditProfileAvatar(ModelForm):

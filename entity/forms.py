@@ -41,6 +41,7 @@ class AddressField(forms.fields.MultiValueField):
 class CompanyApplicationForm(ModelForm):
     address = AddressField()
     address.label = "Address"
+    i_agree = forms.BooleanField()
 
     class Meta:
         model = Company
@@ -95,6 +96,8 @@ class EditAvatarForm(ModelForm):
 
 
 class GroupApplicationForm(ModelForm):
+    i_agree = forms.BooleanField()
+
     class Meta:
         model = Group
         fields = {
@@ -103,10 +106,6 @@ class GroupApplicationForm(ModelForm):
             'introduction',
             'description',
         }
-
-        widgets = {
-            'description': forms.Textarea
-        }        
 
 
 class EditGroupForm(ModelForm):

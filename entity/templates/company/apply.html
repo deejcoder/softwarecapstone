@@ -11,88 +11,77 @@
             {{ form.media }}
             <fieldset>
                 <h5 class="text-white mb-3">General Details</h5>
-                {% with form.name as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="name">Company Name:</label>
-                    <div class="col-md-8 text-right">
+                <div class="form-row justify-content-between">
+                    {% with form.name as field %}
+                    <div class="form-group col-md-5">
+                        <label for="name">Company Name:</label>
                         {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
-                </div>
-                {% endwith %}
-                {% with form.address as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="address">Postal address:</label>
-                    <div class="col-lg-8 text-right">
+                    {% endwith %}
+                    {% with form.address as field %}
+                    <div class="form-group col-md-6">
+                        <label for="address">Postal address:</label>
                         {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                    {% endwith %}
                 </div>
-                {% endwith %}
-                {% with form.contact_phone as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="phone">Phone number:</label>
-                    <div class="col-md-8 text-right">
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
-                    </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
-                </div>
-                {% endwith %}
-                {% with form.contact_email as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="email">Business e-mail:</label>
-                    <div class="col-md-8 text-right">
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
-                    </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
-                </div>
-                {% endwith %}
             </fieldset>
             <hr>
             <fieldset>
                 <h5 class="text-white mb-3">Company Details</h5>
-                {% with form.website as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="website">Website:</label>
-                    <div class="col-md-8 text-right">
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                <div class="form-row justify-content-between">
+                    <div class="form-group col-md-5">
+                        {% with form.contact_email as field %}
+                            <label for="email">Business e-mail:</label>
+                            {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                           <div class='invalid-feedback'>{{ field.errors }}</div>
+                        {% endwith %}
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
-                </div>
-                {% endwith %}
-                {% with form.size as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="size">No. of employees:</label>
-                    <div class="col-sm-8 text-right">
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                    <div class="form-group col-md-6">
+                        {% with form.website as field %}
+                            <label for="website">Website:</label>
+                            {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        {% endwith %}
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
-                {% endwith %}
-                {% with form.type_of_business as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="size">Business model:</label>
-                    <div class="col-md-8 text-right">
+                <div class="form-row justify-content-between align-items-center">
+                    {% with form.contact_phone as field %}
+                    <div class="form-group col-md-5">
+                        <label for="phone">Phone number:</label>
                         {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                    {% endwith %}
                 </div>
-                {% endwith %}
-                {% with form.industry as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label for="industry">Industry:</label>
-                    <div class="col-md-8 text-right">
+                <div class="form-row justify-content-between">
+                    {% with form.size as field %}
+                    <div class="form-group col-md-3 col-auto">
+                        <label for="size">No. of employees:</label>
                         {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                    {% endwith %}
+                    {% with form.type_of_business as field %}
+                        <div class="form-group col-md-4">
+                        <label for="size">Business model:</label>
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
+                        </div>
+                    {% endwith %}
+                    {% with form.industry as field %}
+                        <div class="form-group col-md-4">
+                        <label for="industry">Industry:</label>
+                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
+                        </div>
+                    {% endwith %}
                 </div>
-                {% endwith %}
                 {% with form.introduction as field %}
                 <div class="form-group">
                     <label for="introduction">Short Description:</label>
-                    <div class="col text-right">
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}"}}
-                    </div>
+                    {{ field | attr:"rows:3" | add_class:"form-control bg-dark bd-green text-muted f-green tbox {%if field.errors%}is-invalid{%endif%}" }}
                     <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
                 {% endwith %}
@@ -105,19 +94,30 @@
                     <div class='invalid-feedback'>{{ field.errors }}</div>
                 </div>
                 {% endwith %}
-                {% with form.summer_students as field %}
-                <div class="form-group d-flex justify-content-between">
-                    <label class="col" for="summer_students">Do you employ summer students?</label>
-                    <div class="col center-block" align="left">
-                        {{field | add_class:"form-control mr-auto text-left w-25 {% if field.errors %}is-invalid{% endif %}"}}
+                <div class="col-md-10">
+                    {% with form.summer_students as field %}
+                    <div class="form-group col-md-8 col-auto">
+                        {{field | add_class:"form-check-input {% if field.errors %}is-invalid{% endif %}"}}
+                        <label for="summer_students">Do you employ summer students?</label>
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
-                    <div class='invalid-feedback'>{{ field.errors }}</div>
+                    {% endwith %}
+                    {% with form.i_agree as field %}
+                    <div class="form-group col-md-10 col-auto">
+                        {{field | add_class:"form-check-input {% if field.errors %}is-invalid{% endif %}"}}
+                        <label>I have read and agreed to the <a class="text-white" href="#">Terms & Conditions of Use</a></label>
+                        <div class='invalid-feedback'>{{ field.errors }}</div>
+                    </div>
+                    {% endwith %}
                 </div>
-                {% endwith %}
             </fieldset>
-            <div class="p-3">
-                <a class="btn btn-danger b-red" href="/events">Back</a>
-                <input class="btn btn-secondary b-green pull-right" type="submit" value="Submit">
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="col-md-3">
+                    <a class="btn btn-danger b-red btn-block" href="/consultants">Back</a>
+                </div>
+                <div class="col-md-3">
+                    <input class="btn btn-secondary b-green btn-block" type="submit" value="Submit">
+                </div>
             </div>
         </form>
     </div>
