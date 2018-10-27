@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block sidepane %}
-    <div class="row">
-        <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Groups</h5>
-        <a class="col-12 mb-2 text-center a-green" href="/company/{{ group.name }}">{{ group.name }}</a>
-    </div>
+    {% if group %}
+        <div class="row">
+            <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Groups</h5>
+            <a class="col-12 mb-2 text-center a-green" href="{% url 'entity:group_profile' group=group.name %}">{{ group.name }}</a>
+        </div>
+    {% endif %}
     <div class="row">
         <p class="col-12 mb-2 text-center text-muted">Want to create a group profile?</p>
         <a href="/groups/apply" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
@@ -18,19 +20,19 @@
 {% block results %}
     {% if groups %}
             {% for group in groups %}
-<a href="/groups/{{ group.name }}/" class="nodecoration">
-    <div class="container bg-dark rounded text-white mb-1">
-        <div class="media pb-2 p-2">
-            <div class="my-2 mr-2 ml-0" style="width:80px; height: 80px;">
-                <img class="mr-2 rounded" src="{{ group.avatar_url }}" style="max-height:80px; max-width:80px" title="View profile" />
-            </div>
-            <div class="media-body mt-2">
-                <h5 class="mt-0">{{ group.name }}</h5>
-                <p class="text-muted" style="word-break: break-all;">{{ group.introduction|truncatechars:200 }}</p>
-            </div>
-        </div>
-    </div>
-</a>
+                <a href="/groups/{{ group.name }}/" class="nodecoration">
+                    <div class="container bg-dark rounded text-white mb-1">
+                        <div class="media pb-2 p-2">
+                            <div class="my-2 mr-2 ml-0" style="width:80px; height: 80px;">
+                                <img class="mr-2 rounded" src="{{ group.avatar_url }}" style="max-height:80px; max-width:80px" title="View profile" />
+                            </div>
+                            <div class="media-body mt-2">
+                                <h5 class="mt-0">{{ group.name }}</h5>
+                                <p class="text-muted" style="word-break: break-all;">{{ group.introduction|truncatechars:200 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             {% endfor %}
     {% else %}
 <div class="container bg-dark rounded p-4 text-center">
