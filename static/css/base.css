@@ -93,8 +93,12 @@ html, body {
     padding-bottom: 80px;
 }
 
-.center-me {
-    margin: auto;
+@media (min-width: 768px) {
+    .abs-center-x {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .footer {
