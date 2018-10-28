@@ -5,12 +5,12 @@
 {% block content %}
 <div class="container " id="form_container">
     <div id="comp_app" class="container mt-5 p-3 bg-dark text-muted rounded col-md-9">
-        <h3 class="text-white mb-3 text-center">Company Application</h3>
+        <h3 class="text-green mb-3 text-center">Company Application</h3>
         <form method="post">
             {% csrf_token %}
             {{ form.media }}
             <fieldset>
-                <h5 class="text-white mb-3">General Details</h5>
+                <h5 class="lead text-green mb-3">General Details</h5>
                 <div class="form-row justify-content-between">
                     {% with form.name as field %}
                     <div class="form-group col-md-5">
@@ -22,7 +22,7 @@
                     {% with form.address as field %}
                     <div class="form-group col-md-6">
                         <label for="address">Postal address:</label>
-                        {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
+                        {{field | add_class:"form-control mb-1 bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
                         <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
                     {% endwith %}
@@ -30,7 +30,7 @@
             </fieldset>
             <hr>
             <fieldset>
-                <h5 class="text-white mb-3">Company Details</h5>
+                <h5 class="lead text-green mb-3">Company Details</h5>
                 <div class="form-row justify-content-between">
                     <div class="form-group col-md-5">
                         {% with form.contact_email as field %}
@@ -113,7 +113,7 @@
             </fieldset>
             <div class="col-md-12 d-flex justify-content-between">
                 <div class="col-md-3">
-                    <a class="btn btn-danger b-red btn-block" href="/consultants">Back</a>
+                    <a class="btn btn-danger b-red btn-block" href="{% url 'entity:company_listing' %}">Back</a>
                 </div>
                 <div class="col-md-3">
                     <input class="btn btn-secondary b-green btn-block" type="submit" value="Submit">

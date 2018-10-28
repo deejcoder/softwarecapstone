@@ -21,13 +21,13 @@ class ConsultantApplicationForm(ModelForm):
     class Meta:
         model = Consultant
         fields = (
-            'introduction',
-            'services_offered',
-            'area_of_expertise',
-            'current_occupation',
             'contact_phone',
             'contact_email',
-            'website'
+            'website',
+            'current_occupation',
+            'area_of_expertise',
+            'introduction',
+            'services_offered',
         )
 
 
@@ -39,13 +39,13 @@ class EditConsultantForm(ModelForm):
     class Meta:
         model = Consultant
         fields = (
-            'introduction',
-            'services_offered',
-            'area_of_expertise',
-            'current_occupation',
             'contact_phone',
             'contact_email',
-            'website'
+            'website',
+            'current_occupation',
+            'area_of_expertise',
+            'introduction',
+            'services_offered',
         )
 
 

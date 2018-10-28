@@ -30,7 +30,7 @@
                     </a>
                 </div>
                 <div class="col text-center my-auto">
-                    <a class="text-muted nodecoration" href="/companies/{{ job.company.name }}/" title="{{ job.company.name }}">
+                    <a class="text-muted nodecoration" href="{% url 'entity:company_profile' company=job.company.name %}" title="{{ job.company.name }}">
                         <p class="mb-2">{{ job.company.name|title }}</p>
 
                         <img class="rounded mx-auto d-block mb-2" style="max-height:100px; max-width:100px" src="{{ job.company.avatar_url }}">

@@ -29,11 +29,10 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('entity.urls')),
     path('events/', include('event.urls')),
-    path('about/', views.About.as_view()),
+    path('about/', views.About.as_view(), name='about'),
     path('contact/', views.contact_form, name='contact'),
     path('admin/', include('dashboard.urls')),
     path('', include('jobs.urls')),
-    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

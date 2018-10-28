@@ -17,7 +17,7 @@
 {% block profile-content %}
 <form method="post">
     {% csrf_token %}
-    <h4 class="text-white">Edit Company Profile</h4>
+    <h4 class="lead text-green">Edit Company Profile</h4>
     <hr>
     <div class="form-row justify-content-between">
         {% with form.name as field %}
@@ -104,36 +104,33 @@
         <div class='invalid-feedback'>{{ field.errors }}</div>
     </div>
     {% endwith %}
-    <div class="col-md-12 mt-4 d-flex justify-content-center">
-        <div class="col-md-6">
-            <input class="btn btn-block btn-success" type="submit" value="Submit changes">
-        </div>
-    </div>
+    <div align="center">
+        <!-- Delete button -->
 
-    {% if is_owner %}
-        <hr>
-        <div class="col-md-12 d-flex justify-content-center">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
-            </div>
-        </div>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Confirmation of deletion</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this company?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-danger" href="/companies/{{company.name}}/remove">Yes</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        {% if is_owner %}
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm_delete_modal">Delete</button>
+            <div align="left" class="modal fade" id="confirm_delete_modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header border-0">
+                            <h4 class="modal-title">Confirmation of deletion</h4>
+                        </div>
+                        <div class="modal-body pt-1 pb-1">
+                            <p>Are you sure you want to delete this company?</p>
+                        </div>
+                        <div class="modal-footer pt-1 border-0">
+                            <a class="btn btn-danger" href="{% url 'entity:remove_company' company=company.name %}">Yes</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+        <!-- Cancel button -->
+        <!-- Update button -->
+        <a href="{% url 'entity:company_profile' company=company.name %}" class="btn btn-danger">Cancel</a>
+        <button class="btn btn-success" type="submit">Update</button>
+    </div>
 </form>
 
 {% endblock %}

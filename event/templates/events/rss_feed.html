@@ -25,7 +25,7 @@
             <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
                 <div class="row">
                     <div class="col">
-                        <a href="{{event.title}}-{{event.id}}" class="nodecoration text-white-hover">
+                        <a href="{% url 'event:event_details' event_title=event.title event_id=event.id %}" class="nodecoration text-white-hover">
                             <h5>{{ event.title }}</h5>
                         </a>
                     </div>

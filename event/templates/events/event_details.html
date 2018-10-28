@@ -28,7 +28,7 @@
                     <h4 class="text-center text-white">Confirmation of Deletion</h4>
                     <p class="text-center text-muted">Are you sure you want to delete this event?</p>
                     <div class="justify-content-center mx-auto">
-                        <a class="btn btn-danger px-3" href="/events/{{event.title}}-{{event.id}}/remove">Yes</a>
+                        <a class="btn btn-danger px-3" href="{% url 'event:remove_event' event_title=event.title event_id=event.id %}">Yes</a>
                         <button type="button" class="btn btn-default px-3" data-dismiss="modal">No</button>
                     </div>
                 </div>

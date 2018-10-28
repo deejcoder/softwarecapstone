@@ -56,7 +56,7 @@ class EditProfile(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
-        form = EditGroupForm(instance=group_obj, data=request.GET)
+        form = EditGroupForm(instance=group_obj)
 
         return render(request, 'group/edit_profile.html', {
             'group': group_obj,

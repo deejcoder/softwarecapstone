@@ -27,7 +27,7 @@ var entity = (function() {
      * @param {string} appendto The element to attach the member list to
      * @param {string} template The template to use for each member
      */
-    function get_members(appendto, template) {
+    function get_members(appendto, template, url) {
 
         /* When the server returns a list of members... */
         function process_members(data) {
@@ -64,7 +64,7 @@ var entity = (function() {
         }
         // Send an AJAX request
         $.ajax({
-            url: './members',
+            url: url,
             success: process_members
         });
     };
