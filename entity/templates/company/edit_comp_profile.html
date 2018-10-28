@@ -106,7 +106,10 @@
     {% endwith %}
     <div class="col-md-12 mt-4 d-flex justify-content-center">
         <div class="col-md-6">
-            <input class="btn btn-block btn-success" type="submit" value="Submit changes">
+            <button type="submit" class="btn btn-block btn-outline-success">Update</button>
+        </div>
+        <div class="col-md-6">
+            <a href="/groups/{{ group.name }}" class="btn btn-block btn-outline-danger">Cancel</a>
         </div>
     </div>
 
@@ -114,7 +117,7 @@
         <hr>
         <div class="col-md-12 d-flex justify-content-center">
             <div class="col-md-6">
-                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
+                <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
             </div>
         </div>
         <div class="modal fade" id="myModal" role="dialog">
