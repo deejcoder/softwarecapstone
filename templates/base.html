@@ -60,6 +60,11 @@
                             <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/events/' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'event:events_listing' %}">Events</a>
                             </li>
+                            {% if user.is_staff %}
+                                <li class="nav-item ml-2 mr-2">
+                                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                                </li>
+                            {% endif %}
 
                         </ul>
                         

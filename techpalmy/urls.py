@@ -24,14 +24,13 @@ from . import views
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
-    path('django/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
     path('', include('user.urls')),
     path('', include('entity.urls')),
     path('events/', include('event.urls')),
     path('about/', views.About.as_view(), name='about'),
     path('contact/', views.contact_form, name='contact'),
-    path('admin/', include('dashboard.urls')),
     path('', include('jobs.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
