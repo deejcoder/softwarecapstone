@@ -13,7 +13,7 @@ from geopy.geocoders import Nominatim
 from entity.models import Member, Entity
 from event.models import Event
 
-from .forms import CreateEventForm
+from .forms import CreateEventForm, EditEventForm
 
 
 def events(request):
