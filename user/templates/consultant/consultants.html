@@ -18,7 +18,8 @@
 {% block results %}
     {% if consultants %}
         {% for c in consultants %}
-        <a href="/user/{{ c.user.username }}/" class="text-white nodecoration">
+        <a href="/user/{{ c.user.username }}/" class="nodecoration">
+        <a href="{% url 'user:user_profile' username=c.user.username %}" class="text-white nodecoration">
             <div class="container bg-dark rounded my-3">
                 <div class="media p-2 pb-4 pt-4">
                     <img class="align-self-start mr-2 rounded" src="{{ c.user.avatar_url }}" height="128" width="128" alt="View profile" />
@@ -29,6 +30,7 @@
                 </div>
             </div>
         </a>
+
         {% endfor %}
     {% else %}
     <div class="container bg-dark rounded p-4 text-center">

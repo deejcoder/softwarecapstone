@@ -84,9 +84,10 @@ class User(AbstractUser):
         Checks if a user is a consultant
         """
         if hasattr(self, 'consultant'):
-            return True
-        else:
-            return False
+            if Consultant.objects.get(user=self).status == 'approved':
+                return True
+
+        return False
 
     @property
     def avatar_url(self):

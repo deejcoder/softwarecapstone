@@ -58,7 +58,7 @@ class EditProfile(View):
         if not Member.is_editor(request.user, company_obj):
             return HttpResponseRedirect(request.path)
 
-        form = EditCompanyForm(instance=company_obj, data=request.GET)
+        form = EditCompanyForm(instance=company_obj)
 
         return render(request, 'company/edit_comp_profile.html', {
             'company': company_obj,

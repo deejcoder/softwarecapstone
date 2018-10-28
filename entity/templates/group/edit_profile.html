@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block sidepane %}
+<<<<<<< HEAD
     <div class="pt-1">
         <span class="icon-green fa fa-fw fa-users pr-1"></span>
         <a href="#member-list" class="a-green" onclick="entity.get_members('#member_list .modal-body', '#member_template');"
@@ -22,6 +23,13 @@
         >Manage members
         </a>
     </div>
+=======
+    <a href="#" onclick="entity.get_members('#member_list .modal-body', '#member_template', '../members/');" 
+    data-toggle="modal" data-target="#member_list"
+    class="a-green"
+    >Manage members
+    </a>
+>>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
     {% include 'members.html' %}
 
 {% endblock %}
@@ -29,6 +37,7 @@
 {% block profile-content %}
     <form id="group_form" method="post">
         {% csrf_token %}
+<<<<<<< HEAD
         <h4 class="text-white">Edit Group Profile</h4>
         <hr>
         <div class="form-row">
@@ -55,8 +64,41 @@
             </div>
             <div class="col-md-6">
                 <a href="/groups/{{ group.name }}" class="btn btn-block btn-outline-danger">Cancel</a>
+=======
+        <h4 class="lead text-green">Edit Group</h4>
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+
+                {% if form.is_bound %}
+                    {% if field.errors %}
+                        {% render_field field class="form-control is-invalid bg-dark bd-green text-muted f-green" %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    {% render_field field class="form-control bg-dark bd-green text-muted f-green" %}
+                {% endif %}
+
+                {% if field.help_text %}
+                    <small class="form-text text-muted">
+                        {{ field.help_text }}
+                    </small>
+                {% endif %}
+>>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
             </div>
+        {% endfor %}
+
+        <div align="center">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm_delete_modal">Delete</button>
+            <a href="{% url 'entity:group_profile' group=group.name %}" class="btn btn-danger">Cancel</a>
+            <button type="submit" class="btn btn-success">Update</button>
         </div>
+<<<<<<< HEAD
         <hr>
         {% if is_owner %}
             <div class="col-md-12 d-flex justify-content-center">
@@ -65,16 +107,21 @@
                 </div>
             </div>
             <div class="modal fade" id="myModal" role="dialog">
+=======
+        {% if is_owner %}
+            
+            <div class="modal fade" id="confirm_delete_modal" role="dialog">
+>>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header border-0">
                             <h4 class="modal-title">Confirmation of deletion</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body pt-1 pb-1">
                             <p>Are you sure you want to delete this group?</p>
                         </div>
-                        <div class="modal-footer">
-                            <a class="btn btn-danger" href="/group/{{group.name}}/remove">Yes</a>
+                        <div class="modal-footer border-0 pt-0">
+                            <a class="btn btn-danger" href="{% url 'entity:remove_group' group=group.name %}">Yes</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                         </div>
                     </div>

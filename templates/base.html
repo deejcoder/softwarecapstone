@@ -52,14 +52,19 @@
                                 <a class="nav-link" href="{% url 'entity:group_listing' %}">Groups</a>
                             </li>
                             <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/consultants/' %}active{% endif %}">
-                                <a class="nav-link" href="/consultants">Consultants</a>
+                                <a class="nav-link" href="{% url 'user:consultants' %}">Consultants</a>
                             </li>
                             <li class="nav-item ml-2 mr-2{% if request.path|startswith:'/jobs/' %}active{% endif %}">
-                                <a class="nav-link" href="/jobs">Jobs</a>
+                                <a class="nav-link" href="{% url 'jobs:job_listing' %}">Jobs</a>
                             </li>
                             <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/events/' %}active{% endif %}">
-                                <a class="nav-link" href="/events">Events</a>
+                                <a class="nav-link" href="{% url 'event:events_listing' %}">Events</a>
                             </li>
+                            {% if user.is_staff %}
+                                <li class="nav-item ml-2 mr-2">
+                                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                                </li>
+                            {% endif %}
 
                         </ul>
                         
@@ -72,7 +77,11 @@
                                 </a>
                                 <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                                     {% if user.is_authenticated %}
-                                    <a class="dropdown-item bg-dark text-white" href="/user/{{ user.username }}">My Profile</a>
+                                    {% if user.is_consultant %}
+                                        <a class="dropdown-item bg-dark text-white" href="{% url 'user:user_profile' username=user.username %}">My Profile</a>
+                                    {% else %}
+                                        <a class="dropdown-item bg-dark text-white" href="{% url 'user:user_profile_edit' username=user.username %}">My Profile</a>
+                                    {% endif %}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item bg-dark text-white" href="/logout">Logout</a>
                                     {% else %}
@@ -123,8 +132,8 @@
                     <div class="justify-content-center row">
                         <a class="nav-link nodecoration text-muted" href="#"><small>Privacy</small></a>
                         <a class="nav-link nodecoration text-muted" href="#"><small>Terms</small></a>
-                        <a class="nav-link nodecoration text-muted" href="/about"><small>About</small></a>
-                        <a class="nav-link nodecoration text-muted" href="/contact"><small>Contact</small></a>
+                        <a class="nav-link nodecoration text-muted" href="{% url 'about' %}"><small>About</small></a>
+                        <a class="nav-link nodecoration text-muted" href="{% url 'contact' %}"><small>Contact</small></a>
                     </div>
                 </div>
             </footer>

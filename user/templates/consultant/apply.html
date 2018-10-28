@@ -8,8 +8,8 @@
 
 {% block content %}
 <div id="application">
-    <div class="container mt-5 p-3 bg-dark text-muted rounded col-md-9">
-        <h3 class="text-white text-center p-2 mb-3 ">Consultant Application</h3>
+    <div class="container p-3 bg-dark text-muted rounded col-md-9">
+        <h3 class="text-green text-center p-2 mb-4 ">Consultant Application</h3>
         <form class="post-form" method="post">
             {% csrf_token %}
             {{ form.media }}
@@ -24,7 +24,7 @@
                     {% endwith %}
                     {% with form.contact_phone as field %}
                     <div class="col-md-6 form-group">
-                            <label for="certification">Phone No.:</label>
+                            <label for="certification">Phone No:</label>
                             {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
                             <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
@@ -40,7 +40,7 @@
                     {% endwith %}
                     {% with form.contact_email as field %}
                     <div class="col-md-6 form-group">
-                            <label for="certification">Business e-mail:</label>
+                            <label for="certification">Business email:</label>
                             {{field | add_class:"form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"}}
                             <div class='invalid-feedback'>{{ field.errors }}</div>
                     </div>
@@ -74,7 +74,7 @@
                 </div>
                 {% endwith %}
                 {% with form.i_agree as field %}
-                    <div class="form-group col-md-10 col-auto">
+                    <div class="form-group ml-4">
                         {{field | add_class:"form-check-input {% if field.errors %}is-invalid{% endif %}"}}
                         <label>I have read and agreed to the <a class="text-white" href="#">Terms & Conditions of Use</a></label>
                         <div class='invalid-feedback'>{{ field.errors }}</div>
@@ -82,7 +82,7 @@
                 {% endwith %}
                 <div class="col-md-12 d-flex justify-content-between">
                     <div class="col-md-3">
-                        <a class="btn btn-danger b-red btn-block" href="/consultants">Back</a>
+                        <a class="btn btn-danger b-red btn-block" href="{% url 'user:consultants' %}">Back</a>
                     </div>
                     <div class="col-md-3">
                         <input class="btn btn-secondary b-green btn-block" type="submit" value="Submit">
