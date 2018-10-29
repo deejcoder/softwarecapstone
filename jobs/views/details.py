@@ -24,8 +24,12 @@ class Detail(View):
         except ObjectDoesNotExist:
             return HttpResponseNotFound()
 
+        company_obj = job.company
+
         return render(request, 'jobs/details.html', {
             'job': job,
+            'is_owner': Member.is_owner(request.user, company_obj),
+            'is_editor': Member.is_editor(request.user, company_obj),
         })
 
     
@@ -47,7 +51,6 @@ class EditDetails(View):
             'is_editor': Member.is_editor(request.user, company_obj),
             'form': form,
         })
-
 
     def post(self, request, job_title, job_id):
         try:
