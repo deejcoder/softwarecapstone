@@ -4,6 +4,7 @@ from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 from entity.models.company import Company
 
@@ -12,9 +13,9 @@ class Job(models.Model):
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='jobs')
     title = models.CharField(max_length=50)
-    location = models.CharField(max_length=30)
+    location = models.CharField(max_length=50)  # 30 is too short!
     short_description = models.TextField(max_length=150, default="")
-    description = models.TextField(max_length=3500)  # average word length=5.1
+    description = RichTextField(max_length=3500)  # average word length=5.1
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=15, validators=[
         RegexValidator(regex='^[0-9]*$', message="A phone number can only contain numbers.")
