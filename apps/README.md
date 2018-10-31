@@ -25,3 +25,9 @@
     ```
 
 You are now set to run the website, `python manage.py runserver`.
+
+
+To import a Python module from an app you will now use
+```python
+from apps.<app_name> import file
+```
