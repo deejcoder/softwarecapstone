@@ -11,8 +11,8 @@ Edit selected event
 <div class="container mt-5 p-3 bg-dark text-muted rounded col-md-7">
     <form method="post">
         {% csrf_token %}
-        <h3 class="text-center text-white">Edit event: {{ event.title }}</h3>
-        <hr>
+        <h3 class="text-green font-weight-light">Edit Event</h3>
+        <br/>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="mt-1">Event title:</label>
@@ -47,13 +47,13 @@ Edit selected event
                 {% render_field form.description style="min-height: 20vh; height: 20vh" class="form-control bg-dark bd-green text-muted f-green" %}
             </div>
         </div>
-        <hr>
+        <br/>
         <div class="col-md-12 mt-4 d-flex justify-content-center">
             <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-outline-success">Update</button>
+                <button type="submit" class="btn btn-block btn-success">Update</button>
             </div>
             <div class="col-md-6">
-                <a href="{% url 'event:events_listing' %}" class="btn btn-block btn-outline-danger">Cancel</a>
+                <a href="/events/{{ event.title }}-{{ event.id }}/" class="btn btn-block btn-danger">Cancel</a>
             </div>
         </div>
     </form>

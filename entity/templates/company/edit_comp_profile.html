@@ -17,8 +17,8 @@
 {% block profile-content %}
 <form method="post">
     {% csrf_token %}
-    <h4 class="lead text-green">Edit Company Profile</h4>
-    <hr>
+    <h3 class="text-green font-weight-light">Edit Company</h3>
+    <br/>
     <div class="form-row justify-content-between">
         {% with form.name as field %}
         <div class="col-md-5 form-group">
@@ -104,64 +104,38 @@
         <div class='invalid-feedback'>{{ field.errors }}</div>
     </div>
     {% endwith %}
-
     <div class="col-md-12 mt-4 d-flex justify-content-center">
         <div class="col-md-6">
-            <button type="submit" class="btn btn-block btn-outline-success">Update</button>
+            <button type="submit" class="btn btn-block btn-success">Update</button>
         </div>
         <div class="col-md-6">
-            <a href="/groups/{{ group.name }}" class="btn btn-block btn-outline-danger">Cancel</a>
+            <a href="/company/{{ company.name }}/" class="btn btn-block btn-danger">Cancel</a>
         </div>
     </div>
-
     {% if is_owner %}
-        <hr>
-        <div class="col-md-12 d-flex justify-content-center">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
-            </div>
+    <br/>
+    <div class="col-md-12 d-flex justify-content-center">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Company</button>
         </div>
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Confirmation of deletion</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this company?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="btn btn-danger" href="/companies/{{company.name}}/remove">Yes</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-=======
-    <div align="center">
-        <!-- Delete button -->
-
-        {% if is_owner %}
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm_delete_modal">Delete</button>
-            <div align="left" class="modal fade" id="confirm_delete_modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-dark">
-                        <div class="modal-header border-0">
-                            <h4 class="modal-title">Confirmation of deletion</h4>
-                        </div>
-                        <div class="modal-body pt-1 pb-1">
-                            <p>Are you sure you want to delete this company?</p>
-                        </div>
-                        <div class="modal-footer pt-1 border-0">
-                            <a class="btn btn-danger" href="{% url 'entity:remove_company' company=company.name %}">Yes</a>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
->>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
-                    </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmation of deletion</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this company?</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-danger" href="/companies/{{company.name}}/remove">Yes</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
             </div>
-        {% endif %}
-        <!-- Cancel button -->
-        <!-- Update button -->
-        <a href="{% url 'entity:company_profile' company=company.name %}" class="btn btn-danger">Cancel</a>
-        <button class="btn btn-success" type="submit">Update</button>
+        </div>
     </div>
+    {% endif %}
 </form>
 
 {% endblock %}

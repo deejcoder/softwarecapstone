@@ -15,7 +15,6 @@
 {% endblock %}
 
 {% block sidepane %}
-<<<<<<< HEAD
     <div class="pt-1">
         <span class="icon-green fa fa-fw fa-users pr-1"></span>
         <a href="#member-list" class="a-green" onclick="entity.get_members('#member_list .modal-body', '#member_template');"
@@ -23,13 +22,6 @@
         >Manage members
         </a>
     </div>
-=======
-    <a href="#" onclick="entity.get_members('#member_list .modal-body', '#member_template', '../members/');" 
-    data-toggle="modal" data-target="#member_list"
-    class="a-green"
-    >Manage members
-    </a>
->>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
     {% include 'members.html' %}
 
 {% endblock %}
@@ -37,81 +29,63 @@
 {% block profile-content %}
     <form id="group_form" method="post">
         {% csrf_token %}
-<<<<<<< HEAD
-        <h4 class="text-white">Edit Group Profile</h4>
-        <hr>
+        <h3 class="text-green font-weight-light">Edit Group</h3>
+        <br/>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="mt-1">Group Name:</label>
                 {{ form.name | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}" }}
+                {% if form.name.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
             </div>
             <div class="form-group col-md-6">
                 <label class="mt-1">Website URL:</label>
                 {{ form.website | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}" }}
+                {% if form.website.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
             </div>
         </div>
         <div class="form-group">
             <label class="mt-1">Introduction:</label>
             {{ form.introduction | attr:"rows:3" | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}" }}
+            {% if form.introduction.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
         </div>
         <div class="form-group">
             <label class="mt-1">Description:</label>
             {{ form.description | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}" }}
+            {% if form.description.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
         </div>
         <div class="col-md-12 mt-4 d-flex justify-content-center">
             <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-outline-success">Update</button>
+                <button type="submit" class="btn btn-block btn-success">Update</button>
             </div>
             <div class="col-md-6">
-                <a href="/groups/{{ group.name }}" class="btn btn-block btn-outline-danger">Cancel</a>
-=======
-        <h4 class="lead text-green">Edit Group</h4>
-
-        {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag }}
-
-                {% if form.is_bound %}
-                    {% if field.errors %}
-                        {% render_field field class="form-control is-invalid bg-dark bd-green text-muted f-green" %}
-                        {% for error in field.errors %}
-                            <div class="invalid-feedback">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% else %}
-                    {% render_field field class="form-control bg-dark bd-green text-muted f-green" %}
-                {% endif %}
-
-                {% if field.help_text %}
-                    <small class="form-text text-muted">
-                        {{ field.help_text }}
-                    </small>
-                {% endif %}
->>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
+                <a href="/groups/{{ group.name }}" class="btn btn-block btn-danger">Cancel</a>
             </div>
-        {% endfor %}
-
-        <div align="center">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm_delete_modal">Delete</button>
-            <a href="{% url 'entity:group_profile' group=group.name %}" class="btn btn-danger">Cancel</a>
-            <button type="submit" class="btn btn-success">Update</button>
         </div>
-<<<<<<< HEAD
-        <hr>
+
         {% if is_owner %}
+        <br/>
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#myModal">Delete Group</button>
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#confirm_delete_modal">Delete Group</button>
                 </div>
             </div>
-            <div class="modal fade" id="myModal" role="dialog">
-=======
-        {% if is_owner %}
-            
             <div class="modal fade" id="confirm_delete_modal" role="dialog">
->>>>>>> 914b041e014ea4614e5c918acd94d6f83033b08f
                 <div class="modal-dialog">
                     <div class="modal-content bg-dark">
                         <div class="modal-header border-0">

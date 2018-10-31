@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container " id="form_container">
     <div id="comp_app" class="container p-3 bg-dark text-muted rounded col-md-9">
-        <h3 class="text-green mb-3 text-center">Company Application</h3>
+        <h3 class="text-green font-weight-light mb-3">Company Application</h3>
         <form method="post">
             {% csrf_token %}
             {{ form.media }}

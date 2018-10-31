@@ -22,16 +22,16 @@
     </div>
     <hr>
     <p>{{ event.description }}</p>
-    <hr>
+    <br/>
     <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{event.location}}">
         <div class="d-flex justify-content-center pt-2"><img style="border-radius:7px" src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lon}}&zoom=13&size=500x200&maptype=roadmap&markers=color:blue%7C{{lat}},{{lon}}&key=AIzaSyAJPJHn1PJcnB5sxRTfZp-V3m6wXWcLJWY" alt="Google Maps image of {{event.location}}" /></div>
     </a>
     <div class="d-flex justify-content-center mt-2">{{event.location}}</div>
     {% if is_owner %}
-    <hr>
+    <br/>
     <div class="col-md-12 d-flex justify-content-center">
         <div class="col-md-6">
-            <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#myModal">Delete</button>
+            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Delete</button>
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog mt-5">
                     <div class="modal-content bg-dark p-4 m-4 mt-5">

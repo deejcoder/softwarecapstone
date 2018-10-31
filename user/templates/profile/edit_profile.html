@@ -26,8 +26,8 @@
 {% block profile-content %}
     <form method="post">
         {% csrf_token %}
-        <h4 class="text-center text-white">User Information</h4>
-        <hr>
+        <h3 class="text-green font-weight-light">User Information</h3>
+        <br/>
         <div class="form-row">
             {% with user_form.username as field %}
             <div class="form-group col-md-6">
@@ -103,8 +103,9 @@
         </div>
         {% endwith %}
         {% if user.is_consultant %}
-        <hr>
-        <h5>Consultant information</h5>
+        <br/>
+        <hr style="background-color: #4caf50">
+        <h5 class="text-green font-weight-light">Consultant information</h5>
         <br/>
 
         <div class="form-row">
@@ -186,13 +187,13 @@
         {% endwith %}
 
         {% endif %}
-        <hr>
+        <br/>
         <div class="col-md-12 mt-4 d-flex justify-content-center">
             <div class="col-md-6">
-                <button type="submit" class="btn btn-block btn-outline-success">Update</button>
+                <button type="submit" class="btn btn-block btn-success">Update</button>
             </div>
             <div class="col-md-6">
-                <a href="/groups/{{ group.name }}" class="btn btn-block btn-outline-danger">Cancel</a>
+                <a href="/user/{{ user.username }}/" class="btn btn-block btn-danger">Cancel</a>
             </div>
         </div>
     </form>
