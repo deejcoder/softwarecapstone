@@ -3,14 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from lxml import html
 from geopy.geocoders import Nominatim
+from lxml import html
 
-from apps.entity.models import Member, Entity
+from apps.entity.models import Entity, Member
 from apps.event.models import Event
 
 from .forms import CreateEventForm, EditEventForm
@@ -161,4 +161,3 @@ def remove_event(request, event_title, event_id):
     instance.delete()
     remove.delete()
     return redirect("/")
-    
