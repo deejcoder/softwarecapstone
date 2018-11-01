@@ -3,15 +3,16 @@ The User & Consultant models are defined here, with their corresponding
 methods such as searching.
 """
 
+import random
 import uuid
 
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.core.validators import RegexValidator
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
 from PIL import Image
-from ckeditor.fields import RichTextField
 
 
 def _upload_profile_image(instance, filename):
@@ -24,6 +25,10 @@ def _upload_profile_image(instance, filename):
     return "users/%s/%s" % (instance.id, filename)
 
 
+def random_code():
+    return random.randint(10000000, 99999999)
+
+
 class User(AbstractUser):
     """
     Model: User
@@ -31,11 +36,15 @@ class User(AbstractUser):
     """
 
     bio = models.TextField(max_length=500, blank=True)
+    verify_code = models.IntegerField(default=random_code)
     avatar = models.ImageField(
         upload_to=_upload_profile_image,
         default=None,
         null=True,
     )
+
+    def is_verified(self) -> bool:
+        return True if self.verify_code == 0 else False
 
     def save(self, **kwargs):
         """

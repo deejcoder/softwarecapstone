@@ -42,6 +42,18 @@ AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = '/login/'
 
 # ------------------------------------------------------------------------------
+# Mailing
+# Change these settings to your SMTP mailing server details
+# You can setup a send-only SMTP server by following
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-14-04
+# ------------------------------------------------------------------------------
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'g3itechpalmy@gmail.com'
+EMAIL_HOST_PASSWORD = 'internal3'
+# ------------------------------------------------------------------------------
 # Database
 # When DEBUG is True, Development MySQL details are used.
 # When DEBUG is False, Production MySQL details are used.

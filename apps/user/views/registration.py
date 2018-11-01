@@ -1,14 +1,14 @@
 """
 Registration views: GET & POST (submitting form data)
 """
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-import requests
 
+from apps.user.models import User
 
 from .. import forms
 
@@ -34,25 +34,60 @@ class Register(View):
 
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password')
-            # create the new user
             form.save()
 
-            # log the user in automatically
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            user = User.objects.get(username=username)
+
+            # I'll change this tomorrow to something like this
+            # https://stackoverflow.com/questions/2809547/creating-email-templates-with-django
+            user.email_user(
+                "TechPalmy: Verify your account",
+                """
+                Welcome to TechPalmy,
+                To verify your account please click the link below.
+                http://localhost:8000{0}?username={1}&code={2}
+                """.format(reverse('user:verify'), user.username, user.verify_code),
+                "g3itechpalmy@gmail.com"
+            )
 
             messages.success(
                 request,
-                "Your account has now been registered. Welcome to techpalmy!"
+                "Please check your email and verify your account."
             )
-
-            # redirect user to their profile
-            return HttpResponseRedirect(
-                reverse(
-                    'user:user_profile',
-                    kwargs={'username': username}
-                )
-            )
+            return HttpResponseRedirect(reverse('index'))
 
         # if form has errors
         return render(request, 'registration/register.html', {'form': form})
+
+
+class VerifyAccount(View):
+    """
+    Simply reads GET data, verifies the account
+    if the verification code is correct, and then redirects
+    them to the login page.
+    """
+    def get(self, request):
+
+        verify_code = request.GET.get('code')
+        username = request.GET.get('username')
+        
+        user = User.objects.get(username=username)
+
+        if user.verify_code == 0:
+            messages.success(
+                request,
+                "Your account has already been verified."
+            )
+
+        elif str(user.verify_code) == verify_code:
+            user.verify_code = 0
+            user.save()
+
+            messages.success(
+                request,
+                "Your account has successfully been verified! Please login to continue."
+            )
+
+            return HttpResponseRedirect(reverse('login'))
+
+        return HttpResponseRedirect(reverse('index'))
