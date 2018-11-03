@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'entity',
     'dashboard',
     'jobs',
+    'django_cleanup',
 ]
 
 
