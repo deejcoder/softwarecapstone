@@ -1,0 +1,77 @@
+{% extends 'common/listing/base_listing.html' %}
+
+{% load humanize %}
+{% block title %}
+    Event Listings
+{% endblock %}
+
+{% block sidepane %}
+<div class="row">
+    <p class="col-12 mb-2 text-center text-muted">Want to create an event?</p>
+    <a href="{% url 'event:create_event' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
+</div>
+{% endblock %}
+
+{% block results %}
+
+    <div class="bg-dark rounded mb-3 p-2">
+        <h5 class="lead text-center text-muted mb-0">TechPalmy Events</h5>
+    </div>
+
+    <!-- TechPalmy events -->
+    {% if events %}
+        <div class='mb-4'> <!-- Separate techpalmy & other events by a mb-4 -->
+        {% for event in events %}
+            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'event:event_details' event_title=event.title event_id=event.id %}" class="nodecoration text-white-hover">
+                            <h5>{{ event.title }}</h5>
+                        </a>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ event.date|naturalday:"F j"|capfirst }}, {{ event.time|time:'g:i a'}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ event.description|truncatechars:202 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+    <div class="bg-dark rounded p-4 text-center">
+        <h4 class="text-muted">Sorry, we couldn't find any events.</h4>
+    </div>
+    {% endif %}
+
+    <!-- Other events -->
+    {% if tree %}
+
+        <div class="bg-dark rounded p-2 mb-3">
+            <h5 class="text-center lead text-muted mb-0">Other Events</h5>
+        </div>
+        <div>
+        {% for branch in tree %}
+            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+                <div class="row">
+                    <div class="col">
+                        <a href="{{branch.url}}" class="nodecoration text-white-hover">
+                            <h5>{{ branch.heading }}</h5>
+                        </a>
+                    </div>
+                    <div class="col ml-auto text-right mr-2">
+                        <p>{{ branch.month }} {{ branch.day }}, {{ branch.time}}</p>
+                    </div>
+                </div>
+                <div class="text-muted" style="overflow: hidden">
+                    <p>{{ branch.desc|truncatechars:202 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    {% endif %}
+{% endblock %}
+

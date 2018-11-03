@@ -8,113 +8,33 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
-
-Quick-start development settings - unsuitable for production
-See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
 """
 
 import os
 from django.contrib import messages
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ==============================================================================
-# General
-# ==============================================================================
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'xhq-$*w#$ggbdi8pz(f=de^82dcf+_d-@exfgze&h!u2y=#scg'
+RECAPTCHA_PRIVATE_KEY = "6LeGinEUAAAAACOfUF3UvjkMODVlTBUtrsToio6C"
+RECAPTCHA_PUBLIC_KEY = "6LeGinEUAAAAADHfruk8yQcqD_cOXMWseI0CFV79"
+NOCAPTCHA = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-SECRET_KEY = 'xhq-$*w#$ggbdi8pz(f=de^82dcf+_d-@exfgze&h!u2y=#scg'
-
 ALLOWED_HOSTS = ['*']
-INTERNAL_IPS = [
-    '127.0.0.1',
-    'localhost'
-]
-
-# django.urls
-ROOT_URLCONF = 'techpalmy.urls'
-
-# django.contrib.auth
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
-AUTH_USER_MODEL = 'user.User'
-LOGIN_URL = '/login/'
-
-# ------------------------------------------------------------------------------
-# Mailing
-# Change these settings to your SMTP mailing server details
-# You can setup a send-only SMTP server by following
-# https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-14-04
-# ------------------------------------------------------------------------------
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'g3itechpalmy@gmail.com'
-EMAIL_HOST_PASSWORD = 'internal3'
-# ------------------------------------------------------------------------------
-# Database
-# When DEBUG is True, Development MySQL details are used.
-# When DEBUG is False, Production MySQL details are used.
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-# ------------------------------------------------------------------------------
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '127.0.0.1',
-            'NAME': 'techpalmy',
-            'USER': 'techpalmy',
-            'PASSWORD': 'rubberducky',
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': '127.0.0.1',
-            'NAME': 'techpalmy',
-            'USER': 'techpalmy',
-            'PASSWORD': 'rubberducky',
-        }
-    }
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.0/topics/i18n/
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
 
 
+# Application definition
 
-# ==============================================================================
-# Paths
-# ==============================================================================
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Static files (CSS, JavaScript, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files (e.g apps/myapp/static).
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-# Media files (e.g user avatars)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
-
-
-# ==============================================================================
-# Installed Apps
-# ==============================================================================
-
-PREREQ_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,27 +48,14 @@ PREREQ_APPS = [
     'django_filters',
     'ckeditor',
     'captcha',
-<<<<<<< HEAD
     'user',
     'event',
     'entity',
     'dashboard',
     'jobs',
     'django_cleanup',
-=======
->>>>>>> bee0a3842ceba81e44a1ae0e531164b8c7433a0f
 ]
 
-PROJECT_APPS = [
-    'apps.user',
-    'apps.jobs',
-    'apps.event',
-    'apps.entity',
-]
-
-INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
-
-# ==============================================================================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -161,22 +68,6 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-
-
-# ==============================================================================
-# Plugin related configuration
-#   SECURITY WARNING: Keep all secret keys (or private keys) secret at all times.
-# ==============================================================================
-# ------------------------------------------------------------------------------
-# captcha
-# ------------------------------------------------------------------------------
-RECAPTCHA_PRIVATE_KEY = "6LeGinEUAAAAACOfUF3UvjkMODVlTBUtrsToio6C"
-RECAPTCHA_PUBLIC_KEY = "6LeGinEUAAAAADHfruk8yQcqD_cOXMWseI0CFV79"
-NOCAPTCHA = True
-
-# ------------------------------------------------------------------------------
-# debug_toolbar
-# ------------------------------------------------------------------------------
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -192,66 +83,18 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda r: False,  # disables it
-    # '...
-}
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost'
+]
 
-# ------------------------------------------------------------------------------
-# ckeditor
-# ------------------------------------------------------------------------------
-CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
-CKEDITOR_CONFIGS = {
-    'default': {
-        'uiColour': '#343A40',
-        'width': '100%',
-        'height': '20.6vh',
-        'skin': 'moono-dark',
-        'toolbar_Basic': [
-            ['Bold', 'Italic']
-        ],
-        'toolbar_YourCustomToolbarConfig': [
-            {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat']},
-            {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight']},
-            {'name': 'links', 'items': ['Link', 'Unlink']},
-            {'name': 'insert',
-             'items': ['Image', 'Table', 'HorizontalRule']},
-       
-        ],
-        'toolbar': 'YourCustomToolbarConfig',
-        'tabSpaces': 4,
-        'extraPlugins': ','.join([
-            # your extra plugins here
-            'autolink',
-            'autoembed',
-            'embedsemantic',
-            'autogrow',
-            'lineutils',
-            'clipboard',
-            'dialog',
-            'dialogui',
-        ]),
-    }
-}
-
-# ------------------------------------------------------------------------------
-# django.contrib.messages
-# ------------------------------------------------------------------------------
+ROOT_URLCONF = 'techpalmy.urls'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+LOGOUT_REDIRECT_URL = '/'
 
-
-
-# ==============================================================================
-# Misc
-# ==============================================================================
-
-# django templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -273,7 +116,24 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'techpalmy.wsgi.application'
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'user.User'
+LOGIN_URL = '/login/'
 
+
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': '127.0.0.1',
+        'NAME': 'techpalmy',
+        'USER': 'techpalmy',
+        'PASSWORD': 'rubberducky',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -293,6 +153,75 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda r: False,  # disables it
+    # '...
+}
 
 
+# Internationalization
+# https://docs.djangoproject.com/en/2.0/topics/i18n/
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
+CKEDITOR_CONFIGS = {
+    'default': {
+        'uiColour': '#343A40',
+        'width': '100%',
+		'height': '20.6vh',
+        'skin': 'moono-dark',
+        'toolbar_Basic': [
+            ['Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight']},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            {'name': 'insert',
+             'items': ['Image', 'Table', 'HorizontalRule']},
+            
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        # 'height': 291,
+        # 'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+		# {'name': 'tools', 'items': ['Maximize']},
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            # your extra plugins here
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+        ]),
+    }
+}

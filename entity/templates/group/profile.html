@@ -1,0 +1,89 @@
+{% extends "common/profile/base_profile.html" %}
+{% load static %}
+
+{% block head %}
+    <script src="{% static 'entity/util.js' %}" type="text/javascript"></script>
+    {{ block.super }}
+{% endblock %}
+
+
+<!-- Define profile avatar to use -->
+{% block avatar %}
+    {% with avatar_url=group.avatar_url %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+<!-- Side content (left column) -->
+{% block sidepane %}
+    <!-- Edit profile link -->
+    {% if is_editor %}
+        <div>
+            <span class="icon-green fa fa-fw fa-pencil pr-1"></span>
+            <a href="edit" class="a-green">Edit profile</a>
+        </div>
+    {% endif %}
+
+    <!-- Show members link -->
+    <div class="pt-1">
+        <span class="icon-green fa fa-fw fa-users pr-1"></span>
+        <a 
+            href="#member-list" 
+            class="a-green" 
+            onclick="entity.get_members('#member_list .modal-body', '#member_template', './members/');" 
+            data-toggle="modal" data-target="#member_list"
+        >Show members
+        </a>
+    </div>
+    {% include 'members.html' %}
+
+    <!-- Contact info -->
+    <div class="pt-1">
+        <span class="icon-green fa fa-fw fa-link pr-1"></span>
+        <a href="{{ group.website }}" class="a-green">{{ group.website|truncatechars:20 }}</a>
+    </div>
+{% endblock %}
+
+<!-- Body content (right column) -->
+{% block profile-content %}
+    <!-- Title -->
+    <div class="mb-3">
+        <span class="title"><h4 class="text-green mb-0">{{ group.name|title }}</h4></span>
+    </div>
+
+    <!-- Summary -->
+    <div class="text-muted mb-3">
+        <div class="lead">Summary</div>
+        <div class="p-2">
+            {{ group.introduction }}
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="text-muted mb-3">
+        <div class="lead">Description</div>
+        <div class="p-2 rich-text-content">
+            {{ group.description | safe }}
+        </div>
+    </div>
+
+    <!-- Events -->
+    <div>
+        <div class="lead text-muted">Upcoming Events</div>
+        <div class="p-2">
+            {% if events %}
+                <ul style="list-style:none;">
+                    {% for event in events %}
+                        <li class="text-green">{{ event.date }} 
+                            <a href="{% url 'event:event_details' event_title=event.title event_id=event.id %}" 
+                                class="a-green">{{ event.title|truncatechars:38 }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <p class="text-muted">No events associated with this group.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
