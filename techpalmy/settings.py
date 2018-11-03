@@ -22,6 +22,7 @@ from django.contrib import messages
 # General
 # ==============================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
+SITE_DOMAIN = "http://localhost:8000"
 DEBUG = True
 
 SECRET_KEY = 'xhq-$*w#$ggbdi8pz(f=de^82dcf+_d-@exfgze&h!u2y=#scg'
@@ -128,6 +129,7 @@ PREREQ_APPS = [
     'django_filters',
     'ckeditor',
     'captcha',
+    'overrides',
 ]
 
 PROJECT_APPS = [

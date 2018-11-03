@@ -10,3 +10,4 @@ django-widget-tweaks
 djangorestframework-filters
 django-tinymce
 django-ckeditor
+overrides

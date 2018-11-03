@@ -2,9 +2,11 @@
 Registration views: GET & POST (submitting form data)
 """
 
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
 
@@ -24,36 +26,24 @@ class Register(View):
 
     def post(self, request):
         """
-        User has submitted registration form
+        Once the user has submitted the registration form,
+        send them an email containing the verification code.
         """
 
         form = forms.UserRegistrationForm(request.POST)
-
-        # if form does not contain errors,
         if form.is_valid():
-
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
             form.save()
 
+            username = form.cleaned_data.get('username')
             user = User.objects.get(username=username)
 
-            # I'll change this tomorrow to something like this
-            # https://stackoverflow.com/questions/2809547/creating-email-templates-with-django
-            user.email_user(
-                "TechPalmy: Verify your account",
-                """
-                Welcome to TechPalmy,
-                To verify your account please click the link below.
-                http://localhost:8000{0}?username={1}&code={2}
-                """.format(reverse('user:verify'), user.username, user.verify_code),
-                "g3itechpalmy@gmail.com"
-            )
+            # send an email with verification code
+            # a verification code is automatically generated when a User object is created.
+            link = settings.SITE_DOMAIN + reverse('user:verify') + "?code=%d&username=%s" % (user.verify_code, username)
+            msg_plain = render_to_string('emails/verification.txt', {'site': settings.SITE_DOMAIN, 'verify_link': link})
+            user.email_user("TechPalmy: Verify your account", msg_plain)
 
-            messages.success(
-                request,
-                "Please check your email and verify your account."
-            )
+            messages.success(request, "Please check your email and verify your account.")
             return HttpResponseRedirect(reverse('index'))
 
         # if form has errors
@@ -73,20 +63,14 @@ class VerifyAccount(View):
         
         user = User.objects.get(username=username)
 
-        if user.verify_code == 0:
-            messages.success(
-                request,
-                "Your account has already been verified."
-            )
+        if user.is_verified():
+            messages.success(request,"Your account has already been verified.")
 
         elif str(user.verify_code) == verify_code:
             user.verify_code = 0
             user.save()
 
-            messages.success(
-                request,
-                "Your account has successfully been verified! Please login to continue."
-            )
+            messages.success(request, "Your account has successfully been verified! Please login to continue.")
 
             return HttpResponseRedirect(reverse('login'))
 
