@@ -1,0 +1,200 @@
+{% extends "common/profile/base_edit_profile.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- Define the URL for the avatar -->
+{% block avatar %}
+    {% with avatar_url=user.avatar_url %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+<!-- Side pane for editing profile -->
+{% block sidepane %}
+    <h5 class="text-white">{{ user.get_full_name }}</h5>
+
+    {% if user.is_staff %}
+        <span class="badge badge-success">Administrator</span>
+    {% endif %}
+
+    {% if user.is_consultant %}
+        <span class="badge badge-success">Consultant</span>
+    {% endif %}
+{% endblock %}
+
+<!-- Form for editing profile -->
+{% block profile-content %}
+    <form method="post">
+        {% csrf_token %}
+        <h3 class="text-green font-weight-light">User Information</h3>
+        <br/>
+        <div class="form-row">
+            {% with user_form.username as field %}
+            <div class="form-group col-md-6">
+                <label>Username:</label>
+                <input type="text"
+                        class="form-control bg-dark bd-green text-muted f-green"
+                        value="{{ user.username }}"
+                        readonly
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+            </div>
+            {% endwith %}
+            <div class="form-group col-md-6">
+                {% with user_form.current_password as field %}
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %} is-invalid {% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+                {% endwith %}
+            </div>
+        </div>
+        <div class="form-group">
+            {% with user_form.password as field %}
+            <label>New password (optional):</label>
+            <input type="{{ field.field.widget.input_type }}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                    id="{{ field.id_for_form }}"
+                    name="{{ field.html_name }}"
+            >
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+            {% endwith %}
+        </div>
+        <hr>
+        <div class="form-row">
+            {% with user_form.first_name as field %}
+            <div class="form-group col-md-6">
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.first_name }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+            </div>
+            {% endwith %}
+            {% with user_form.last_name as field %}
+            <div class="form-group col-md-6">
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.last_name }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+            </div>
+            {% endwith %}
+        </div>
+        {% with user_form.email as field %}
+        <div class="form-group">
+            <label>{{ field.label }}:</label>
+            <input type="{{ field.field.widget.input_type }}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                    id="{{ field.id_for_form }}"
+                    name="{{ field.html_name }}"
+                    value="{{ user.email }}"
+            >
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+        </div>
+        {% endwith %}
+        {% if user.is_consultant %}
+        <br/>
+        <hr style="background-color: #4caf50">
+        <h5 class="text-green font-weight-light">Consultant information</h5>
+        <br/>
+
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                {% with consult_form.current_occupation as field %}
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.consultant.current_occupation }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+                {% endwith %}
+            </div>
+            <div class="col-md-6 form-group">
+                {% with consult_form.area_of_expertise as field %}
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.consultant.area_of_expertise }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+                {% endwith %}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {% with consult_form.contact_email as field %}
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.consultant.contact_email }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+                {% endwith %}
+            </div>
+            <div class="form-group col-md-6">
+                {% with consult_form.contact_phone as field %}
+                <label>{{ field.label }}:</label>
+                <input type="{{ field.field.widget.input_type }}"
+                        class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                        id="{{ field.id_for_form }}"
+                        name="{{ field.html_name }}"
+                        value="{{ user.consultant.contact_phone }}"
+                >
+                <div class='invalid-feedback'>{{ field.errors }}</div>
+                {% endwith %}
+            </div>
+        </div>
+        <div class="form-group">
+            {% with consult_form.website as field %}
+            <label>{{ field.label }}:</label>
+            <input type="{{ field.field.widget.input_type }}"
+                    class="form-control bg-dark bd-green text-muted f-green {% if field.errors %}is-invalid{% endif %}"
+                    id="{{ field.id_for_form }}"
+                    name="{{ field.html_name }}"
+                    value="{{ user.consultant.website }}"
+            >
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+            {% endwith %}
+        </div>
+        {% with consult_form.introduction as field %}
+        <div class="form-group">
+            <label>{{ field.label }}:</label>
+            {% render_field field rows=3 class="form-control bg-dark bd-green text-muted f-green" type="{{ field.field.widget.input_type }}" %}
+            <div class='invalid-feedback'>{{ field.errors }}</div>
+        </div>
+        {% endwith %}
+
+        {{ consult_form.media }}
+        {% with consult_form.services_offered as field %}
+        {{ field.label }}:
+        {{ field }}
+        {% endwith %}
+
+        {% endif %}
+        <br/>
+        <div class="col-md-12 mt-4 d-flex justify-content-center">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-block btn-success">Update</button>
+            </div>
+            <div class="col-md-6">
+                <a href="/user/{{ user.username }}/" class="btn btn-block btn-danger">Cancel</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}
