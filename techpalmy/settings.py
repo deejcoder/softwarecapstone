@@ -139,7 +139,7 @@ PROJECT_APPS = [
     'apps.entity',
 ]
 
-INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS + ['django_cleanup']
 
 # ==============================================================================
 

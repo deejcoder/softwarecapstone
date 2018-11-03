@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.views.defaults import page_not_found
 from django.urls import reverse
 from django.views import View
 
@@ -32,12 +33,12 @@ class Profile(View):
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         if not user.is_consultant() and user == request.user:
             return HttpResponseRedirect(reverse('user:user_profile_edit', args=[user.username]))
         elif not user.is_consultant():
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=None, template_name='403.html')
 
         return render(request, 'profile/profile.html', {
             'viewing': user,
@@ -58,12 +59,12 @@ class EditProfile(View):
         """
 
         if request.user.username != username:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
 
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         user_form = forms.EditProfileForm(instance=user)
         avatar_form = forms.EditProfileAvatar()
@@ -89,10 +90,10 @@ class EditProfile(View):
         try:
             user = User.objects.get(username=username)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         if username != request.user.username:
-            return HttpResponseRedirect(request.path)
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
 
         self._update_user_avatar(user, request)
         self._update_info(user, request)

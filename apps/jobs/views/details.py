@@ -8,6 +8,7 @@ from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
+from django.views.defaults import page_not_found
 
 from apps.entity.models.members import Member
 
@@ -22,7 +23,7 @@ class Detail(View):
         try: 
             job = Job.objects.get(pk=job_id)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         company_obj = job.company
 
@@ -40,7 +41,7 @@ class EditDetails(View):
         try:
             job = Job.objects.get(pk=job_id)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         form = EditJobForm(data=request.GET)
         company_obj = job.company
@@ -56,7 +57,7 @@ class EditDetails(View):
         try:
             job_obj = Job.objects.get(pk=job_id)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         form = EditJobForm(instamce=job_obj, data=request.POST)
 
@@ -73,12 +74,12 @@ def remove_job(request, job_title, job_id):
     try:
         job_obj = Job.objects.get(pk=job_id)
     except ObjectDoesNotExist:
-        return HttpResponseNotFound
+        return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
     entity_obj = Job.objects.get(title=job_title).company
 
     if not Member.is_owner(request.user, entity_obj):
-        return HttpResponseRedirect(request.path)
+        return page_not_found(request, exception=None, template_name='403.html')
 
     remove = get_object_or_404(Job, pk=job_obj.id)
     instance = Job.objects.get(id=job_obj.id)

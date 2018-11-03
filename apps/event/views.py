@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.defaults import page_not_found
 from geopy.geocoders import Nominatim
 from lxml import html
 
@@ -58,7 +59,7 @@ class EventDetails(View):
         try:
             event = Event.objects.get(pk=event_id)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         entity_obj = event.entity
         location = Nominatim.geocode(self=Nominatim(), query=event.location)
@@ -117,7 +118,7 @@ class EditEvent(View):
         try:
             event_obj = Event.objects.get(title=event_title)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         return render(request, 'events/edit_event.html', {
             'form': form,
@@ -132,7 +133,7 @@ class EditEvent(View):
         try:
             event_obj = Event.objects.get(title=event_title)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         form = EditEventForm(instance=event_obj, data=request.POST)
 
@@ -149,12 +150,12 @@ def remove_event(request, event_title, event_id):
     try:
         event_obj = Event.objects.get(pk=event_id)
     except ObjectDoesNotExist:
-        return HttpResponseNotFound
+        return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
     entity_obj = Event.objects.get(title=event_title).entity
 
     if not Member.is_owner(request.user, entity_obj):
-        return HttpResponseRedirect(request.path)
+        return page_not_found(request, exception=None, template_name='403.html')
 
     remove = get_object_or_404(Event, pk=event_obj.id)
     instance = Event.objects.get(id=event_obj.id)

@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.defaults import page_not_found
 
 from apps.entity.forms import EditGroupForm, EditAvatarForm
 from apps.entity.models import Member, Entity
@@ -30,7 +31,7 @@ class Profile(View):
         try:
             group_obj = Group.objects.get(name=group)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         entity_obj = Entity.objects.get(group=group_obj)
         events = Event.get_events(entity=entity_obj)
@@ -54,7 +55,7 @@ class EditProfile(View):
         try:
             group_obj = Group.objects.get(name=group)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         form = EditGroupForm(instance=group_obj)
 
@@ -73,11 +74,11 @@ class EditProfile(View):
             group = Group.objects.get(name=group)
             entity = Entity.objects.get(pk=group.pk)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         # is the user an editor (or owner)?
         if not Member.is_editor(request.user, group):
-            return HttpResponseRedirect(request.path)
+            return page_not_found(request, exception=None, template_name='403.html')
 
         form = EditGroupForm(instance=group, data=request.POST)
         avatar_form = EditAvatarForm(request.POST, request.FILES, instance=entity)
@@ -100,10 +101,10 @@ def group_remove(request, group):
     try:
         group_obj = Group.objects.get(name=group)
     except ObjectDoesNotExist:
-        return HttpResponseNotFound
+        return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
     if not Member.is_owner(request.user, group_obj):
-        return HttpResponseRedirect(request.path)
+        return page_not_found(request, exception=None, template_name='403.html')
 
     remove = get_object_or_404(Group, pk=group_obj.id)
     instance = Group.objects.get(id=group_obj.id)

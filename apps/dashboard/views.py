@@ -13,6 +13,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
+from django.views.defaults import page_not_found
 from django.views import View
 
 from apps.entity.models import Application
@@ -89,7 +90,7 @@ class CompanyApplications(View):
             return HttpResponseNotFound()
 
         if not request.user.is_staff():
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=None, template_name='403.html')
 
         if status == "approve":
             company.application.approve(request.user, '')

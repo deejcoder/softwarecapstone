@@ -5,10 +5,10 @@ Adds company profiles for users or guest to view
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.defaults import page_not_found
 
 from geopy.geocoders import Nominatim
 
@@ -31,7 +31,7 @@ class Profile(View):
         try:
             company_obj = Company.objects.get(name=company)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound()
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         entity_obj = Entity.objects.get(company=company_obj)
         events = Event.get_events(entity_obj)
@@ -53,10 +53,10 @@ class EditProfile(View):
         try:
             company_obj = Company.objects.get(name=company)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         if not Member.is_editor(request.user, company_obj):
-            return HttpResponseRedirect(request.path)
+            return page_not_found(request.path, exception=None, template_name='403.html')
 
         form = EditCompanyForm(instance=company_obj)
 
@@ -72,11 +72,11 @@ class EditProfile(View):
         try:
             company = Company.objects.get(name=company)
         except ObjectDoesNotExist:
-            return HttpResponseNotFound
+            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         # is the user an editor (or owner)?
         if not Member.is_editor(request.user, company):
-            return HttpResponseRedirect(request.path)
+            return page_not_found(request, exception=None, template_name='403.html')
 
         form = EditCompanyForm(instance=company, data=request.POST)
 
@@ -99,10 +99,10 @@ def company_remove(request, company):
     try:
         company_obj = Company.objects.get(name=company)
     except ObjectDoesNotExist:
-        return HttpResponseNotFound
+        return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
     if not Member.is_owner(request.user, company_obj):
-        return HttpResponseRedirect(request.path)
+        return page_not_found(request, exception=None, template_name='403.html')
 
     remove = get_object_or_404(Company, pk=company_obj.id)
     instance = Company.objects.get(id=company_obj.id)
