@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+# Rough view for comp_appform.html
 @method_decorator(login_required, name='dispatch')
 class Apply(View):
 

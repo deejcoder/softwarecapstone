@@ -7,6 +7,7 @@ from django.apps import apps
 from django.core.validators import RegexValidator
 from django.db import models
 from PIL import Image
+from django.core.exceptions import ValidationError
 
 
 def _upload_company_avatar(entity, filename):
