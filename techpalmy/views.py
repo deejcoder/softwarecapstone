@@ -16,21 +16,13 @@ class Index(TemplateView):
     def index(self, TemplateView):
         return render(request, 'index.html')
 
-class Dashboard(TemplateView):
-    """
-    Render dashboard homepage
-    """
-
-    template_name = "dashboard/index.html"
-    def index(self, TemplateView):
-        return render(request, 'dashboard/index.html')
-    
     
 class About(TemplateView):
 
     template_name = 'about.html'
     def index(self, TemplateView):
         return render(request, 'about.html')
+
 
 def contact_form(request):
     form = ContactForm()
