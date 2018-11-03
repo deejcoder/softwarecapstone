@@ -36,7 +36,8 @@ class Job(models.Model):
             search_query = SearchQuery(term)
 
             search_vector = SearchVector('title') \
-                + SearchVector('description')
+                + SearchVector('description') \
+                + SearchVector('short_description')
         
             result = cls.objects.annotate(search=search_vector) \
                 .filter(search=search_query)
