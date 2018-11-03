@@ -128,15 +128,8 @@ PREREQ_APPS = [
     'django_filters',
     'ckeditor',
     'captcha',
-<<<<<<< HEAD
-    'user',
-    'event',
-    'entity',
-    'dashboard',
-    'jobs',
+    'apps.dashboard',
     'django_cleanup',
-=======
->>>>>>> bee0a3842ceba81e44a1ae0e531164b8c7433a0f
 ]
 
 PROJECT_APPS = [
