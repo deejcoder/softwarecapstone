@@ -35,9 +35,7 @@ class Profile(View):
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
-        if not user.is_consultant() and user == request.user:
-            return HttpResponseRedirect(reverse('user:user_profile_edit', args=[user.username]))
-        elif not user.is_consultant():
+        if request.user.username != username:
             return page_not_found(request, exception=None, template_name='403.html')
 
         return render(request, 'profile/profile.html', {
@@ -67,7 +65,7 @@ class EditProfile(View):
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         user_form = forms.EditProfileForm(instance=user)
-        avatar_form = forms.EditProfileAvatar()
+        avatar_form = forms.EditProfileAvatar(instance=user)
 
         if hasattr(user, 'consultant'):
             consult_form = forms.EditConsultantForm(instance=user.consultant)
@@ -152,5 +150,5 @@ class EditProfile(View):
                     "Your profile information has successfully been updated."
                 )
                 return
- 
+
         return
