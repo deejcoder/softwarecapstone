@@ -47,4 +47,4 @@ class ApplyCompany(View):
             member.save()
             messages.success(request, 'You have submitted an application for your new company. We will be in contact with you!')
 
-        return redirect('/')
+        return redirect('/companies')

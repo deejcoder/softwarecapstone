@@ -1,41 +1,74 @@
 {% extends 'common/listing/base_listing.html' %}
+{% load widget_tweaks %}
 
 {% block title %}
     Business Listings
 {% endblock %}
 
 {% block sidepane %}
-    {% if comapny %}
+    {% if company %}
         <div class="row">
             <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Companies</h5>
             <a class="col-12 mb-2 text-center" style="color:#39b54a" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a>
         </div>
     {% endif %}
-<div class="row">
-    <p class="col-12 mb-2 text-center text-muted">Want to create a company profile?</p>
-    <a href="{% url 'entity:company_application' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Apply</a>
-</div>
+    <div class="row">
+        <p class="col-12 mb-2 text-center text-muted">Want to create a company profile?</p>
+        <a href="{% url 'entity:company_application' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Apply</a>
+    </div>
+{% endblock %}
+
+{% block search %}
+<form method="get" class="text-light">
+    <div class="well">
+        <h4 class="text-center mt-2 pb-2">Filter Companies</h4>
+        <div class="row col-md-12 d-flex justify-content-between">
+            <div class="form-group col-md-4">
+                {{ filter.form.industry.label_tag }}
+                {% render_field filter.form.industry class="form-control bg-dark bd-green text-muted f-green" %}
+            </div>
+            <div class="form-group col-md-4">
+                {{ filter.form.type_of_business.label_tag }}
+                {% render_field filter.form.type_of_business class="form-control bg-dark bd-green text-muted f-green" %}
+            </div>
+            <div class="form-group col-md-4">
+                {{ filter.form.specialist_area.label_tag }}
+                {% render_field filter.form.specialist_area class="form-control bg-dark bd-green text-muted f-green" %}
+            </div>
+            <div class="form-group col-md-4">
+                {{ filter.form.summer_students.label_tag }}
+                {% render_field filter.form.summer_students class="form-control bg-dark bd-green text-muted f-green" %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-secondary b-green" type="submit" value="Search">
+                <i class="fa fa-search text-muted"></i>
+                <a class="text-light">&nbsp;Search</a>
+            </button>
+        </div>
+    </div>
+</form>
 {% endblock %}
 
 <!-- Search results -->
 {% block results %}
     {% if companies %}
-    {% for company in companies %}
-<div class="container bg-dark rounded my-3">
-    <div class="media p-2 pb-4 pt-4">
-        <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
+        {% for company in companies %}
+        <div class="container bg-dark rounded my-3">
+            <div class="media p-2 pb-4 pt-4">
+                <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
 
-        <div class="media-body ml-2">
-            <h5 class="mt-0 "><a class="text-white" style="cursor: pointer;" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a></h5>
-            <p class="text-muted">{{ company.introduction }}</p>
+                <div class="media-body ml-2">
+                    <h5 class="mt-0 "><a class="text-white" style="cursor: pointer;" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a></h5>
+                    <p class="text-muted">{{ company.introduction }}</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-    {% endfor %}
+        {% endfor %}
     {% else %}
-<div class="container bg-dark rounded p-4 text-center">
-    <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
-</div>
+    <div class="container bg-dark rounded p-4 text-center">
+        <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
+    </div>
     {% endif %}
 {% endblock %}
 

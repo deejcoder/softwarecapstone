@@ -9,6 +9,7 @@ from django.views import View
 from apps.entity.models.company import Company
 from apps.user.models import Consultant
 from apps.entity.models import Member
+from apps.entity.filters import FilterByIndustry
 
 
 class Listing(View):
@@ -18,17 +19,11 @@ class Listing(View):
 
     def get(self, request):
 
-        try:
-            search_term = request.GET.get('search')
+        company_list = Company.objects.all()
+        company_filter = FilterByIndustry(request.GET, queryset=company_list)
+        results = company_filter.qs
 
-            # get all results from companies & consultants
-            companies = Company.search_companies(search_term)
-
-        except KeyError:
-            # get all companies and consultants
-            companies = Company.search_companies(None)
-
-        paginator = Paginator(companies, 8)
+        paginator = Paginator(results, 8)
         page = request.GET.get('page')
         show_businesses = paginator.get_page(page)
 
@@ -36,5 +31,6 @@ class Listing(View):
             'company': Member.get_user_company(request.user),
             'show_sidepane': True,
             'companies': show_businesses,
-            'page': page
+            'page': page,
+            'filter': company_filter,
         })
