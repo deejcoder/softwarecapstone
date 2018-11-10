@@ -33,15 +33,6 @@ INTERNAL_IPS = [
     'localhost'
 ]
 
-# django.urls
-ROOT_URLCONF = 'techpalmy.urls'
-
-# django.contrib.auth
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
-AUTH_USER_MODEL = 'user.User'
-LOGIN_URL = '/login/'
-
 # ------------------------------------------------------------------------------
 # Mailing
 # Change these settings to your SMTP mailing server details
@@ -60,7 +51,7 @@ EMAIL_HOST_PASSWORD = 'internal3'
 # When DEBUG is False, Production MySQL details are used.
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 # ------------------------------------------------------------------------------
-if DEBUG == True:
+if DEBUG is True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -90,11 +81,19 @@ USE_L10N = True
 USE_TZ = True
 
 
-
 # ==============================================================================
 # Paths
 # ==============================================================================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# django.urls
+ROOT_URLCONF = 'techpalmy.urls'
+
+# django.contrib.auth
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'user.User'
+LOGIN_URL = '/login/'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -108,7 +107,6 @@ STATICFILES_DIRS = (
 # Media files (e.g user avatars)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
 
 
 # ==============================================================================
@@ -192,6 +190,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # ------------------------------------------------------------------------------
 # ckeditor
+# https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
 # ------------------------------------------------------------------------------
 CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
 CKEDITOR_CONFIGS = {
