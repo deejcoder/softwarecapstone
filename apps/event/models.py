@@ -34,7 +34,7 @@ class Event(models.Model):
         Returns a list of events which have not already 'happened'.
         """
         now = datetime.now()
-        return Event.objects.filter(date__gte=now, time__gte=now)
+        return Event.objects.filter(date__gte=now).filter(time_gte=now)
 
     @classmethod
     def search_events(cls, term: str):
