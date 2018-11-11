@@ -9,14 +9,45 @@ from apps.entity.models.group import Group
 from apps.entity.models import Entity
 
 
+class AddressWidget(forms.widgets.MultiWidget):
+    def __init__(self, attrs=None):
+        widgets = [
+            forms.TextInput(),
+            forms.TextInput()
+        ]
+        super(AddressWidget, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return pickle.loads(value)
+        else:
+            return ['', '']
+
+
+class AddressField(forms.fields.MultiValueField):
+    widget = AddressWidget
+
+    def __init__(self, *args, **kwargs):
+        list_fields = [
+            forms.fields.CharField(max_length=40),
+            forms.fields.CharField(max_length=40)
+        ]
+        super(AddressField, self).__init__(list_fields, *args, **kwargs)
+
+    def compress(self, values):
+        return pickle.dumps(values)
+
+
 class CompanyApplicationForm(ModelForm):
+    address = AddressField()
+    address.label = "Address"
+    i_agree = forms.BooleanField()
 
     class Meta:
         model = Company
 
         fields = [
             'name',
-            'address',
             'contact_phone',
             'contact_email',
             'website',
@@ -38,7 +69,6 @@ class EditCompanyForm(ModelForm):
         model = Company
         fields = (
             'name',
-            'address',
             'size',
             'industry',
             'introduction',

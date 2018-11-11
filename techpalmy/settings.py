@@ -60,7 +60,7 @@ EMAIL_HOST_PASSWORD = 'internal3'
 # When DEBUG is False, Production MySQL details are used.
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 # ------------------------------------------------------------------------------
-if DEBUG is True:
+if DEBUG == True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
