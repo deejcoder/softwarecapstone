@@ -38,11 +38,14 @@ class Profile(View):
         #if request.user.username != username:
         #    return page_not_found(request, exception=None, template_name='403.html')
 
-        return render(request, 'profile/profile.html', {
-            'viewing': user,
-            'user': request.user,
-            'is_owner': user == request.user,
-        })
+        if user.is_consultant():
+            return render(request, 'profile/profile.html', {
+                'viewing': user,
+                'user': request.user,
+                'is_owner': user == request.user,
+            })
+        else:
+            return redirect('user:user_profile_edit', username=user.username)
 
 
 class EditProfile(View):

@@ -67,7 +67,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
                             {% if user.is_authenticated %}
-                            <a class="dropdown-item bg-dark text-white" href="/user/{{ user.username }}/">My Profile</a>
+                            <a class="dropdown-item bg-dark text-white" href="/user/{{ user.username }}/edit/">My Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item bg-dark text-white" href="/logout">Logout</a>
                             {% else %}

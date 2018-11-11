@@ -61,17 +61,20 @@ class VerifyAccount(View):
         verify_code = request.GET.get('code')
         username = request.GET.get('username')
         
-        user = User.objects.get(username=username)
+        try:
+            user = User.objects.get(username=username)
 
-        if user.is_verified():
-            messages.success(request,"Your account has already been verified.")
+            if user.is_verified():
+                messages.success(request, "Your account has already been verified.")
 
-        elif str(user.verify_code) == verify_code:
-            user.verify_code = 0
-            user.save()
+            elif str(user.verify_code) == verify_code:
+                user.verify_code = 0
+                user.save()
 
-            messages.success(request, "Your account has successfully been verified! Please login to continue.")
+                messages.success(request, "Your account has successfully been verified! Please login to continue.")
 
-            return HttpResponseRedirect(reverse('login'))
+                return HttpResponseRedirect(reverse('login'))
+        except:
+            pass
 
         return HttpResponseRedirect(reverse('index'))
