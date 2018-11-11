@@ -68,6 +68,7 @@ class EditCompanyForm(ModelForm):
     class Meta:
         model = Company
         fields = (
+            'avatar',
             'name',
             'size',
             'industry',
@@ -79,19 +80,6 @@ class EditCompanyForm(ModelForm):
             'type_of_business',
             'address',
             'summer_students'
-        )
-
-
-class EditAvatarForm(ModelForm):
-    """
-    Form to allow groups and companies to update their
-    profile avatar
-    """
-
-    class Meta:
-        model = Entity
-        fields = (
-            'avatar',
         )
 
 
@@ -116,6 +104,7 @@ class EditGroupForm(ModelForm):
     class Meta:
         model = Group
         fields = (
+            'avatar',
             'name',
             'website',
             'introduction',

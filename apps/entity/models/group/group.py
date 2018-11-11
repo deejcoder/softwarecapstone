@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 
-from apps.entity.models import Entity
+from apps.entity.models import Entity, Member
 
 
 class Group(Entity):
@@ -16,6 +16,11 @@ class Group(Entity):
 
     def __str__(self):
         return "{0} ({1})".format(super().name, self.pk)
+
+    def email_group(self, subject: str, msg: str):
+        members = Member.get_members(self)
+        for member in members:
+            member.user.email_user(subject, msg)
 
     @classmethod
     def search_groups(cls, term: str):

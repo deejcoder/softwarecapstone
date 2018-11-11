@@ -1,9 +1,11 @@
 import requests
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -11,7 +13,8 @@ from django.views.defaults import page_not_found
 from geopy.geocoders import Nominatim
 from lxml import html
 
-from apps.entity.models import Entity, Member
+from apps.entity.models import Member
+from apps.entity.models.group import Group
 from apps.event.models import Event
 
 from .forms import CreateEventForm, EditEventForm
@@ -40,8 +43,8 @@ def events(request):
         new_event['url'] = event_urls[2*i]
         all_events.append(new_event)
 
-    # get all events belonging to techpalmy
-    techpalmy_events = Event.objects.all()
+    # get all events belonging to techpalmy which have not already happened
+    techpalmy_events = Event.get_events()
 
     return render(request, 'events/rss_feed.html', {
         'show_sidepane': Member.is_editor_any(request.user) ^ Member.is_owner_any(request.user),
@@ -97,8 +100,24 @@ class CreateEvent(View):
             # assure they own the company/group they are creating an event for
             # this also needs to be adjusted in the form
             entity = form.cleaned_data.get('entity')
+
             if Member.is_editor(request.user, entity):
                 form.save()
+                event = form.instance
+
+                # if it's a group, send an email to all group members
+                if isinstance(event.entity.group, Group):
+                    group = event.entity.group
+
+                    link = settings.SITE_DOMAIN + reverse('event:event_details', args=[event.title, event.id])
+                    msg_plain = render_to_string('emails/group_event.txt', {
+                        'site': settings.SITE_DOMAIN,
+                        'event_title': event.title,
+                        'group_name': group.name,
+                        'event_link': link
+                    })
+                    group.email_group("Event: {0}".format(event.title), msg_plain)
+
                 messages.success(request, 'The event has successfully been created.')
                 form = CreateEventForm()
             else:
@@ -116,7 +135,7 @@ class EditEvent(View):
         entity_obj = event.entity
 
         try:
-            event_obj = Event.objects.get(title=event_title)
+            event_obj = Event.objects.get(pk=event_id)
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
@@ -131,7 +150,7 @@ class EditEvent(View):
     def post(self, request, event_title, event_id):
 
         try:
-            event_obj = Event.objects.get(title=event_title)
+            event_obj = Event.objects.get(pk=event_id)
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
@@ -152,7 +171,7 @@ def remove_event(request, event_title, event_id):
     except ObjectDoesNotExist:
         return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
-    entity_obj = Event.objects.get(title=event_title).entity
+    entity_obj = Event.objects.get(pk=event_id).entity
 
     if not Member.is_owner(request.user, entity_obj):
         return page_not_found(request, exception=None, template_name='403.html')

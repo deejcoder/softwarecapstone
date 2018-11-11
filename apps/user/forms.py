@@ -1,19 +1,17 @@
 """
 Forms belonging to users or consultants.
 """
+
+from captcha.fields import ReCaptchaField
 from django import forms
 from django.forms import ModelForm
-from django.contrib.auth import authenticate, login
-import pickle
 
 from .models import Consultant, User
-from django.conf import settings
-from captcha.fields import ReCaptchaField
 
 
 class ConsultantApplicationForm(ModelForm):
     i_agree = forms.BooleanField()
-    
+
     """
     A form to allow users to apply to become
     a consultant.
@@ -49,18 +47,6 @@ class EditConsultantForm(ModelForm):
         )
 
 
-class EditProfileAvatar(ModelForm):
-    """
-    Form for updating profile avatar for users
-    """
-
-    class Meta:
-        model = User
-        fields = (
-            'avatar',
-        )
-
-
 class EditProfileForm(ModelForm):
     """
     Form for updating profile information
@@ -73,6 +59,7 @@ class EditProfileForm(ModelForm):
     class Meta:
         model = User
         fields = (
+            'avatar',
             'first_name',
             'last_name',
             'email',

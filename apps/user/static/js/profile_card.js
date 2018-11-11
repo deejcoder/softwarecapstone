@@ -5,8 +5,18 @@ $(document).ready(function () {
         $("input[id='upload_avatar']").click();
     });
 
-    // submit the avatar form once a file has been selected
     $("input[id='upload_avatar']").change(function () {
-        $("form[id='avatar_form']").submit()
-    })
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $("img[id='avatar']").attr("src", e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    // submit the avatar form once a file has been selected
+    //$("input[id='upload_avatar']").change(function () {
+    //    $("form[id='avatar_form']").submit()
+    //})
 });

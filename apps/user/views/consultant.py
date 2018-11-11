@@ -6,7 +6,9 @@ consultants.
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.defaults import page_not_found
 
 from .. import forms
 from ..models import Consultant
@@ -50,23 +52,33 @@ class Apply(View):
     """
     A page where users can apply to become consultants.
     """
-    login_required = True
 
+    @method_decorator(login_required)
     def get(self, request):
         """
         User wants to apply
         """
+
+        user = request.user
+        if user.is_consultant():
+            return page_not_found(request, exception=None, template_name='403.html')
+
         form = forms.ConsultantApplicationForm()
         return render(request, 'consultant/apply.html', {'form': form})
 
+    @method_decorator(login_required)
     def post(self, request):
         """
         User submits the application form
         """
+        user = request.user
+        if user.is_consultant():
+            return page_not_found(request, exception=None, template_name='403.html')
+
         form = forms.ConsultantApplicationForm(request.POST)
         if form.is_valid():
             app = form.save(commit=False)
-            app.user = request.user
+            app.user = user
             app.save()
 
         return redirect('/consultants/')

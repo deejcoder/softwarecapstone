@@ -15,8 +15,7 @@
 {% endblock %}
 
 {% block profile-content %}
-<form method="post">
-    {% csrf_token %}
+
     <h3 class="text-green font-weight-light">Edit Company</h3>
     <br/>
     <div class="form-row justify-content-between">
@@ -136,6 +135,5 @@
         </div>
     </div>
     {% endif %}
-</form>
 
 {% endblock %}

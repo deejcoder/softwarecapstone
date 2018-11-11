@@ -9,36 +9,36 @@
 {% endblock %}
 {% block content %}
 <div class="container" id="content-container">
-    <div class="row">
-        <!-- Content header -->
-        <div class="col-md-3" id="profile-banner">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="row">
+            <!-- Content header -->
+            <div class="col-md-3" id="profile-banner">
 
-            <!-- Profile picture -->
-            <div class="media" >
-                <form id="avatar_form" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+                <!-- Profile picture -->
+                <div class="media" >
                     {% block avatar %}
-                        {% with avatar_form.avatar as field %}
+                        {% with form.avatar as field %}
                             <input type="file" id="upload_avatar" name="{{ field.html_name }}" style='display:none;'>
                             <div id="imageContainer" style="height:160px; width:160px" class="bg-dark rounded">
                                 <img src="{{ avatar_url }}" style="height:160px; width:160px; border-radius:7px" id="avatar" class="">
                             </div>
                         {% endwith %}
                     {% endblock %}
-                </form>
-            </div>
+                </div>
 
-            <div id="banner">
-                {% block sidepane %}
+                <div id="banner">
+                    {% block sidepane %}
+                    {% endblock %}
+                </div>
+            </div>
+            <!-- Edit profile information -->
+
+            <div class="container col-lg-9 bg-dark text-muted" id="profile-info">
+                {% block profile-content %}
                 {% endblock %}
             </div>
         </div>
-        <!-- Edit profile information -->
-
-        <div class="container col-lg-9 bg-dark text-muted" id="profile-info">
-            {% block profile-content %}
-            {% endblock %}
-        </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
