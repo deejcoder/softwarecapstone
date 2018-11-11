@@ -1,9 +1,11 @@
 import requests
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -12,6 +14,7 @@ from geopy.geocoders import Nominatim
 from lxml import html
 
 from apps.entity.models import Member
+from apps.entity.models.group import Group
 from apps.event.models import Event
 
 from .forms import CreateEventForm, EditEventForm
@@ -97,8 +100,23 @@ class CreateEvent(View):
             # assure they own the company/group they are creating an event for
             # this also needs to be adjusted in the form
             entity = form.cleaned_data.get('entity')
+
             if Member.is_editor(request.user, entity):
                 form.save()
+                event = form.instance
+
+                if isinstance(event.entity.group, Group):
+                    group = event.entity.group
+
+                    link = settings.SITE_DOMAIN + reverse('event:event_details', args=[event.title, event.id])
+                    msg_plain = render_to_string('emails/group_event.txt', {
+                        'site': settings.SITE_DOMAIN,
+                        'event_title': event.title,
+                        'group_name': group.name,
+                        'event_link': link
+                    })
+                    group.email_group("Event: {0}".format(event.title), msg_plain)
+
                 messages.success(request, 'The event has successfully been created.')
                 form = CreateEventForm()
             else:

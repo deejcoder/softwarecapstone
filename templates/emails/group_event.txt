@@ -1,0 +1,5 @@
+{{ group_name }} has just created a new event ({{ event_title }}. For more details, visit the link below.
+
+{{ event_link }}
+
+
