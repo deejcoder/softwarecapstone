@@ -103,10 +103,8 @@ class EditProfile(View):
         if not user.check_password(user_form.data.get('current_password')):
             user_form.add_error('current_password', "You have provided an incorrect password")
         else:
-
             if user_form.is_valid():
                 user_form.save()
-
                 # if user is a consultant, save consultant data
                 if user.is_consultant():
                     consult_form = forms.EditConsultantForm(instance=user.consultant, data=request.POST)

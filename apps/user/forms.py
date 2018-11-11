@@ -52,7 +52,8 @@ class EditProfileForm(ModelForm):
     Form for updating profile information
     """
 
-    password = forms.CharField(required=False, widget=forms.PasswordInput)
+    password = forms.CharField(required=False, widget=forms.PasswordInput,
+                               help_text="If you do not wish to change your password, please re-enter your current password.")
     current_password = forms.CharField(required=True, widget=forms.PasswordInput)
 
     class Meta:

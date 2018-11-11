@@ -22,9 +22,9 @@
     {% if events %}
         <div class='mb-4'> <!-- Separate techpalmy & other events by a mb-4 -->
         {% for event in events %}
-            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+            <div class='bg-dark mb-3 p-4 rounded text-white'>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-9">
                         <a href="{% url 'event:event_details' event_title=event.title event_id=event.id %}" class="nodecoration text-white-hover">
                             <h5>{{ event.title }}</h5>
                         </a>
@@ -54,9 +54,9 @@
         </div>
         <div>
         {% for branch in tree %}
-            <div class='bg-dark mb-3 p-4 rounded text-white' style="height: 18vh; overflow: hidden">
+            <div class='bg-dark mb-3 p-4 rounded text-white'>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-9">
                         <a href="{{branch.url}}" class="nodecoration text-white-hover">
                             <h5>{{ branch.heading }}</h5>
                         </a>

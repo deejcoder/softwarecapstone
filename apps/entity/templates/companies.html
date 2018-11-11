@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block sidepane %}
-    {% if comapny %}
+    {% if company %}
         <div class="row">
             <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Companies</h5>
             <a class="col-12 mb-2 text-center" style="color:#39b54a" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a>
