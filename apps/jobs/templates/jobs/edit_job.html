@@ -17,11 +17,11 @@ Edit job listing
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="mt-1">Job title:</label>
-                {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" placeholder=job.title %}
+                {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" %}
             </div>
             <div class="form-group col-md-6">
                 <label class="mt-1">Expiry date:</label>
-                {% render_field form.expiry class="form-control bg-dark bd-green text-muted f-green" %}
+                {% render_field form.expiry class="form-control bg-dark bd-green text-muted f-green" value=job.expiry readonly=true %}
             </div>
         </div>
         <div class="form-group">
@@ -50,7 +50,12 @@ Edit job listing
         </div>
         <div class="form-group">
             <label class="mt-1">Full job description:</label>
-            {% render_field form.description class="form-control bg-dark bd-green text-muted f-green" %}
+            {{ form.description | add_class:"form-control bg-dark bd-green text-muted f-green tbox {% if field.errors %}is-invalid{% endif %}" }}
+            {% if form.description.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
         </div>
         <br/>
         <div class="col-md-12 mt-4 d-flex justify-content-center">

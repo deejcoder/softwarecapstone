@@ -43,7 +43,7 @@ class EditDetails(View):
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
-        form = EditJobForm(data=request.GET)
+        form = EditJobForm(instance=job)
         company_obj = job.company
 
         return render(request, 'jobs/edit_job.html', {
@@ -59,7 +59,7 @@ class EditDetails(View):
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
-        form = EditJobForm(instamce=job_obj, data=request.POST)
+        form = EditJobForm(instance=job_obj, data=request.POST)
 
         if form.is_valid():
             form.save()

@@ -17,6 +17,12 @@
                 <div class="modal-body border-0">
                     {% with creation_form as form %}
                         {{ form.media }}
+
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Company:</label>
+                            {% render_field form.company class="form-control bg-dark bd-green text-muted f-green" placeholder=job.company %}
+                        </div>
+
                         <div class="form-group">
                             <label class="text-muted mt-1">Job title:</label>
                             {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" placeholder=job.title %}

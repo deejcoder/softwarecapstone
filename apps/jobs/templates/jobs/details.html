@@ -23,7 +23,7 @@
                 <h4 class="text-white">{{ job.title }}</h4>
             </div>
             <br/>
-            <p style="word-break:break-word">{{ job.description }}</p>
+            <p style="word-break:break-word">{{ job.description | safe }}</p>
             {% if is_owner %}
             <div style="position:absolute;bottom:20px;left:0;" class="col-md-12 d-flex justify-content-center">
                 <div class="col-md-6">

@@ -14,6 +14,7 @@ class JobCreationForm(ModelForm):
         fields = [
             'company',
             'title',
+            'short_description',
             'description',
             'location',
             'contact_email',
@@ -40,5 +41,5 @@ class EditJobForm(ModelForm):
 
         widgets = {
             'description': forms.Textarea,
-            'expiry': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            #'expiry': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }   
