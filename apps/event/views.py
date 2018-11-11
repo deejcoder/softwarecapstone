@@ -105,6 +105,7 @@ class CreateEvent(View):
                 form.save()
                 event = form.instance
 
+                # if it's a group, send an email to all group members
                 if isinstance(event.entity.group, Group):
                     group = event.entity.group
 
