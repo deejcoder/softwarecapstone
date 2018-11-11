@@ -2,7 +2,7 @@ import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -11,7 +11,7 @@ from django.views.defaults import page_not_found
 from geopy.geocoders import Nominatim
 from lxml import html
 
-from apps.entity.models import Entity, Member
+from apps.entity.models import Member
 from apps.event.models import Event
 
 from .forms import CreateEventForm, EditEventForm
@@ -116,7 +116,7 @@ class EditEvent(View):
         entity_obj = event.entity
 
         try:
-            event_obj = Event.objects.get(title=event_title)
+            event_obj = Event.objects.get(pk=event_id)
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
@@ -131,7 +131,7 @@ class EditEvent(View):
     def post(self, request, event_title, event_id):
 
         try:
-            event_obj = Event.objects.get(title=event_title)
+            event_obj = Event.objects.get(pk=event_id)
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
@@ -152,7 +152,7 @@ def remove_event(request, event_title, event_id):
     except ObjectDoesNotExist:
         return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
-    entity_obj = Event.objects.get(title=event_title).entity
+    entity_obj = Event.objects.get(pk=event_id).entity
 
     if not Member.is_owner(request.user, entity_obj):
         return page_not_found(request, exception=None, template_name='403.html')

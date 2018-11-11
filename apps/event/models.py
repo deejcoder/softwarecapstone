@@ -13,6 +13,9 @@ class Event(models.Model):
     location = models.CharField(max_length=80)
     description = models.TextField(max_length=500*5.1)  # 5.1 = average word length
 
+    class Meta:
+        ordering = ['date', 'time']
+
     def __str__(self):
         return "{0} ({1})".format(self.title, self.pk)
 
