@@ -54,8 +54,8 @@ class EditProfile(View):
         User is editing profile...
         """
 
-        if request.user.username != username:
-            return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
+        # if request.user.username != username:
+        #     return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
 
         try:
             user = User.objects.get(username=username)
