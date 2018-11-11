@@ -6,7 +6,7 @@ from apps.user.models import User
 
 from django.test import TestCase
 
-from apps.entity.models import Member, Application
+from apps.entity.models import Member, MemberRoles, Application
 from apps.entity.models.group import Group
 
 
@@ -38,12 +38,12 @@ class GroupModelTestCase(TestCase):
         Member.objects.create(
             entity=g,
             user=u1,
-            role=Member.Roles.EDITOR
+            role=MemberRoles.EDITOR
         )
         Member.objects.create(
             entity=g,
             user=u2,
-            role=Member.Roles.OWNER
+            role=MemberRoles.OWNER
         )
 
     def test_editors(self):
