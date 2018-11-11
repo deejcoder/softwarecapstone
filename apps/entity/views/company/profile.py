@@ -94,7 +94,7 @@ class EditProfile(View):
         })
 
 
-@method_decorator(login_required)
+@login_required
 def company_remove(request, company):
     try:
         company_obj = Company.objects.get(name=company)

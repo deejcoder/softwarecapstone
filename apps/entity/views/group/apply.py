@@ -8,15 +8,15 @@ from apps.entity.models import Member, MemberRoles
 
 
 # Rough view for comp_appform.html
-@method_decorator(login_required, name='dispatch')
 class Apply(View):
 
-    login_required = True
+    @method_decorator(login_required, name='dispatch')
     def get(self, request):
         form = GroupApplicationForm()
         return render(request, 'group/apply.html', {'form': form})
 
 
+    @method_decorator(login_required, name='dispatch')
     def post(self, request):
         form = GroupApplicationForm(request.POST)
         if form.is_valid():

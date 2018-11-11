@@ -169,7 +169,7 @@ class EditEvent(View):
         return HttpResponseRedirect(reverse('event:events_listing'))
     
     
-@method_decorator(login_required)
+@login_required
 def remove_event(request, event_title, event_id):
     try:
         event_obj = Event.objects.get(pk=event_id)

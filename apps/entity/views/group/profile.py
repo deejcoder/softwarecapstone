@@ -90,7 +90,7 @@ class EditProfile(View):
         return HttpResponseRedirect(reverse('entity:group_profile_edit', args=[group.name]))
 
 
-@method_decorator(login_required)
+@login_required
 def group_remove(request, group):
     try:
         group_obj = Group.objects.get(name=group)
