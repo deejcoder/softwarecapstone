@@ -47,6 +47,7 @@
                         class="form-control bg-dark bd-green text-muted f-green {% if field.errors %} is-invalid {% endif %}"
                         id="{{ field.id_for_form }}"
                         name="{{ field.html_name }}"
+
                 >
                 <div class='invalid-feedback'>{{ field.errors }}</div>
                 {% endwith %}
@@ -60,6 +61,7 @@
                     id="{{ field.id_for_form }}"
                     name="{{ field.html_name }}"
             >
+            <small>{{field.help_text}}</small>
             <div class='invalid-feedback'>{{ field.errors }}</div>
             {% endwith %}
         </div>

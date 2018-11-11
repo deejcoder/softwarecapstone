@@ -128,11 +128,8 @@ class EditProfile(View):
             )
 
         else:
-
             if user_form.is_valid():
-
                 user_form.save()
-
                 # if user is a consultant, save consultant data
                 if user.is_consultant():
                     consult_form = forms.EditConsultantForm(instance=user.consultant, data=request.POST)
