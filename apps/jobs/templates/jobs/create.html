@@ -1,34 +1,58 @@
 {% load static %}
 {% load add_class %}
+{% load widget_tweaks %}
 <!-- Modal used to create a new job -->
 <div id="job_create" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="job_modal_title" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content bg-dark">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="job_modal_title">Create a job</h5>
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-light" id="job_modal_title">Create a job</h5>
                 <span class="close" aria-label="Close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                 </span>
             </div>
             <form method="post">
                 {% csrf_token %}
-                <div class="modal-body">
-                    
-                        
-                        {% for field in creation_form %}
-                            
-                            <div class="form-group">
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field|addclass:"form-control" }}
-
-                                <div class='invalid-feedback'>{{ field.errors }}</div>
+                <div class="modal-body border-0">
+                    {% with creation_form as form %}
+                        {{ form.media }}
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Job title:</label>
+                            {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" placeholder=job.title %}
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Address:</label>
+                            {% render_field form.location class="form-control bg-dark bd-green text-muted f-green" %}
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="text-muted mt-1">Contact phone no.:</label>
+                                {% render_field form.contact_phone class="form-control bg-dark bd-green text-muted f-green" type="tel" %}
                             </div>
-                        {% endfor %}
-
+                            <div class="form-group col-md-6">
+                                <label class="text-muted mt-1">Contact e-mail:</label>
+                                {% render_field form.contact_email class="form-control bg-dark bd-green text-muted f-green" type="email" %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Listing URL:</label>
+                            {% render_field form.external_link class="form-control bg-dark bd-green text-muted f-green" type="url" %}
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Short description:</label>
+                            <div class="input-group">
+                                {% render_field form.short_description class="form-control bg-dark bd-green text-muted f-green" rows=3 %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-muted mt-1">Full job description:</label>
+                            {% render_field form.description class="form-control bg-dark bd-green text-muted f-green" %}
+                        </div>
+                    {% endwith %}
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer border-0">
                     <div class="input-group">
                         <button type="submit" class="btn btn-success mx-auto">Create</button>
                     </div>  
