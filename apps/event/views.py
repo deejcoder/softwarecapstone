@@ -18,6 +18,7 @@ from apps.entity.models.group import Group
 from apps.event.models import Event
 
 from .forms import CreateEventForm, EditEventForm
+from .filters import EventSearch
 
 
 def events(request):
@@ -46,10 +47,14 @@ def events(request):
     # get all events belonging to techpalmy which have not already happened
     techpalmy_events = Event.get_events()
 
+    event_filter = EventSearch(request.GET, queryset=techpalmy_events)
+    results = event_filter.qs
+
     return render(request, 'events/rss_feed.html', {
         'show_sidepane': Member.is_editor_any(request.user) ^ Member.is_owner_any(request.user),
         'tree': all_events,
-        'events': techpalmy_events,
+        'events': results,
+        'filter': event_filter,
     })
 
 

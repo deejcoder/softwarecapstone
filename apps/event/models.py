@@ -49,7 +49,7 @@ class Event(models.Model):
         else:
             search_query = SearchQuery(term)
 
-            search_vector = SearchVector('title') + SearchVector('entity') + SearchVector('description')
+            search_vector = SearchVector('title') + SearchVector('description')
 
             result = cls.objects.annotate(search=search_vector).filter(search=search_query)
 
