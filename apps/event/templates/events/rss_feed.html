@@ -9,7 +9,7 @@
 {% block sidepane %}
 <div class="row">
     <p class="col-12 mb-2 text-center text-muted">Want to create an event?</p>
-    <a href="{% url 'event:create_event' %}" class="col-3 btn btn-secondary b-green btn-sm rounded mx-auto">Create</a>
+    <a href="{% url 'event:create_event' %}" class="col-3 mt-1 btn btn-secondary b-green btn rounded mx-auto">Create</a>
 </div>
 {% endblock %}
 
@@ -68,14 +68,13 @@
         </div>
 
     {% else %}
-    <div class="bg-dark rounded p-4 text-center">
-        <h4 class="text-muted">Sorry, we couldn't find any events.</h4>
+    <div class="bg-dark rounded p-4 mb-3 text-center">
+        <h4 class="text-muted">Sorry, we couldn't find any TechPalmy events.</h4>
     </div>
     {% endif %}
 
     <!-- Other events -->
     {% if tree %}
-
         <div class="bg-dark rounded p-2 mb-3">
             <h5 class="text-center lead text-muted mb-0">Other Events</h5>
         </div>

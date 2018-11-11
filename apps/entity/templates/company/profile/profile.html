@@ -55,7 +55,7 @@
 </script>
     <div class="d-flex justify-content-between bg-dark">
         <h3 class="mr-auto text-green">{{ company.name|title }}</h3>
-        <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">More</button>
+        <button class="btn btn-outline-secondary text-muted" onclick="toggleShow()" style="width:65px">More</button>
     </div>
     <br />
     <div class="text-muted rich-text-content">{{ company.specialist_area|safe }}</div>
@@ -70,10 +70,10 @@
 
 <!-- What shows when you click the 'more' button -->
 {% block additional-info %}
-    <div class="container col-md-8 text-muted bg-dark" id="additional-info">
-        <div class="d-flex justify-content-between text-white">
-            <h3 class="mr-auto text-white">{{ company.name|title }}</h3>
-            <button class="btn btn-outline-secondary" onclick="toggleShow()" style="width:65px">Less</button>
+    <div class="col-md-8 text-muted bg-dark" id="additional-info">
+        <div class="d-flex justify-content-between bg-dark">
+            <h3 class="mr-auto text-green">{{ company.name|title }}</h3>
+            <button class="btn btn-outline-secondary text-muted" onclick="toggleShow()" style="width:65px">Less</button>
         </div>
         <br />
         <h6 class="text-white">Company Size</h6>
