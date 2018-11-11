@@ -52,7 +52,6 @@ class Company(Entity):
             search_query = SearchQuery(term)
 
             search_vector = SearchVector('name') \
-                + SearchVector('industry') \
                 + SearchVector('specialist_area')
 
             result = cls.objects.annotate(search=search_vector) \

@@ -74,6 +74,7 @@
                         </div>
                     </div>
                     <div class="container filters noselect" id="filters" style="display: none;">
+                        {% block search %}
                         <div class="pt-3 text-muted row">
                             <div class="form-check col-4-sm p-1 pl-4 ml-2">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -124,6 +125,7 @@
                                 <a class="btn btn-danger b-red" href=".">Reset</a>
                             </div>
                         </div>
+                        {% endblock %}
                     </div>
                 </form>
             </div>
