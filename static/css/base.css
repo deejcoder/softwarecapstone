@@ -115,6 +115,39 @@ html, body {
     left: 0;
 }
 
+.nav-me {
+    position:relative;
+    top:50%;
+    transform:translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+
+.nav-me1{
+    width: 100px;
+    text-align:center;
+}
+.nav-me1:hover {
+    background-color: #2a2d2f;
+    color: rgba(255,255,255,.75) !important;
+    cursor: pointer;
+}
+.nav-me1:hover > a{
+    color: rgba(255,255,255,.75) !important;
+}
+
+.active.nav-me1 {
+    background-color: #39b54a;
+}
+.active.nav-me1:hover {
+    background-color: #33a342;
+    color: rgba(255,255,255,.75) !important;
+    cursor: pointer;
+}
+.active.nav-me1:hover > a {
+    color: #FFF !important;
+} 
+
 .fa-facebook, .fa-twitter, .fa-google, .fa-linkedin {
     padding: 10px 0;
     font-size: 20px;
