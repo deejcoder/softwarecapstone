@@ -6,9 +6,14 @@
 
 var entity = (function() {
 
+    var global = {}
     function init() {
         $(document).ready(function() {
-
+            global.config = {
+                appendto: null,
+                template: null,
+                url: null,
+            }
         });
     }
 
@@ -28,6 +33,9 @@ var entity = (function() {
      * @param {string} template The template to use for each member
      */
     function get_members(appendto, template, url) {
+        global.config.appendto = appendto;
+        global.config.template = template;
+        global.config.url = url;
 
         /* When the server returns a list of members... */
         function process_members(data) {
@@ -35,40 +43,6 @@ var entity = (function() {
             if(data.members.length !== 0) {
 
                 var $ul = $("<ul class='list-group list-group-flush'></ul>");
-
-                for(var i in data.owner) {
-                    var $template = $($(template).html());
-                    $template.find('.member_avatar').attr('src', data.owner[i]['avatar']);
-                    $template.find('.member_username').html(data.owner[i]['username']);
-
-                    if(data.owner[i]['is_consultant'] == true) {
-                        $template.find('.member_username').attr('href', "/user/" + data.owner[i]['username'])
-                    }
-                    else {
-                        $template.find('.member_username').attr('href', "#")
-                    }
-
-                    $template.find('.member_role').html(upper(data.owner[i]['role']));
-                    $ul.append($template);
-                }
-
-                for(var i in data.editors) {
-                    var $template = $($(template).html());
-                    $template.find('.member_avatar').attr('src', data.editors[i]['avatar']);
-                    $template.find('.member_username').html(data.editors[i]['username']);
-
-                    if(data.editors[i]['is_consultant'] == true) {
-                        $template.find('.member_username').attr('href', "/user/" + data.editors[i]['username'])
-                    }
-                    else {
-                        $template.find('.member_username').attr('href', "#")
-                    }
-
-                    $template.find('.member_role').html(upper(data.editors[i]['role']));
-                    $template.find('.delete_button_editor').html('<a href="#" class="pull-right no-decoration text-danger">Remove</a>');
-
-                    $ul.append($template);
-                }
 
                 for(var i in data.members) {
                     var $template = $($(template).html());
@@ -83,7 +57,7 @@ var entity = (function() {
                     }
 
                     $template.find('.member_role').html(upper(data.members[i]['role']));
-                    $template.find('.delete_button_editor').html('<a href="#" class="pull-right no-decoration text-danger">Remove</a>');
+                    $template.find('.delete_button_editor').html('<a href="#" onclick="entity.remove_member(this,\'' + data.members[i]['username'] + '\');" class="pull-right no-decoration text-danger">Remove</a>');
 
                     $ul.append($template);
                 }
@@ -102,9 +76,50 @@ var entity = (function() {
         });
     };
 
+    /**
+     * Removes a member from an entity
+     * @param {*} elem the element that was clicked
+     * @param {string} username the username of the user to remove
+     */
+    function remove_member(elem, username) {
+
+        function remove_response(data) {
+            if(data['error'] === "200") {
+                $(elem).parents('li').remove()
+            }
+        }
+        $.ajax({
+            url: 'members/remove/' + username,
+            success: remove_response
+        });
+    }
+
+    /**
+     * Adds a new member based on what is contained in the text field.
+     * Then refreshes the members list.
+     * @param {string} username_text_field the text field containing a username
+     */
+    function add_member(username_text_field) {
+
+        function add_response(data) {
+            if(data['error'] == "200") {
+                get_members(global.config.appendto, global.config.template, global.config.url);
+                $(username_text_field).val("");
+            }
+        }
+
+        var username = $(username_text_field).val();
+        $.ajax({
+            url: 'members/add/' + username,
+            success: add_response,
+        });
+    }
+
     // These functions are `public`
     return {
         init: init(),
         get_members: get_members,
+        remove_member: remove_member,
+        add_member: add_member,
     };
 }());

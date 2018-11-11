@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from apps.entity.forms import CompanyApplicationForm
-from apps.entity.models import Member
+from apps.entity.models import Member, MemberRoles
 
 
 # Temporary view for editing company profile
@@ -42,7 +42,7 @@ class ApplyCompany(View):
             member = Member.objects.create(
                 entity=app,
                 user=request.user,
-                role=Member.Roles.OWNER
+                role=MemberRoles.OWNER
             )
             member.save()
             messages.success(request, 'You have submitted an application for your new company. We will be in contact with you!')

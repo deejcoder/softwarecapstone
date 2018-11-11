@@ -4,6 +4,7 @@ from django import forms
 from django.forms import ModelForm
 
 from apps.entity.models import Member
+from apps.entity.models import MemberRoles
 from apps.entity.models.company import Company
 from apps.entity.models.group import Group
 from apps.entity.models import Entity
@@ -118,6 +119,6 @@ class AddMembeerForm(forms.Form):
     """
 
     username = forms.CharField(label='Username', max_length=50)
-    role = forms.ChoiceField(label='User\'s role', choices=Member.Roles.choices)
+    role = forms.ChoiceField(label='User\'s role', choices=MemberRoles.choices)
     
 

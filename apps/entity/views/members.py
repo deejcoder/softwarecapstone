@@ -2,11 +2,15 @@
 Allows a group to add members to their group.
 """
 
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
 
-from apps.entity.models import Member
-from apps.entity.models.group import Group
+from apps.entity.models import Member, MemberRoles
 from apps.entity.models.company import Company
+from apps.entity.models.group import Group
+from apps.user.models import User
 
 
 def get_members(request, entity, entity_name):
@@ -23,40 +27,85 @@ def get_members(request, entity, entity_name):
     else:
         members = ""
 
+    members = Member.sort_by_role(members)
+
     # serialize each member's data as JSON
     members_data = []
-    owners_data = []
-    editors_data = []
     for member in members:
-        if member.role == "owner":
-            owners_data.append({
-                'role': member.role,
-                'username': member.user.username,
-                'full_name': member.user.get_full_name(),
-                'avatar': member.user.avatar_url,
-                'is_consultant': member.user.is_consultant(),
-            })
-        elif member.role == "editor":
-            editors_data.append({
-                'role': member.role,
-                'username': member.user.username,
-                'full_name': member.user.get_full_name(),
-                'avatar': member.user.avatar_url,
-                'is_consultant': member.user.is_consultant(),
-            })
-        elif member.role == "member":
-            members_data.append({
-                'role': member.role,
-                'username': member.user.username,
-                'full_name': member.user.get_full_name(),
-                'avatar': member.user.avatar_url,
-                'is_consultant': member.user.is_consultant(),
-            })
+        members_data.append({
+            'role': member.role,
+            'username': member.user.username,
+            'full_name': member.user.get_full_name(),
+            'avatar': member.user.avatar_url,
+            'is_consultant': member.user.is_consultant()
+        })
+
     data = {
-        'owner': owners_data,
-        'editors': editors_data,
-        'members': members_data
+        'members': members_data,
     }
-    print(data)
+
+    return JsonResponse(data)
+
+
+@login_required
+def remove_member(request, entity, entity_name, username):
+    
+    if entity == "groups":
+        entity_obj = Group.objects.get(name=entity_name)
+    elif entity == "companies":
+        entity_obj = Company.objects.get(name=entity_name)
+
+    user = request.user
+    data = dict()
+    
+    if entity_obj:
+        if not Member.is_owner(user, entity_obj):
+            data['error'] = "403"
+        
+        else:
+            try:
+                member = User.objects.get(username=username)
+                member = Member.objects.filter(entity=entity_obj).get(user=member)
+                member.delete()
+
+                data['error'] = "200"
+            except ObjectDoesNotExist:
+                data['error'] = "404"
+
+    else:
+        data['error'] = "404"
+    
+    return JsonResponse(data)
+
+
+@login_required
+def add_member(request, entity, entity_name, username):
+    """
+    Adds a new member to some entity
+    """
+
+    if entity == "groups":
+        entity_obj = Group.objects.get(name=entity_name)
+    elif entity == "companies":
+        entity_obj = Company.objects.get(name=entity_name)
+
+    user = request.user
+    data = dict()
+
+    if entity_obj:
+        if not Member.is_owner(user, entity_obj):
+            data['error'] = "403"
+
+        else:
+            try:
+                new_member = User.objects.get(username=username)
+                Member.objects.create(entity=entity_obj, user=new_member, role=MemberRoles.MEMBER)
+                data['error'] = "200"
+            except ObjectDoesNotExist:
+                data['error'] = "404"
+
+    else:
+        data['error'] = "404"
+
     return JsonResponse(data)
 

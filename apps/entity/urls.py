@@ -2,10 +2,9 @@ from django.urls import path
 from django.conf.urls import url
 from .views import company
 from .views import group
-from .views import get_members
+from .views import get_members, remove_member, add_member
 from .views.group.profile import group_remove
 from .views.company.profile import company_remove
-from django.contrib.auth.decorators import login_required
 
 app_name = "entity"
 
@@ -23,5 +22,7 @@ urlpatterns = [
     path('groups/<group>/edit/', group.profile.EditProfile.as_view(), name='group_profile_edit'),
     path('groups/<group>/remove/', group_remove, name='remove_group'),
     # only restrict the below URL 'entity' to groups or companies
-    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,100})/members/', get_members, name='members'),
+    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,100})/members/remove/(?P<username>[\w|\W]{0,100})', remove_member, name='remove_member'),
+    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,100})/members/add/(?P<username>[\w|\W]{0,100})', add_member, name='add_member'),
+    url(r'^(?P<entity>groups|companies)/(?P<entity_name>[\w|\W]{0,100})/members/$', get_members, name='members'),
 ]

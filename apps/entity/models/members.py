@@ -1,6 +1,8 @@
 """
 This model maps many users to a single company, and defines their role.
 """
+from operator import itemgetter
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from djchoices import ChoiceItem, DjangoChoices
@@ -10,15 +12,22 @@ from apps.user.models import User
 from ..models import Entity
 
 
+# permission roles
+class Roles(DjangoChoices):
+    OWNER = ChoiceItem('owner', order=1)
+    EDITOR = ChoiceItem('editor', order=2)
+    MEMBER = ChoiceItem('member', order=3)
+
+    @classmethod
+    def sort_roles(cls, member) -> int:
+        choice = member.role
+        return cls.get_choice(choice).order
+
+
 class Member(models.Model):
     """
     A company has many members (users) with different permissions (roles).
     """
-    # permission roles
-    class Roles(DjangoChoices):
-        MEMBER = ChoiceItem('member')
-        EDITOR = ChoiceItem('editor')
-        OWNER = ChoiceItem('owner')
 
     # fields
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='members')
@@ -27,6 +36,17 @@ class Member(models.Model):
 
     class Meta:
         unique_together = ('entity', 'user')
+
+    def __str__(self):
+        return "{0} ({1})".format(self.user.username, self.pk)
+
+    @classmethod
+    def sort_by_role(cls, member_list: []) -> []:
+        """
+        Accepts a list of members and sorts them by
+        role
+        """
+        return sorted(member_list, key=Roles.sort_roles)
 
     @staticmethod
     def is_editor(user: User, entity: Entity) -> bool:
@@ -46,7 +66,7 @@ class Member(models.Model):
         except IndexError:
             return False
 
-        if member.role in [Member.Roles.EDITOR, Member.Roles.OWNER]:
+        if member.role in [Roles.EDITOR, Roles.OWNER]:
             return True
         return False
 
@@ -61,7 +81,7 @@ class Member(models.Model):
         except IndexError:
             return False
 
-        if member.role == Member.Roles.OWNER:
+        if member.role == Roles.OWNER:
             return True
         return False
 
@@ -85,7 +105,7 @@ class Member(models.Model):
         try:
             Member.objects \
                 .filter(user=user) \
-                .filter(role=Member.Roles.EDITOR)[0]
+                .filter(role=Roles.EDITOR)[0]
         except IndexError:
             return False
         return True
@@ -100,7 +120,7 @@ class Member(models.Model):
         try:
             Member.objects \
                 .filter(user=user) \
-                .filter(role=Member.Roles.OWNER)[0]
+                .filter(role=Roles.OWNER)[0]
         except IndexError:
             return False
         return True
@@ -112,10 +132,10 @@ class Member(models.Model):
 
         entities = Member.objects \
             .filter(user=user) \
-            .filter(role=Member.Roles.EDITOR) \
+            .filter(role=Roles.EDITOR) \
             | Member.objects \
             .filter(user=user) \
-            .filter(role=Member.Roles.OWNER)
+            .filter(role=Roles.OWNER)
         
         for entity in entities:
             try:
@@ -133,10 +153,10 @@ class Member(models.Model):
 
         entities = Member.objects \
             .filter(user=user) \
-            .filter(role=Member.Roles.EDITOR) \
+            .filter(role=Roles.EDITOR) \
             | Member.objects \
             .filter(user=user) \
-            .filter(role=Member.Roles.OWNER)
+            .filter(role=Roles.OWNER)
                    
         for entity in entities:
             try:
