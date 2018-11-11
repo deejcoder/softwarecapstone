@@ -7,15 +7,15 @@
 
 {% block sidepane %}
     {% if company %}
-        <div class="row">
-            <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Companies</h5>
-            <a class="col-12 mb-2 text-center" style="color:#39b54a" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a>
-        </div>
+<div class="row">
+    <h5 class="col-12 m-1 mb-2 text-center text-muted"> My Companies</h5>
+    <a class="col-12 mb-2 text-center" style="color:#39b54a" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a>
+</div>
     {% endif %}
-    <div class="row">
-        <p class="col-12 mb-2 text-center text-muted">Want to create a company profile?</p>
-        <a href="{% url 'entity:company_application' %}" class="col-3 mt-1 btn btn-secondary b-green rounded mx-auto">Apply</a>
-    </div>
+<div class="row">
+    <p class="col-12 mb-2 text-center text-muted">Want to create a company profile?</p>
+    <a href="{% url 'entity:company_application' %}" class="col-3 mt-1 btn btn-secondary b-green rounded mx-auto">Apply</a>
+</div>
 {% endblock %}
 
 {% block search %}
@@ -51,21 +51,23 @@
 {% block results %}
     {% if companies %}
         {% for company in companies %}
+    <a class="nodecoration" href="{% url 'entity:company_profile' company=company.name %}">
         <div class="container bg-dark rounded my-3">
             <div class="media p-2 pb-4 pt-4">
                 <img class="align-self-start mr-2 rounded" src="{{ company.avatar_url }}" height="128" width="128" alt="View profile" />
-
                 <div class="media-body ml-2">
-                    <h5 class="mt-0 "><a class="text-white" style="cursor: pointer;" href="{% url 'entity:company_profile' company=company.name %}">{{ company.name }}</a></h5>
+                    <h5 class="mt-0 text-white">{{ company.name }}</h5>
                     <p class="text-muted">{{ company.introduction }}</p>
                 </div>
             </div>
         </div>
+    </a>
+
         {% endfor %}
     {% else %}
-    <div class="container bg-dark rounded p-4 text-center">
-        <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
-    </div>
+<div class="container bg-dark rounded p-4 text-center">
+    <h4 class="text-muted">Sorry, we couldn't find anything.</h4>
+</div>
     {% endif %}
 {% endblock %}
 
