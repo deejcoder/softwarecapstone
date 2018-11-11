@@ -99,7 +99,10 @@ class User(AbstractUser):
         if not self.avatar:
             return
 
-        # otherwise resize the image
-        image = Image.open(self.avatar.path)
-        image.thumbnail((200, 200), Image.ANTIALIAS)
-        image.save(self.avatar.path)
+        try:
+            # otherwise resize the image
+            image = Image.open(self.avatar.path)
+            image.thumbnail((200, 200), Image.ANTIALIAS)
+            image.save(self.avatar.path)
+        except:
+            pass
