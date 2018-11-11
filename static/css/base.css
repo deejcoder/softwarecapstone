@@ -221,6 +221,13 @@ html, body {
     background-color: #39b54a;
 }
 
+.b-green.btn-outline-secondary:disabled, .b-green.btn-outline-secondary[disabled=disabled] {
+    color: white;
+    border-color: #39b54a !important;
+    background-color: rgba(255,0,0,0);
+}
+
+
 .b-green.btn-secondary:hover {
     background-color: #33a342;
     border-color: #39b54a;

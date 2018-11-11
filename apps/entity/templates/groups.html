@@ -18,6 +18,11 @@
 {% endblock %}
 
 {% block results %}
+<script>
+$(document).ready(function () {
+    $(".input-group-prepend").remove();
+});
+</script>
     {% if groups %}
             {% for group in groups %}
                 <a href="{% url 'entity:group_profile' group=group.name %}" class="nodecoration">

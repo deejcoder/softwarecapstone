@@ -16,6 +16,11 @@
 
 <!-- Search results -->
 {% block results %}
+<script>
+    $(document).ready(function () {
+        $(".input-group-prepend").remove();
+    });
+</script>
     {% if consultants %}
         {% for c in consultants %}
         <a href="/user/{{ c.user.username }}/" class="nodecoration">

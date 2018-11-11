@@ -17,6 +17,11 @@
 
 <!-- Search results -->
 {% block results %}
+<script>
+    $(document).ready(function () {
+        $(".input-group-prepend").remove();
+    });
+</script>
     {% if jobs %}
     {% for job in jobs %}
     <div class="container bg-dark rounded shadow-sm my-3 text-white">

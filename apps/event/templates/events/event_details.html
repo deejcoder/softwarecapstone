@@ -14,8 +14,10 @@
             <i class="icon-green fa fa-fw fa-pencil pr-1"></i>
             <a href="edit" class="a-green">Edit event</a>
         </div>
-        {% endif %}
         <h3 class="text-white text-center offset-md-3">{{ event.title }}</h3>
+        {% else %}
+        <h3 class="text-white text-center mx-auto">{{ event.title }}</h3>
+        {% endif %}
         <div class="text-white text-center">
             <p>{{ event.date|date:'l, d F' }}, {{ event.time|time:'g:i a'}}</p>
         </div>
