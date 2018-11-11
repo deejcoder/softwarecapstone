@@ -20,7 +20,7 @@
     {% if jobs %}
     {% for job in jobs %}
     <div class="container bg-dark rounded shadow-sm my-3 text-white">
-        <div class="media pb-4 p-2 pt-4">
+        <div class="media pt-3 p-2">
             <div class="media-body ml-2 row">
                 <div class="col-9">
                     <a class="nodecoration text-white d-block" href="{% url 'jobs:job_details' job_title=job.title job_id=job.id %}">
