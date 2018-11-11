@@ -16,7 +16,7 @@ Edit selected event
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label class="mt-1">Event title:</label>
-                {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" value=event.title %}
+                {% render_field form.title class="form-control bg-dark bd-green text-muted f-green" %}
             </div>
             <div class="form-group col-md-6">
                 <label class="mt-1">Select group/company:</label>
@@ -27,19 +27,19 @@ Edit selected event
             <div class="form-row col-md-6">
                 <div class="form-group col-md-9">
                     <label class="mt-1">Date:</label>
-                    {% render_field form.date class="form-control bg-dark bd-green text-muted f-green" value=event.date %}
+                    {% render_field form.date class="form-control bg-dark bd-green text-muted f-green" %}
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <div class="form-row col-md-9">
                     <label class="mt-1">Time:</label>
-                    {% render_field form.time class="form-control bg-dark bd-green text-muted f-green" value=event.time %}
+                    {% render_field form.time class="form-control bg-dark bd-green text-muted f-green" %}
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="mt-1">Event Location:</label>
-            {% render_field form.location class="form-control bg-dark bd-green text-muted f-green" value=event.location %}
+            {% render_field form.location class="form-control bg-dark bd-green text-muted f-green" %}
         </div>
         <div class="form-group">
             <label class="mt-1">Event description:</label>

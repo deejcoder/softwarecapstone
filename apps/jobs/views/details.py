@@ -66,7 +66,12 @@ class EditDetails(View):
             messages.success(request, 'The job listing has successfully been updated.')
             form = EditJobForm()
 
-        return HttpResponseRedirect(reverse('jobs:job_listing'))
+        return render(request, 'jobs/edit_job.html', {
+            'job': job_obj,
+            'is_owner': Member.is_owner(request.user, job_obj.company),
+            'is_editor': Member.is_editor(request.user, job_obj.company),
+            'form': form,
+        })
 
 
 @login_required

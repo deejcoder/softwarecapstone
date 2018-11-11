@@ -26,8 +26,8 @@
 {% block profile-content %}
     <form method="post">
         {% csrf_token %}
-        <h3 class="text-green font-weight-light">User Information</h3>
-        <br/>
+        <h3 class="text-green font-weight-light mb-3">User Information</h3>
+        {{ form.errors }}
         <div class="form-row">
             {% with user_form.username as field %}
             <div class="form-group col-md-6">

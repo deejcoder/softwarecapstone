@@ -135,8 +135,8 @@ class EditEvent(View):
     @method_decorator(login_required)
     def get(self, request, event_title, event_id):
 
-        form = EditEventForm(data=request.GET)
         event = Event.objects.get(pk=event_id)
+        form = EditEventForm(instance=event)
         entity_obj = event.entity
 
         try:
@@ -166,7 +166,7 @@ class EditEvent(View):
             messages.success(request, 'The event has successfully been updated.')
             form = EditEventForm()
 
-        return HttpResponseRedirect(reverse('event:events_listing'))
+        return HttpResponseRedirect(request.path)
     
     
 @login_required

@@ -104,4 +104,4 @@ def group_remove(request, group):
     instance = Group.objects.get(id=group_obj.id)
     instance.delete()
     remove.delete()
-    return redirect("/")    
+    return redirect('entity:group_listing')    

@@ -5,10 +5,12 @@ Functionality includes editing of profiles.
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, redirect
-from django.views.defaults import page_not_found
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.defaults import page_not_found
 
 from .. import forms
 from ..models import User
@@ -47,8 +49,8 @@ class EditProfile(View):
     """
     Renders the edit_profile page.
     """
-    login_required = True
 
+    @method_decorator(login_required)
     def get(self, request, username):
         """
         User is editing profile...
@@ -76,6 +78,7 @@ class EditProfile(View):
             'consult_form': consult_form,
         })
 
+    @method_decorator(login_required)
     def post(self, request, username):
         """
         User updates profile.
@@ -90,7 +93,12 @@ class EditProfile(View):
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
 
         self._update_info(user, request)
-        return redirect(request.path)
+        return render(request, 'profile/edit_profile.html', {
+            'user': user,
+            'is_owner': user == request.user,
+            'user_form': forms.EditProfileForm(request.POST, request.FILES or None, instance=user),
+            'consult_form': forms.EditConsultantForm(request.POST, instance=user.consultant),
+        })
 
     def _update_info(self, user: User, request):
         """
@@ -119,5 +127,4 @@ class EditProfile(View):
 
                 messages.success(request, "Your profile information has successfully been updated.")
                 return
-
         return
