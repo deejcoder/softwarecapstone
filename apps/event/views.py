@@ -40,8 +40,8 @@ def events(request):
         new_event['url'] = event_urls[2*i]
         all_events.append(new_event)
 
-    # get all events belonging to techpalmy
-    techpalmy_events = Event.objects.all()
+    # get all events belonging to techpalmy which have not already happened
+    techpalmy_events = Event.get_events()
 
     return render(request, 'events/rss_feed.html', {
         'show_sidepane': Member.is_editor_any(request.user) ^ Member.is_owner_any(request.user),

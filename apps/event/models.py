@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.db import models
 
@@ -20,11 +22,19 @@ class Event(models.Model):
         return "{0} ({1})".format(self.title, self.pk)
 
     @classmethod
-    def get_events(cls, entity: Entity) -> []:
+    def get_entity_events(cls, entity: Entity) -> []:
         """
         Returns a list of events associated with a particular entity (group or company)
         """
         return Event.objects.filter(entity=entity).select_related('entity')
+
+    @classmethod
+    def get_events(cls) -> []:
+        """
+        Returns a list of events which have not already 'happened'.
+        """
+        now = datetime.now()
+        return Event.objects.filter(date__gte=now, time__gte=now)
 
     @classmethod
     def search_events(cls, term: str):

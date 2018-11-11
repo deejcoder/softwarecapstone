@@ -34,7 +34,7 @@ class Profile(View):
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         entity_obj = Entity.objects.get(group=group_obj)
-        events = Event.get_events(entity=entity_obj)
+        events = Event.get_entity_events(entity=entity_obj)
 
         return render(request, 'group/profile.html', {
             'group': group_obj,

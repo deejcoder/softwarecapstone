@@ -34,7 +34,7 @@ class Profile(View):
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         entity_obj = Entity.objects.get(company=company_obj)
-        events = Event.get_events(entity_obj)
+        events = Event.get_entity_events(entity_obj)
         location = Nominatim.geocode(self=Nominatim(), query=company_obj.address)
 
         return render(request, 'company/profile/profile.html', {
