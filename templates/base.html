@@ -45,25 +45,26 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav abs-center-x">
-                            <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/companies/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'entity:company_listing' %}">Companies</a>
+                        <ul class="navbar-nav h-100 my-auto abs-center-x">
+
+                            <li class="nav-item nav-me1 {% if request.path|startswith:'/companies/' %}active{% endif %}">
+                                <a class="nav-link nav-me" href="{% url 'entity:company_listing' %}">Companies</a>
                             </li>
-                            <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/groups/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'entity:group_listing' %}">Groups</a>
+                            <li class="nav-item nav-me1 {% if request.path|startswith:'/groups/' %}active{% endif %}">
+                                <a class="nav-link nav-me" href="{% url 'entity:group_listing' %}">Groups</a>
                             </li>
-                            <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/consultants/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'user:consultants' %}">Consultants</a>
+                            <li class="nav-item nav-me1 {% if request.path|startswith:'/consultants/' %}active{% endif %}">
+                                <a class="nav-link nav-me" href="{% url 'user:consultants' %}">Consultants</a>
                             </li>
-                            <li class="nav-item ml-2 mr-2{% if request.path|startswith:'/jobs/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'jobs:job_listing' %}">Jobs</a>
+                            <li class="nav-item nav-me1 {% if request.path|startswith:'/jobs/' %}active{% endif %}">
+                                <a class="nav-link nav-me" href="{% url 'jobs:job_listing' %}">Jobs</a>
                             </li>
-                            <li class="nav-item ml-2 mr-2 {% if request.path|startswith:'/events/' %}active{% endif %}">
-                                <a class="nav-link" href="{% url 'event:events_listing' %}">Events</a>
+                            <li class="nav-item nav-me1 {% if request.path|startswith:'/events/' %}active{% endif %}">
+                                <a class="nav-link nav-me" href="{% url 'event:events_listing' %}">Events</a>
                             </li>
                             {% if user.is_staff %}
-                                <li class="nav-item ml-2 mr-2">
-                                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                                <li class="nav-item ml-2 mr-2 ">
+                                    <a class="nav-link nav-me" href="{% url 'admin:index' %}">Admin</a>
                                 </li>
                             {% endif %}
 
@@ -98,6 +99,11 @@
                 </div>
             </div>
         </header>
+        <script>
+            $(".nav-me1").click(function () {
+                $(this).find('a')[0].click();
+            });
+        </script>
 
         <div class="row">
             {% block background %}
