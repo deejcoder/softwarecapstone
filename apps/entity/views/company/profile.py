@@ -78,7 +78,7 @@ class EditProfile(View):
         if not Member.is_editor(request.user, company):
             return page_not_found(request, exception=None, template_name='403.html')
 
-        form = EditCompanyForm(instance=company, data=request.POST)
+        form = EditCompanyForm(request.POST, request.FILES or None, instance=company)
 
         # save company if valid
         if form.is_valid():

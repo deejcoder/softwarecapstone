@@ -6,10 +6,8 @@ Functionality includes editing of profiles.
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.defaults import page_not_found
-from django.urls import reverse
 from django.views import View
 
 from .. import forms
@@ -65,7 +63,6 @@ class EditProfile(View):
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
         user_form = forms.EditProfileForm(instance=user)
-        avatar_form = forms.EditProfileAvatar(instance=user)
 
         if hasattr(user, 'consultant'):
             consult_form = forms.EditConsultantForm(instance=user.consultant)
@@ -76,7 +73,6 @@ class EditProfile(View):
             'user': user,
             'is_owner': user == request.user,
             'user_form': user_form,
-            'avatar_form': avatar_form,
             'consult_form': consult_form,
         })
 
@@ -93,44 +89,22 @@ class EditProfile(View):
         if username != request.user.username:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='403.html')
 
-        self._update_user_avatar(user, request)
         self._update_info(user, request)
-
-        return HttpResponseRedirect(request.path)
-
-    def _update_user_avatar(self, user: User, request):
-        """
-        Helper function to allow a user to update their profile picture
-        """
-        form = forms.EditProfileAvatar(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-
-            # add a message to the user's session
-            messages.success(
-                request,
-                "Your profile picture has successfully been updated."
-            )
+        return redirect(request.path)
 
     def _update_info(self, user: User, request):
         """
         Helper function for updating user/consultant information
         """
-        user_form = forms.EditProfileForm(instance=user, data=request.POST)
+        user_form = forms.EditProfileForm(request.POST, request.FILES or None, instance=user)
         consult_form = forms.EditConsultantForm()
 
         # check if entered password matches current password
         if not user.check_password(user_form.data.get('current_password')):
-            # if incorrect password
-            user_form.add_error(
-                'current_password',
-                "You have provided an incorrect password"
-            )
-
+            user_form.add_error('current_password', "You have provided an incorrect password")
         else:
 
             if user_form.is_valid():
-
                 user_form.save()
 
                 # if user is a consultant, save consultant data
@@ -145,10 +119,7 @@ class EditProfile(View):
                 auth = authenticate(username=user.username, password=new_password)
                 login(request, auth)
 
-                messages.success(
-                    request,
-                    "Your profile information has successfully been updated."
-                )
+                messages.success(request, "Your profile information has successfully been updated.")
                 return
 
         return

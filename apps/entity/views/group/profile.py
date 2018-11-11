@@ -5,14 +5,14 @@ Adds company profiles for users or guest to view
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.defaults import page_not_found
 
-from apps.entity.forms import EditGroupForm, EditAvatarForm
+from apps.entity.forms import EditGroupForm
 from apps.entity.models import Member, Entity
 from apps.entity.models.group import Group
 from apps.event.models import Event
@@ -72,7 +72,6 @@ class EditProfile(View):
         # get the group object
         try:
             group = Group.objects.get(name=group)
-            entity = Entity.objects.get(pk=group.pk)
         except ObjectDoesNotExist:
             return page_not_found(request, exception=ObjectDoesNotExist(), template_name='404.html')
 
@@ -80,18 +79,13 @@ class EditProfile(View):
         if not Member.is_editor(request.user, group):
             return page_not_found(request, exception=None, template_name='403.html')
 
-        form = EditGroupForm(instance=group, data=request.POST)
-        avatar_form = EditAvatarForm(request.POST, request.FILES, instance=entity)
+        form = EditGroupForm(request.POST, request.FILES or None, instance=group)
 
         # save group if valid
         if form.is_valid():
             form.save()
             messages.success(request, 'The group profile has successfully been updated.')
             form = EditGroupForm()
-
-        if avatar_form.is_valid():
-            avatar_form.save()
-            messages.success(request, "The group's avatar has been updated.")
 
         return HttpResponseRedirect(reverse('entity:group_profile_edit', args=[group.name]))
 
