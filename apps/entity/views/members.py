@@ -22,22 +22,41 @@ def get_members(request, entity, entity_name):
         members = Member.get_members(entity_obj)
     else:
         members = ""
-    
+
     # serialize each member's data as JSON
     members_data = []
+    owners_data = []
+    editors_data = []
     for member in members:
-        members_data.append({
-            'role': member.role,
-            'username': member.user.username,
-            'full_name': member.user.get_full_name(),
-            'avatar': member.user.avatar_url,
-            'is_consultant': member.user.is_consultant(),
-        })
+        if member.role == "owner":
+            owners_data.append({
+                'role': member.role,
+                'username': member.user.username,
+                'full_name': member.user.get_full_name(),
+                'avatar': member.user.avatar_url,
+                'is_consultant': member.user.is_consultant(),
+            })
+        elif member.role == "editor":
+            editors_data.append({
+                'role': member.role,
+                'username': member.user.username,
+                'full_name': member.user.get_full_name(),
+                'avatar': member.user.avatar_url,
+                'is_consultant': member.user.is_consultant(),
+            })
+        elif member.role == "member":
+            members_data.append({
+                'role': member.role,
+                'username': member.user.username,
+                'full_name': member.user.get_full_name(),
+                'avatar': member.user.avatar_url,
+                'is_consultant': member.user.is_consultant(),
+            })
     data = {
+        'owner': owners_data,
+        'editors': editors_data,
         'members': members_data
     }
     print(data)
     return JsonResponse(data)
 
-
-    

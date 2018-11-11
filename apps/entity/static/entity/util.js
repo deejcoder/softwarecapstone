@@ -36,6 +36,40 @@ var entity = (function() {
 
                 var $ul = $("<ul class='list-group list-group-flush'></ul>");
 
+                for(var i in data.owner) {
+                    var $template = $($(template).html());
+                    $template.find('.member_avatar').attr('src', data.owner[i]['avatar']);
+                    $template.find('.member_username').html(data.owner[i]['username']);
+
+                    if(data.owner[i]['is_consultant'] == true) {
+                        $template.find('.member_username').attr('href', "/user/" + data.owner[i]['username'])
+                    }
+                    else {
+                        $template.find('.member_username').attr('href', "#")
+                    }
+
+                    $template.find('.member_role').html(upper(data.owner[i]['role']));
+                    $ul.append($template);
+                }
+
+                for(var i in data.editors) {
+                    var $template = $($(template).html());
+                    $template.find('.member_avatar').attr('src', data.editors[i]['avatar']);
+                    $template.find('.member_username').html(data.editors[i]['username']);
+
+                    if(data.editors[i]['is_consultant'] == true) {
+                        $template.find('.member_username').attr('href', "/user/" + data.editors[i]['username'])
+                    }
+                    else {
+                        $template.find('.member_username').attr('href', "#")
+                    }
+
+                    $template.find('.member_role').html(upper(data.editors[i]['role']));
+                    $template.find('.delete_button_editor').html('<a href="#" class="pull-right no-decoration text-danger">Remove</a>');
+
+                    $ul.append($template);
+                }
+
                 for(var i in data.members) {
                     var $template = $($(template).html());
                     $template.find('.member_avatar').attr('src', data.members[i]['avatar']);
@@ -49,12 +83,11 @@ var entity = (function() {
                     }
 
                     $template.find('.member_role').html(upper(data.members[i]['role']));
+                    $template.find('.delete_button_editor').html('<a href="#" class="pull-right no-decoration text-danger">Remove</a>');
 
-                    if(data.members[i]['role'] != "owner") {
-                        $template.find('.delete_button_editor').html('<a href="#" class="pull-right">Remove</a>');
-                    }
                     $ul.append($template);
                 }
+
                 $(appendto).html($ul);
 
             }
