@@ -28,7 +28,7 @@ urlpatterns = [
     path('', include('apps.entity.urls')),
     path('events/', include('apps.event.urls')),
     path('about/', views.About.as_view(), name='about'),
-    path('contact/', views.contact_form, name='contact'),
+    path('contact/', views.Contact.as_view(), name='contact'),
     path('', include('apps.jobs.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
