@@ -163,8 +163,8 @@ MIDDLEWARE = [
 # ------------------------------------------------------------------------------
 # captcha
 # ------------------------------------------------------------------------------
-RECAPTCHA_PRIVATE_KEY = "6LeGinEUAAAAACOfUF3UvjkMODVlTBUtrsToio6C"
-RECAPTCHA_PUBLIC_KEY = "6LeGinEUAAAAADHfruk8yQcqD_cOXMWseI0CFV79"
+RECAPTCHA_PRIVATE_KEY = "yourkeyhere"
+RECAPTCHA_PUBLIC_KEY = "yourkeyhere"
 NOCAPTCHA = True
 
 # ------------------------------------------------------------------------------
